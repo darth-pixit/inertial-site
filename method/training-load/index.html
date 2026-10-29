@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How Inertial computes training load · Plain Words</title>
+    <meta name="description" content="The exact formula: Banister TRIMP with k = 1.92 or 1.67, a pace-based fallback when there is no heart rate, and where both go wrong." />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://inertial.run/method/training-load/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How Inertial computes training load · Plain Words" />
+    <meta property="og:description" content="The exact formula: Banister TRIMP with k = 1.92 or 1.67, a pace-based fallback when there is no heart rate, and where both go wrong." />
+    <meta property="og:url" content="https://inertial.run/method/training-load/" />
+    <meta property="og:site_name" content="Plain Words" />
+    <link rel="alternate" type="application/rss+xml" title="Plain Words" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"
+    />
+    <link rel="stylesheet" href="/assets/plain-words.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "How Inertial computes training load",
+  "description": "The exact formula: Banister TRIMP with k = 1.92 or 1.67, a pace-based fallback when there is no heart rate, and where both go wrong.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://inertial.run/method/training-load/"
+  },
+  "datePublished": "2026-09-01T09:00:00+05:30",
+  "dateModified": "2026-09-01T09:00:00+05:30",
+  "author": {
+    "@type": "Person",
+    "name": "Parth Dixit",
+    "jobTitle": "Co-founder, Inertial"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inertial",
+    "url": "https://inertial.run",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://inertial.run/assets/logo-512.png"
+    },
+    "founder": [
+      {
+        "@type": "Person",
+        "name": "Parth Dixit",
+        "jobTitle": "Co-founder, Inertial"
+      },
+      {
+        "@type": "Person",
+        "name": "Aryan Dixit",
+        "jobTitle": "Co-founder, Inertial"
+      }
+    ]
+  },
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "citation": [
+    {
+      "@type": "CreativeWork",
+      "name": "Banister EW, Calvert TW. Planning for future performance. Can J Appl Sport Sci 5(3):170-176, 1980",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/7443716/"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Morton RH, Fitz-Clarke JR, Banister EW. Modeling human performance in running. J Appl Physiol 69(3):1171-1177, 1990",
+      "url": "https://doi.org/10.1152/jappl.1990.69.3.1171"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Borresen J, Lambert MI. The quantification of training load. Sports Med 39(9):779-795, 2009",
+      "url": "https://doi.org/10.2165/11317780-000000000-00000"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Plain Words",
+      "item": "https://inertial.run/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Method",
+      "item": "https://inertial.run/method/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "How Inertial computes training load",
+      "item": "https://inertial.run/method/training-load/"
+    }
+  ]
+}
+</script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="title" href="/blog/">Plain Words</a>
+        <span class="tagline">Running data, in plain words.</span>
+        <nav aria-label="Sections"><a href="/blog/">Articles</a><a href="/glossary/">Glossary</a><a href="/tools/">Tools</a><a href="/method/">Method</a><a href="/about/">About</a></nav>
+      </div>
+    </header>
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/blog/">Plain Words</a></li><li><a href="/method/">Method</a></li><li aria-current="page">How Inertial computes training load</li></ol></nav>
+    <main id="main">
+<article>
+<p class="kicker">Metrics, in plain words</p>
+<h1>How Inertial computes training load</h1>
+<div class="bluf"><p>With heart rate, load is Banister TRIMP: each second scores duration times heart-rate reserve times 0.64 times e to the power of k times reserve, with k = 1.92 for men and 1.67 for women. Without heart rate, we fall back to moving minutes times the square of your speed over threshold speed.</p></div>
+<div class="byline"><span>By Parth Dixit</span><span>Published <time datetime="2026-09-01T09:00:00+05:30">1 September 2026</time></span></div>
+<div class="table-scroll"><table>
+<caption>The numbers on this page, in one place.</caption>
+<thead><tr><th scope="col">What</th><th scope="col">Number</th><th scope="col">The qualifier</th></tr></thead>
+<tbody>
+<tr><th scope="row">Formula with heart rate</th><td>Banister TRIMP</td><td>exponentially weighted by heart-rate reserve</td></tr>
+<tr><th scope="row">k, the weighting constant</th><td>1.92 male, 1.67 female</td><td>from Banister's original work</td></tr>
+<tr><th scope="row">Fallback without heart rate</th><td>minutes x (speed / threshold)^2</td><td>threshold defaults to 3.33 m/s, about 5:00/km (8:03/mi)</td></tr>
+<tr><th scope="row">Which one was used</th><td>shown on every run</td><td>labelled hr or pace</td></tr>
+</tbody>
+</table></div>
+<h2 id="the-formula-with-heart-rate">The formula, with heart rate</h2>
+
+<p>We use Banister's TRIMP, published in 1980. Every sample contributes:</p>
+
+<pre><code>dtMin x HRr x 0.64 x e^(k x HRr)</code></pre>
+
+<p><code>HRr</code> is heart-rate reserve, which is <code>(hr - rest) / (max - rest)</code>, clamped between 0 and 1. <code>k</code> is 1.92 for men and 1.67 for women. <code>dtMin</code> is the <a href="/glossary/grade-adjusted-pace/">gap</a> between samples, in minutes.</p>
+
+<p>The exponential is the important part. It means a minute at 90% of reserve scores far more than three minutes at 30%. That matches how recovery cost actually behaves.</p>
+
+<div class="table-scroll"><table>
+<thead><tr><th scope="col">Effort</th><th scope="col">HRr</th><th scope="col">Score per minute</th></tr></thead>
+<tbody>
+<tr><td>easy</td><td>0.45</td><td>0.68</td></tr>
+<tr><td>steady</td><td>0.65</td><td>1.45</td></tr>
+<tr><td>threshold</td><td>0.80</td><td>2.38</td></tr>
+<tr><td>very hard</td><td>0.95</td><td>3.74</td></tr>
+</tbody>
+</table></div>
+
+<h2 id="the-fallback-without-heart-rate">The fallback, without heart rate</h2>
+
+<p>If a run has no usable heart-rate stream, we do not silently skip it and we do not pretend. We compute:</p>
+
+<pre><code>movingMinutes x (v / vThreshold)^2</code></pre>
+
+<p><code>v</code> is your average moving speed. <code>vThreshold</code> is your threshold speed if you have set one, or 3.33 m/s by default, which is 5:00/km (8:03/mi).</p>
+
+<p>The quadratic weight is a deliberate approximation of the same shape the exponential gives. It is not as good. Every run tells you which method it used.</p>
+
+<h2 id="what-this-gets-wrong">What this gets wrong</h2>
+
+<p>Three things, stated plainly.</p>
+
+<p><strong>It inherits your maximum and resting heart rates.</strong> If your maximum is a formula guess that is 10 bpm too low, every reserve figure is too high and every load is inflated.</p>
+
+<p><strong>It cannot see heat.</strong> A run at 30 °C (86 °F) costs more beats at the same pace, so it scores higher. Physiologically that is partly right and partly an artefact.</p>
+
+<p><strong>The pace fallback ignores terrain.</strong> A hilly run at slow pace scores low, even though it was hard.</p>
+
+<h2 id="relative-effort">Relative effort</h2>
+
+<p><a href="/glossary/relative-effort/">Relative effort</a> is this run's load as a percentile of your own trailing 90 days of runs with a non-zero load. A value of 0.5 is a typical day for you. A value of 1.0 is the hardest in the window.</p>
+
+<p>We use a percentile rather than a ratio on purpose. Percentiles do not blow up when your recent training has been light, and they cannot be dragged around by one outlier session.</p>
+
+
+
+<section class="sources">
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://pubmed.ncbi.nlm.nih.gov/7443716/" rel="noopener">Banister EW, Calvert TW. Planning for future performance. Can J Appl Sport Sci 5(3):170-176, 1980</a> <span class="kind">primary</span></li>
+<li><a href="https://doi.org/10.1152/jappl.1990.69.3.1171" rel="noopener">Morton RH, Fitz-Clarke JR, Banister EW. Modeling human performance in running. J Appl Physiol 69(3):1171-1177, 1990</a> <span class="kind">primary</span></li>
+<li><a href="https://doi.org/10.2165/11317780-000000000-00000" rel="noopener">Borresen J, Lambert MI. The quantification of training load. Sports Med 39(9):779-795, 2009</a> <span class="kind">primary</span></li>
+</ul>
+</section>
+<section class="changelog">
+<h2 id="changelog">Changelog</h2>
+<ul>
+<li><time datetime="2026-09-01">1 September 2026</time> — First published.</li>
+</ul>
+</section>
+<section class="related">
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/blog/what-strava-fitness-score-measures/">What Strava's Fitness score actually measures</a></li>
+<li><a href="/blog/why-garmin-strava-predict-different-times/">Why your watch and your app predict different race times</a></li>
+</ul>
+</section>
+<aside class="authorbox">
+<div>
+<p><strong>Parth Dixit</strong> — Co-founder, Inertial</p>
+<p>Co-founds Inertial with Aryan Dixit, and writes the method pages so you can check the maths.</p>
+</div>
+</aside>
+<p class="footer-line">Inertial shows this for your own runs — free, no ads. <a href="/waitlist">Join the waitlist →</a></p>
+</article>
+    </main>
+    <footer class="site">
+      <div class="wrap">
+        <nav aria-label="Site"><a href="/about/">About</a><a href="/method/">How we work</a><a href="/">Inertial</a></nav>
+        <p>
+          Plain Words is written by the people who build
+          Inertial. No ads, no affiliate links, nothing gated.
+          Every number here carries a source or a stated method.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

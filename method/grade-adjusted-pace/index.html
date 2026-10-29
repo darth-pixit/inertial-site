@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How Inertial computes grade-adjusted pace · Plain Words</title>
+    <meta name="description" content="The Minetti 2002 energy-cost polynomial, applied over 30 m distance windows. Published science only, and the limits are stated." />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://inertial.run/method/grade-adjusted-pace/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How Inertial computes grade-adjusted pace · Plain Words" />
+    <meta property="og:description" content="The Minetti 2002 energy-cost polynomial, applied over 30 m distance windows. Published science only, and the limits are stated." />
+    <meta property="og:url" content="https://inertial.run/method/grade-adjusted-pace/" />
+    <meta property="og:site_name" content="Plain Words" />
+    <link rel="alternate" type="application/rss+xml" title="Plain Words" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"
+    />
+    <link rel="stylesheet" href="/assets/plain-words.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "How Inertial computes grade-adjusted pace",
+  "description": "The Minetti 2002 energy-cost polynomial, applied over 30 m distance windows. Published science only, and the limits are stated.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://inertial.run/method/grade-adjusted-pace/"
+  },
+  "datePublished": "2026-09-01T09:00:00+05:30",
+  "dateModified": "2026-09-01T09:00:00+05:30",
+  "author": {
+    "@type": "Person",
+    "name": "Parth Dixit",
+    "jobTitle": "Co-founder, Inertial"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inertial",
+    "url": "https://inertial.run",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://inertial.run/assets/logo-512.png"
+    },
+    "founder": [
+      {
+        "@type": "Person",
+        "name": "Parth Dixit",
+        "jobTitle": "Co-founder, Inertial"
+      },
+      {
+        "@type": "Person",
+        "name": "Aryan Dixit",
+        "jobTitle": "Co-founder, Inertial"
+      }
+    ]
+  },
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "citation": [
+    {
+      "@type": "CreativeWork",
+      "name": "Minetti AE et al. Energy cost of walking and running at extreme uphill and downhill slopes. J Appl Physiol 93(3):1039-1046, 2002",
+      "url": "https://doi.org/10.1152/japplphysiol.01177.2001"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Vernillo G et al. Biomechanics and physiology of uphill and downhill running. Sports Med 47(4):615-629, 2017",
+      "url": "https://doi.org/10.1007/s40279-016-0605-y"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Giovanelli N et al. Energetics of vertical kilometer foot races. Eur J Appl Physiol 116(6):1179-1187, 2016",
+      "url": "https://doi.org/10.1007/s00421-016-3373-3"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Plain Words",
+      "item": "https://inertial.run/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Method",
+      "item": "https://inertial.run/method/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "How Inertial computes grade-adjusted pace",
+      "item": "https://inertial.run/method/grade-adjusted-pace/"
+    }
+  ]
+}
+</script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="title" href="/blog/">Plain Words</a>
+        <span class="tagline">Running data, in plain words.</span>
+        <nav aria-label="Sections"><a href="/blog/">Articles</a><a href="/glossary/">Glossary</a><a href="/tools/">Tools</a><a href="/method/">Method</a><a href="/about/">About</a></nav>
+      </div>
+    </header>
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/blog/">Plain Words</a></li><li><a href="/method/">Method</a></li><li aria-current="page">How Inertial computes grade-adjusted pace</li></ol></nav>
+    <main id="main">
+<article>
+<p class="kicker">Metrics, in plain words</p>
+<h1>How Inertial computes grade-adjusted pace</h1>
+<div class="bluf"><p>We use the Minetti 2002 polynomial for the energy cost of running at a gradient, evaluated over 30 m distance windows, and divide moving time by the equivalent flat distance. Gradients are clamped to plus or minus 45%, which is the range the polynomial was fitted over.</p></div>
+<div class="byline"><span>By Parth Dixit</span><span>Published <time datetime="2026-09-01T09:00:00+05:30">1 September 2026</time></span></div>
+<div class="table-scroll"><table>
+<caption>The numbers on this page, in one place.</caption>
+<thead><tr><th scope="col">What</th><th scope="col">Number</th><th scope="col">The qualifier</th></tr></thead>
+<tbody>
+<tr><th scope="row">Cost model</th><td>Minetti et al. 2002</td><td>published science only, no proprietary curve</td></tr>
+<tr><th scope="row">Flat reference cost</th><td>3.6 J/kg/m</td><td>the polynomial at gradient 0</td></tr>
+<tr><th scope="row">Grade window</th><td>30 m of distance</td><td>suppresses altitude noise before differencing</td></tr>
+<tr><th scope="row">Valid gradient range</th><td>-45% to +45%</td><td>clamped to the fitted domain</td></tr>
+</tbody>
+</table></div>
+<h2 id="the-formula">The formula</h2>
+
+<p>Minetti and colleagues measured the energy cost of running across slopes from -45% to +45% and fitted a fifth-order polynomial. We use it unchanged:</p>
+
+<pre><code>C(i) = 155.4i^5 - 30.4i^4 - 43.3i^3 + 46.3i^2 + 19.5i + 3.6</code></pre>
+
+<p><code>i</code> is the gradient as rise over run. <code>C</code> is joules per kilogram per metre. At gradient zero it gives 3.6, which is our flat reference.</p>
+
+<p>Each segment of your run contributes <code>run x C(i) / 3.6</code> to an equivalent flat distance. <a href="/glossary/grade-adjusted-pace/">Grade-adjusted pace</a> is your <a href="/glossary/moving-vs-elapsed-time/">moving time</a> divided by that total.</p>
+
+<div class="table-scroll"><table>
+<thead><tr><th scope="col">Gradient</th><th scope="col">C(i)</th><th scope="col">Multiplier vs flat</th></tr></thead>
+<tbody>
+<tr><td>-10%</td><td>2.6</td><td>0.72</td></tr>
+<tr><td>-5%</td><td>2.9</td><td>0.81</td></tr>
+<tr><td>0%</td><td>3.6</td><td>1.00</td></tr>
+<tr><td>+5%</td><td>4.7</td><td>1.31</td></tr>
+<tr><td>+10%</td><td>6.0</td><td>1.66</td></tr>
+</tbody>
+</table></div>
+
+<h2 id="why-a-30-metre-window">Why a 30-metre window</h2>
+
+<p>Altitude from a barometer or from satellites is noisy. Differencing two noisy altitudes over a short distance produces a wildly wrong gradient.</p>
+
+<p>So we do not compute a gradient until at least 30 m of distance has passed since the last altitude sample we used. Any tail shorter than that at the end of a run is counted as flat, which is a small and unbiased approximation.</p>
+
+<h2 id="what-this-gets-wrong">What this gets wrong</h2>
+
+<p><strong>Downhills.</strong> The polynomial says a moderate descent is cheaper than flat, and it is. But past a point, braking costs more than gravity gives, and the model does not capture the eccentric muscle damage that makes a fast descent hurt tomorrow.</p>
+
+<p><strong>Trails.</strong> Uneven ground costs energy that has nothing to do with gradient. Adjusted pace on technical terrain will flatter you.</p>
+
+<p><strong>Bad altitude data.</strong> If a device reports altitude poorly, the gradients are wrong and so is the output. We return no value at all rather than a made-up one when there is no altitude stream.</p>
+
+<h2 id="what-we-will-not-do">What we will not do</h2>
+
+<p>We do not calibrate grade adjustment against your heart rate. That approach exists and it is more personal, but it is also inside a patent boundary we have chosen to stay outside. Published science only.</p>
+
+
+
+<section class="sources">
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://doi.org/10.1152/japplphysiol.01177.2001" rel="noopener">Minetti AE et al. Energy cost of walking and running at extreme uphill and downhill slopes. J Appl Physiol 93(3):1039-1046, 2002</a> <span class="kind">primary</span></li>
+<li><a href="https://doi.org/10.1007/s40279-016-0605-y" rel="noopener">Vernillo G et al. Biomechanics and physiology of uphill and downhill running. Sports Med 47(4):615-629, 2017</a> <span class="kind">primary</span></li>
+<li><a href="https://doi.org/10.1007/s00421-016-3373-3" rel="noopener">Giovanelli N et al. Energetics of vertical kilometer foot races. Eur J Appl Physiol 116(6):1179-1187, 2016</a> <span class="kind">primary</span></li>
+</ul>
+</section>
+<section class="changelog">
+<h2 id="changelog">Changelog</h2>
+<ul>
+<li><time datetime="2026-09-01">1 September 2026</time> — First published.</li>
+</ul>
+</section>
+<section class="related">
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/blog/what-strava-fitness-score-measures/">What Strava's Fitness score actually measures</a></li>
+<li><a href="/blog/why-garmin-strava-predict-different-times/">Why your watch and your app predict different race times</a></li>
+</ul>
+</section>
+<aside class="authorbox">
+<div>
+<p><strong>Parth Dixit</strong> — Co-founder, Inertial</p>
+<p>Co-founds Inertial with Aryan Dixit, and writes the method pages so you can check the maths.</p>
+</div>
+</aside>
+<p class="footer-line">Inertial shows this for your own runs — free, no ads. <a href="/waitlist">Join the waitlist →</a></p>
+</article>
+    </main>
+    <footer class="site">
+      <div class="wrap">
+        <nav aria-label="Site"><a href="/about/">About</a><a href="/method/">How we work</a><a href="/">Inertial</a></nav>
+        <p>
+          Plain Words is written by the people who build
+          Inertial. No ads, no affiliate links, nothing gated.
+          Every number here carries a source or a stated method.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

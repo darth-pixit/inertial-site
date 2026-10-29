@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How Inertial computes what it shows you · Plain Words</title>
+    <meta name="description" content="One page per metric in the app: the formula, the inputs, the window, and what the number cannot tell you." />
+    
+    <link rel="canonical" href="https://inertial.run/method/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How Inertial computes what it shows you · Plain Words" />
+    <meta property="og:description" content="One page per metric in the app: the formula, the inputs, the window, and what the number cannot tell you." />
+    <meta property="og:url" content="https://inertial.run/method/" />
+    <meta property="og:site_name" content="Plain Words" />
+    <link rel="alternate" type="application/rss+xml" title="Plain Words" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"
+    />
+    <link rel="stylesheet" href="/assets/plain-words.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Plain Words",
+      "item": "https://inertial.run/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Method",
+      "item": "https://inertial.run/method/"
+    }
+  ]
+}
+</script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="title" href="/blog/">Plain Words</a>
+        <span class="tagline">Running data, in plain words.</span>
+        <nav aria-label="Sections"><a href="/blog/">Articles</a><a href="/glossary/">Glossary</a><a href="/tools/">Tools</a><a href="/method/">Method</a><a href="/about/">About</a></nav>
+      </div>
+    </header>
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/blog/">Plain Words</a></li><li aria-current="page">Method</li></ol></nav>
+    <main id="main">
+<div class="prose">
+<p class="kicker">Method</p>
+<h1>How Inertial computes what it shows you</h1>
+<p>Every running app computes numbers it will not explain. Ask what a fitness score is made of, or which heart-rate samples were thrown away before the average was taken, and you get a support article that restates the name of the metric in longer words. The reasoning is usually competitive: the formula is treated as the product.</p>
+
+<p>We think the opposite. The formula is the least valuable thing we have, and publishing it is the only way you can tell whether to trust the output. So there is one page here for every number Inertial shows you, and each one gives the inputs, the maths, the window it looks at, what it deliberately excludes, and the conditions under which it will be wrong.</p>
+
+<p>This has a cost we accept. Publishing that grade-adjusted pace uses a specific cost-of-running curve invites the argument that a different curve is better — and sometimes that argument will be right, and we will change it and log the change. That is a better outcome than a number nobody can check.</p>
+
+<p>There is a second reason these pages exist. A large share of the confusion runners carry is not about physiology at all; it is about implementation. Two apps disagree about your pace because one uses moving time and the other uses elapsed time. Two watches disagree about your distance because one weights satellite signal quality differently. Your fitness score fell during your best training block because the metric is a rolling average of load, not a measure of fitness. None of that is a mystery once the method is visible, and all of it is unanswerable while it is not.</p>
+
+<p>Each page states which parts are settled science, which are our engineering choices, and which are compromises we made because the sensor data was not good enough to do better. Where a correction has been applied to your raw data — a GPS point moved, a heart-rate spike dropped, an autopause inserted — the app shows you that it happened, and the matching page here says exactly what rule fired.</p>
+
+<p>If a method page and the app ever disagree, the app is wrong and we want to know.</p>
+</div>
+<ul class="card-list"><li><a href="/method/fitness-and-freshness/">How Inertial computes fitness and freshness</a><span class="meta">Two exponentially weighted averages of daily load: 42 days for fitness, 7 for fatigue. Freshness is the gap. Rest days count as zero.</span></li>
+<li><a href="/method/gps-corrections/">How Inertial corrects your GPS trace</a><span class="meta">A Kalman filter over local coordinates, a soft accuracy gate at 30-60 m, a hard reject above 60 m, and a visible note whenever we change something.</span></li>
+<li><a href="/method/grade-adjusted-pace/">How Inertial computes grade-adjusted pace</a><span class="meta">The Minetti 2002 energy-cost polynomial, applied over 30 m distance windows. Published science only, and the limits are stated.</span></li>
+<li><a href="/method/training-load/">How Inertial computes training load</a><span class="meta">The exact formula: Banister TRIMP with k = 1.92 or 1.67, a pace-based fallback when there is no heart rate, and where both go wrong.</span></li></ul>
+    </main>
+    <footer class="site">
+      <div class="wrap">
+        <nav aria-label="Site"><a href="/about/">About</a><a href="/method/">How we work</a><a href="/">Inertial</a></nav>
+        <p>
+          Plain Words is written by the people who build
+          Inertial. No ads, no affiliate links, nothing gated.
+          Every number here carries a source or a stated method.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
