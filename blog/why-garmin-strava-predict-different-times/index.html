@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Why your watch and your app predict different race times · Plain Words</title>
+    <meta name="description" content="One reads your training, the other reads one race. From a 25:00 5K, 3 published models already disagree by 6 minutes at marathon distance." />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://inertial.run/blog/why-garmin-strava-predict-different-times/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Why your watch and your app predict different race times · Plain Words" />
+    <meta property="og:description" content="One reads your training, the other reads one race. From a 25:00 5K, 3 published models already disagree by 6 minutes at marathon distance." />
+    <meta property="og:url" content="https://inertial.run/blog/why-garmin-strava-predict-different-times/" />
+    <meta property="og:site_name" content="Plain Words" />
+    <link rel="alternate" type="application/rss+xml" title="Plain Words" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"
+    />
+    <link rel="stylesheet" href="/assets/plain-words.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Why your watch and your app predict different race times",
+  "description": "One reads your training, the other reads one race. From a 25:00 5K, 3 published models already disagree by 6 minutes at marathon distance.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://inertial.run/blog/why-garmin-strava-predict-different-times/"
+  },
+  "datePublished": "2026-09-01T09:00:00+05:30",
+  "dateModified": "2026-09-01T09:00:00+05:30",
+  "author": {
+    "@type": "Person",
+    "name": "Parth Dixit",
+    "jobTitle": "Co-founder, Inertial"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inertial",
+    "url": "https://inertial.run",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://inertial.run/assets/logo-512.png"
+    },
+    "founder": [
+      {
+        "@type": "Person",
+        "name": "Parth Dixit",
+        "jobTitle": "Co-founder, Inertial"
+      },
+      {
+        "@type": "Person",
+        "name": "Aryan Dixit",
+        "jobTitle": "Co-founder, Inertial"
+      }
+    ]
+  },
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "citation": [
+    {
+      "@type": "CreativeWork",
+      "name": "Riegel PS. Athletic records and human endurance. American Scientist 69(3):285-290, 1981",
+      "url": "https://www.jstor.org/stable/27850427"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Vickers AJ, Vertosick EA. An empirical study of race times in recreational endurance runners. BMC Sports Sci Med Rehabil 8:26, 2016",
+      "url": "https://doi.org/10.1186/s13102-016-0052-y"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Keogh A et al. Prediction equations for marathon performance: a systematic review. Int J Sports Physiol Perform 14(9):1159-1169, 2019",
+      "url": "https://doi.org/10.1123/ijspp.2019-0360"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Passler S et al. Validity of wrist-worn activity trackers for estimating VO2max. Int J Environ Res Public Health 16(17):3037, 2019",
+      "url": "https://doi.org/10.3390/ijerph16173037"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Daniels J, Gilbert J. Oxygen Power: performance tables for distance runners, 1979",
+      "url": "https://search.worldcat.org/title/8172873"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Plain Words",
+      "item": "https://inertial.run/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://inertial.run/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Why your watch and your app predict different race times",
+      "item": "https://inertial.run/blog/why-garmin-strava-predict-different-times/"
+    }
+  ]
+}
+</script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="title" href="/blog/">Plain Words</a>
+        <span class="tagline">Running data, in plain words.</span>
+        <nav aria-label="Sections"><a href="/blog/">Articles</a><a href="/glossary/">Glossary</a><a href="/tools/">Tools</a><a href="/method/">Method</a><a href="/about/">About</a></nav>
+      </div>
+    </header>
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/blog/">Plain Words</a></li><li><a href="/blog/">Articles</a></li><li aria-current="page">Why your watch and your app predict different race times</li></ol></nav>
+    <main id="main">
+<article>
+<p class="kicker">Metrics, in plain words</p>
+<h1>Why your watch and your app predict different race times</h1>
+<div class="bluf"><p>They are answering different questions. A watch predicts from your recent training and an aerobic estimate; an app usually applies a formula to one race. Neither knows your weekly volume. From a 25:00 5K, three published models already put the marathon 6 minutes apart.</p></div>
+<div class="byline"><span>By Parth Dixit</span><span>Published <time datetime="2026-09-01T09:00:00+05:30">1 September 2026</time></span></div>
+<div class="table-scroll"><table>
+<caption>The numbers on this page, in one place.</caption>
+<thead><tr><th scope="col">What</th><th scope="col">Number</th><th scope="col">The qualifier</th></tr></thead>
+<tbody>
+<tr><th scope="row">What a watch uses</th><td>estimated aerobic capacity</td><td>from pace at heart rate across recent runs</td></tr>
+<tr><th scope="row">What an app usually uses</th><td>one race result</td><td>Riegel or a similar formula</td></tr>
+<tr><th scope="row">Spread across 3 models, 25:00 5K</th><td>about 6 minutes at the marathon</td><td>3:57:55 to 4:03:59</td></tr>
+<tr><th scope="row">Wearable aerobic estimates</th><td>within about 5 ml/kg/min of a lab</td><td>Passler et al. 2019</td></tr>
+<tr><th scope="row">What improves prediction</th><td>weekly mileage</td><td>Vickers &amp; Vertosick 2016, n = 2,497</td></tr>
+</tbody>
+</table></div>
+<h2 id="why-do-two-apps-give-me-different-race-times">Why do two apps give me different race times?</h2>
+
+<p>Because they are not doing the same sum.</p>
+
+<p>A watch estimates your aerobic capacity from how fast you run at a given heart rate, across many recent runs. Then it maps that estimate onto a race time. It is describing the shape you are in.</p>
+
+<p>Most apps and web calculators do something simpler. They take one race result and apply a published formula, usually <a href="/glossary/riegel-formula/">Riegel</a>'s from 1981. They are describing one performance.</p>
+
+<div class="table-scroll"><table>
+<thead><tr><th scope="col">Source</th><th scope="col">Input</th><th scope="col">What it is really saying</th></tr></thead>
+<tbody>
+<tr><td>Watch</td><td>recent pace at heart rate</td><td>what your engine looks like</td></tr>
+<tr><td>App or calculator</td><td>one race time</td><td>what that race implies</td></tr>
+<tr><td>Coaching platform</td><td>your logged training</td><td>what your load supports</td></tr>
+</tbody>
+</table></div>
+
+<p>A runner on a forum summed it up better than either vendor does: _Garmin is your potential and Strava is closer to what you can do right now_. That is not precisely true, but it points at the real difference.</p>
+
+<h2 id="how-far-apart-are-they-really">How far apart are they, really?</h2>
+
+<p>Further than most people expect, and the <a href="/glossary/grade-adjusted-pace/">gap</a> grows with distance.</p>
+
+<p>Take a 25:00 5K. Run it through three published models and the marathon predictions are 3:59:47 (Riegel), 3:57:55 (VDOT) and 4:03:59 (Cameron). That is a spread of six minutes, before a watch is involved at all.</p>
+
+<p>Now change one thing. Riegel's exponent is 1.06 in his original paper, but many calculators quietly use 1.07 for the marathon. On an 18:00 5K that single decimal moves the answer from 2:52:38 to 2:56:22.</p>
+
+<div class="table-scroll"><table>
+<thead><tr><th scope="col">Model</th><th scope="col">Marathon from a 25:00 5K</th></tr></thead>
+<tbody>
+<tr><td>Riegel, exponent 1.06</td><td>3:59:47</td></tr>
+<tr><td>Daniels-Gilbert VDOT</td><td>3:57:55</td></tr>
+<tr><td>Cameron</td><td>4:03:59</td></tr>
+<tr><td>Spread</td><td>6 min 4 s</td></tr>
+</tbody>
+</table></div>
+
+<p>Nobody is broken. They are three fits to different data, and none of them was built for you specifically. The <a href="/tools/race-predictor/">race predictor</a> here prints all three for that reason.</p>
+
+<h2 id="what-do-all-of-them-get-wrong">What do all of them get wrong?</h2>
+
+<p>The same thing: they have no input for endurance.</p>
+
+<p>Every model on this page extrapolates speed. None takes your weekly volume, your longest run, the course, or the weather. Those are the four things that actually decide a marathon.</p>
+
+<p>Keogh and colleagues reviewed the published equations in 2019 and found they consistently over-predict marathon performance for recreational runners, with the error growing as the extrapolation gets longer. Vickers and Vertosick (2016), working with 2,497 recreational runners, found that adding weekly training volume improved prediction beyond any race-time-only formula.</p>
+
+<p>Watch predictions carry a second error on top. Their aerobic estimate is itself approximate: Passler and colleagues found wrist devices land within about 5 ml/kg/min of a laboratory test. That is enough to move a marathon prediction by several minutes.</p>
+
+<h2 id="which-number-should-i-actually-pace-off">Which number should I actually pace off?</h2>
+
+<p>Here is the rule. Work down it and stop at the first line that applies.</p>
+
+<div class="table-scroll"><table>
+<thead><tr><th scope="col">Your situation</th><th scope="col">What to pace off</th></tr></thead>
+<tbody>
+<tr><td>Raced the same distance in the last 6 weeks</td><td>that time, adjusted for the course</td></tr>
+<tr><td>Raced a half within 6 weeks, targeting a marathon</td><td>the half, doubled, plus 8 to 12 minutes</td></tr>
+<tr><td>Only a 5K or 10K, targeting a marathon</td><td>the slow end of the model range, as a ceiling</td></tr>
+<tr><td>Under 60 km (37 mi) a week for a marathon</td><td>the slow end, and expect to be slower</td></tr>
+<tr><td>No race at all</td><td>do not pace off a prediction; pace off effort</td></tr>
+</tbody>
+</table></div>
+
+<p>The half-marathon rule is worth stating plainly because it is the most useful one on the list. Doubling your recent half and adding eight to twelve minutes lands closer for most club runners than any watch figure, and it needs no app.</p>
+
+<p>Once you have your target, the <a href="/tools/pace-calculator/">pace calculator</a> turns it into splits and a halfway time.</p>
+
+<h2 id="when-is-the-disagreement-itself-the-useful-signal">When is the disagreement itself the useful signal?</h2>
+
+<p>When the models spread wider than about 2% of your target time.</p>
+
+<p>A tight spread means the distances you are extrapolating between are close and your input race was well executed. A wide spread means you are asking a formula to guess about ground it has no information on.</p>
+
+<p>In that case, do not pick a number. Pace the first half at the slow end of the range and decide at halfway, where you will have better information than any model has. That is not a compromise. Your split at halfway is real data about today, and every prediction on this page is a statement about a different day.</p>
+
+<p>If you want to know what the models mean rather than what they say, the glossary covers <a href="/glossary/riegel-formula/">the Riegel formula</a> and <a href="/glossary/race-predictor/">what a race predictor is</a>.</p>
+<aside class="callout experience pending">
+<h3>What I have seen</h3>
+<p><strong>Not written yet.</strong> Parth: pick one race where your watch prediction and your finish time disagreed. What did each say, what did you actually run, and what did you learn about which to trust?</p>
+</aside>
+
+<section class="faq">
+<h2 id="questions-runners-actually-ask">Questions runners actually ask</h2>
+<dl>
+<dt>Garmin says 3:18 and Strava says 3:47. Which one do I pace off?</dt>
+<dd>Neither, on its own. Pace off the closest race you have actually run, extrapolated by a stated formula, and treat the watch figure as an upper bound. If you have not raced recently, pace off your longest hard training run instead.</dd>
+<dt>Why is my watch prediction so much faster than my real times?</dt>
+<dd>Because it reads speed at a heart rate, and speed is the easy half of a marathon. It has no input for your longest run. Runners under about 60 km per week see the biggest gap between the prediction and the finish.</dd>
+<dt>My app predicted 3:39 and I ran 3:08. Is it broken?</dt>
+<dd>No, it was answering a narrower question than you were. A formula applied to an old or slow input race gives a slow answer. Feed it your most recent, best-executed race and it gets much closer.</dd>
+<dt>Which distance should I predict from?</dt>
+<dd>The closest one to your target that you have raced within about six weeks. A marathon from a half is worth taking seriously. A marathon from a 5K is a statement about your speed, not your endurance.</dd>
+<dt>Do these get better if I run more?</dt>
+<dd>The formulas do not change, but their accuracy for you does. Vickers and Vertosick found weekly mileage improved prediction beyond race time alone, which is another way of saying the formulas over-predict for people who have not done the volume.</dd>
+</dl>
+</section>
+<section class="sources">
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://www.jstor.org/stable/27850427" rel="noopener">Riegel PS. Athletic records and human endurance. American Scientist 69(3):285-290, 1981</a> <span class="kind">primary</span></li>
+<li><a href="https://doi.org/10.1186/s13102-016-0052-y" rel="noopener">Vickers AJ, Vertosick EA. An empirical study of race times in recreational endurance runners. BMC Sports Sci Med Rehabil 8:26, 2016</a> <span class="kind">primary</span></li>
+<li><a href="https://doi.org/10.1123/ijspp.2019-0360" rel="noopener">Keogh A et al. Prediction equations for marathon performance: a systematic review. Int J Sports Physiol Perform 14(9):1159-1169, 2019</a> <span class="kind">primary</span></li>
+<li><a href="https://doi.org/10.3390/ijerph16173037" rel="noopener">Passler S et al. Validity of wrist-worn activity trackers for estimating VO2max. Int J Environ Res Public Health 16(17):3037, 2019</a> <span class="kind">primary</span></li>
+<li><a href="https://search.worldcat.org/title/8172873" rel="noopener">Daniels J, Gilbert J. Oxygen Power: performance tables for distance runners, 1979</a> <span class="kind">reference</span></li>
+</ul>
+</section>
+<section class="changelog">
+<h2 id="changelog">Changelog</h2>
+<ul>
+<li><time datetime="2026-09-01">1 September 2026</time> — First published.</li>
+</ul>
+</section>
+<section class="related">
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/blog/what-strava-fitness-score-measures/">What Strava's Fitness score actually measures</a></li>
+<li><a href="/blog/is-sub-4-marathon-realistic/">Is a sub-4 marathon realistic? A five-input reality check</a></li>
+</ul>
+</section>
+<aside class="authorbox">
+<div>
+<p><strong>Parth Dixit</strong> — Co-founder, Inertial</p>
+<p>Co-founds Inertial with Aryan Dixit, and writes the method pages so you can check the maths.</p>
+</div>
+</aside>
+<p class="footer-line">Inertial shows this for your own runs — free, no ads. <a href="/waitlist">Join the waitlist →</a></p>
+</article>
+    </main>
+    <footer class="site">
+      <div class="wrap">
+        <nav aria-label="Site"><a href="/about/">About</a><a href="/method/">How we work</a><a href="/">Inertial</a></nav>
+        <p>
+          Plain Words is written by the people who build
+          Inertial. No ads, no affiliate links, nothing gated.
+          Every number here carries a source or a stated method.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

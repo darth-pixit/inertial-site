@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How Inertial corrects your GPS trace · Plain Words</title>
+    <meta name="description" content="A Kalman filter over local coordinates, a soft accuracy gate at 30-60 m, a hard reject above 60 m, and a visible note whenever we change something." />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://inertial.run/method/gps-corrections/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How Inertial corrects your GPS trace · Plain Words" />
+    <meta property="og:description" content="A Kalman filter over local coordinates, a soft accuracy gate at 30-60 m, a hard reject above 60 m, and a visible note whenever we change something." />
+    <meta property="og:url" content="https://inertial.run/method/gps-corrections/" />
+    <meta property="og:site_name" content="Plain Words" />
+    <link rel="alternate" type="application/rss+xml" title="Plain Words" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"
+    />
+    <link rel="stylesheet" href="/assets/plain-words.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "How Inertial corrects your GPS trace",
+  "description": "A Kalman filter over local coordinates, a soft accuracy gate at 30-60 m, a hard reject above 60 m, and a visible note whenever we change something.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://inertial.run/method/gps-corrections/"
+  },
+  "datePublished": "2026-09-01T09:00:00+05:30",
+  "dateModified": "2026-09-01T09:00:00+05:30",
+  "author": {
+    "@type": "Person",
+    "name": "Parth Dixit",
+    "jobTitle": "Co-founder, Inertial"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inertial",
+    "url": "https://inertial.run",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://inertial.run/assets/logo-512.png"
+    },
+    "founder": [
+      {
+        "@type": "Person",
+        "name": "Parth Dixit",
+        "jobTitle": "Co-founder, Inertial"
+      },
+      {
+        "@type": "Person",
+        "name": "Aryan Dixit",
+        "jobTitle": "Co-founder, Inertial"
+      }
+    ]
+  },
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "citation": [
+    {
+      "@type": "CreativeWork",
+      "name": "Ranacher P et al. Why GPS makes distances bigger than they are. Int J Geogr Inf Sci 30(2):316-333, 2016",
+      "url": "https://doi.org/10.1080/13658816.2015.1086924"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Gilgen-Ammann R, Schweizer T, Wyss T. Accuracy of distance recordings in eight positioning-enabled sport watches. Sensors 20(19):5493, 2020",
+      "url": "https://doi.org/10.3390/s20195493"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Zhu R, Zhou Z. GNSS multipath and NLOS mitigation using C/N0 observations. GPS Solutions, 2018",
+      "url": "https://doi.org/10.1007/s10291-018-0745-7"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Plain Words",
+      "item": "https://inertial.run/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Method",
+      "item": "https://inertial.run/method/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "How Inertial corrects your GPS trace",
+      "item": "https://inertial.run/method/gps-corrections/"
+    }
+  ]
+}
+</script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="title" href="/blog/">Plain Words</a>
+        <span class="tagline">Running data, in plain words.</span>
+        <nav aria-label="Sections"><a href="/blog/">Articles</a><a href="/glossary/">Glossary</a><a href="/tools/">Tools</a><a href="/method/">Method</a><a href="/about/">About</a></nav>
+      </div>
+    </header>
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/blog/">Plain Words</a></li><li><a href="/method/">Method</a></li><li aria-current="page">How Inertial corrects your GPS trace</li></ol></nav>
+    <main id="main">
+<article>
+<p class="kicker">Metrics, in plain words</p>
+<h1>How Inertial corrects your GPS trace</h1>
+<div class="bluf"><p>Positions go through a constant-velocity Kalman filter in local metres, with a chi-squared innovation gate at 99%. Fixes reported worse than 60 m are rejected outright. Fixes between 30 and 60 m are accepted with inflated uncertainty, but only when nothing better has arrived for 2 ticks.</p></div>
+<div class="byline"><span>By Parth Dixit</span><span>Published <time datetime="2026-09-01T09:00:00+05:30">1 September 2026</time></span></div>
+<div class="table-scroll"><table>
+<caption>The numbers on this page, in one place.</caption>
+<thead><tr><th scope="col">What</th><th scope="col">Number</th><th scope="col">The qualifier</th></tr></thead>
+<tbody>
+<tr><th scope="row">Filter</th><td>constant-velocity Kalman</td><td>local east-north metres, Joseph-form update</td></tr>
+<tr><th scope="row">Hard reject</th><td>above 60 m reported accuracy</td><td>no information left in the fix</td></tr>
+<tr><th scope="row">Soft accept</th><td>30-60 m, when starved</td><td>after 2 ticks with no accepted position</td></tr>
+<tr><th scope="row">Innovation gate</th><td>chi-squared, 2 degrees of freedom, 99%</td><td>3 consecutive rejects force a re-anchor</td></tr>
+</tbody>
+</table></div>
+<h2 id="what-the-filter-does">What the filter does</h2>
+
+<p>Raw satellite positions jump around. Every fix carries error, and adding up noisy points inflates distance, which Ranacher and colleagues quantified in 2016.</p>
+
+<p>So we do not sum raw fixes. Positions are converted into local east-north metres and fed to a constant-velocity Kalman filter. The state is your position and your velocity. Each fix updates it, weighted by how good the fix claims to be.</p>
+
+<p>A chi-squared test on 2 degrees of freedom at 99% rejects fixes that disagree too violently with where the filter thinks you are. Three rejects in a row means the filter is lost, so it re-anchors and records that it did.</p>
+
+<h2 id="the-accuracy-gate-and-why-it-is-soft">The accuracy gate, and why it is soft</h2>
+
+<p>A fixed cut-off is worse than it sounds. In an urban canyon, reported accuracy sits at 35 to 60 m for minutes at a time. Drop all of it and you get a straight line across every turn, which under-measures the run.</p>
+
+<p>So the gate has three bands.</p>
+
+<div class="table-scroll"><table>
+<thead><tr><th scope="col">Reported accuracy</th><th scope="col">What happens</th></tr></thead>
+<tbody>
+<tr><td>under 30 m</td><td>accepted normally</td></tr>
+<tr><td>30-60 m</td><td>accepted with inflated uncertainty, only after 2 ticks with nothing better</td></tr>
+<tr><td>over 60 m</td><td>rejected</td></tr>
+</tbody>
+</table></div>
+
+<p>The starvation rule matters. While good fixes are arriving, a degraded fix adds correlated noise rather than information. Allowing them freely measurably inflated our walking-pace test fixture, from +1.84% to +2.62%. Gating them on starvation put that back while still measuring the degraded stretch.</p>
+
+<h2 id="what-we-do-not-turn-on">What we do not turn on</h2>
+
+<p>Android exposes a signal-to-noise figure per satellite. Reflected signals typically have lower and more variable values, so weighting fixes by it should help in cities.</p>
+
+<p>We built that and shipped it switched off. Our urban test fixtures already sit within 0.1% of true distance without it, so enabling it would be tuning against noise. The hook is there for the day the evidence says otherwise.</p>
+
+<h2 id="if-we-correct-it-we-show-it">If we correct it, we show it</h2>
+
+<p>Every dropped fix is recorded with a typed reason, and none are dropped silently. When an imported file's recomputed distance disagrees with the total the original device reported, we show both numbers rather than picking one.</p>
+
+<p>You can export the raw stream for any run and check our arithmetic.</p>
+
+
+
+<section class="sources">
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://doi.org/10.1080/13658816.2015.1086924" rel="noopener">Ranacher P et al. Why GPS makes distances bigger than they are. Int J Geogr Inf Sci 30(2):316-333, 2016</a> <span class="kind">primary</span></li>
+<li><a href="https://doi.org/10.3390/s20195493" rel="noopener">Gilgen-Ammann R, Schweizer T, Wyss T. Accuracy of distance recordings in eight positioning-enabled sport watches. Sensors 20(19):5493, 2020</a> <span class="kind">primary</span></li>
+<li><a href="https://doi.org/10.1007/s10291-018-0745-7" rel="noopener">Zhu R, Zhou Z. GNSS multipath and NLOS mitigation using C/N0 observations. GPS Solutions, 2018</a> <span class="kind">primary</span></li>
+</ul>
+</section>
+<section class="changelog">
+<h2 id="changelog">Changelog</h2>
+<ul>
+<li><time datetime="2026-09-01">1 September 2026</time> — First published.</li>
+</ul>
+</section>
+<section class="related">
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/blog/what-strava-fitness-score-measures/">What Strava's Fitness score actually measures</a></li>
+<li><a href="/blog/why-garmin-strava-predict-different-times/">Why your watch and your app predict different race times</a></li>
+</ul>
+</section>
+<aside class="authorbox">
+<div>
+<p><strong>Parth Dixit</strong> — Co-founder, Inertial</p>
+<p>Co-founds Inertial with Aryan Dixit, and writes the method pages so you can check the maths.</p>
+</div>
+</aside>
+<p class="footer-line">Inertial shows this for your own runs — free, no ads. <a href="/waitlist">Join the waitlist →</a></p>
+</article>
+    </main>
+    <footer class="site">
+      <div class="wrap">
+        <nav aria-label="Site"><a href="/about/">About</a><a href="/method/">How we work</a><a href="/">Inertial</a></nav>
+        <p>
+          Plain Words is written by the people who build
+          Inertial. No ads, no affiliate links, nothing gated.
+          Every number here carries a source or a stated method.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How Inertial computes fitness and freshness · Plain Words</title>
+    <meta name="description" content="Two exponentially weighted averages of daily load: 42 days for fitness, 7 for fatigue. Freshness is the gap. Rest days count as zero." />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://inertial.run/method/fitness-and-freshness/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How Inertial computes fitness and freshness · Plain Words" />
+    <meta property="og:description" content="Two exponentially weighted averages of daily load: 42 days for fitness, 7 for fatigue. Freshness is the gap. Rest days count as zero." />
+    <meta property="og:url" content="https://inertial.run/method/fitness-and-freshness/" />
+    <meta property="og:site_name" content="Plain Words" />
+    <link rel="alternate" type="application/rss+xml" title="Plain Words" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"
+    />
+    <link rel="stylesheet" href="/assets/plain-words.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "How Inertial computes fitness and freshness",
+  "description": "Two exponentially weighted averages of daily load: 42 days for fitness, 7 for fatigue. Freshness is the gap. Rest days count as zero.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://inertial.run/method/fitness-and-freshness/"
+  },
+  "datePublished": "2026-09-01T09:00:00+05:30",
+  "dateModified": "2026-09-01T09:00:00+05:30",
+  "author": {
+    "@type": "Person",
+    "name": "Parth Dixit",
+    "jobTitle": "Co-founder, Inertial"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inertial",
+    "url": "https://inertial.run",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://inertial.run/assets/logo-512.png"
+    },
+    "founder": [
+      {
+        "@type": "Person",
+        "name": "Parth Dixit",
+        "jobTitle": "Co-founder, Inertial"
+      },
+      {
+        "@type": "Person",
+        "name": "Aryan Dixit",
+        "jobTitle": "Co-founder, Inertial"
+      }
+    ]
+  },
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "citation": [
+    {
+      "@type": "CreativeWork",
+      "name": "Banister EW, Calvert TW. Planning for future performance. Can J Appl Sport Sci 5(3):170-176, 1980",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/7443716/"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Busso T. Variable dose-response relationship between exercise training and performance. Med Sci Sports Exerc 35(7):1188-1195, 2003",
+      "url": "https://doi.org/10.1249/01.MSS.0000074465.13621.37"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Coggan A, Allen H. Training and Racing with a Power Meter — the CTL/ATL/TSB formulation",
+      "url": "https://search.worldcat.org/title/62281229"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Plain Words",
+      "item": "https://inertial.run/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Method",
+      "item": "https://inertial.run/method/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "How Inertial computes fitness and freshness",
+      "item": "https://inertial.run/method/fitness-and-freshness/"
+    }
+  ]
+}
+</script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="title" href="/blog/">Plain Words</a>
+        <span class="tagline">Running data, in plain words.</span>
+        <nav aria-label="Sections"><a href="/blog/">Articles</a><a href="/glossary/">Glossary</a><a href="/tools/">Tools</a><a href="/method/">Method</a><a href="/about/">About</a></nav>
+      </div>
+    </header>
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/blog/">Plain Words</a></li><li><a href="/method/">Method</a></li><li aria-current="page">How Inertial computes fitness and freshness</li></ol></nav>
+    <main id="main">
+<article>
+<p class="kicker">Metrics, in plain words</p>
+<h1>How Inertial computes fitness and freshness</h1>
+<div class="bluf"><p>Fitness is a 42-day exponentially weighted average of your daily training load. Fatigue is the same average over 7 days. Freshness is fitness minus fatigue. Days you did not run contribute a load of zero, so the decay is part of the model rather than a gap in it.</p></div>
+<div class="byline"><span>By Parth Dixit</span><span>Published <time datetime="2026-09-01T09:00:00+05:30">1 September 2026</time></span></div>
+<div class="table-scroll"><table>
+<caption>The numbers on this page, in one place.</caption>
+<thead><tr><th scope="col">What</th><th scope="col">Number</th><th scope="col">The qualifier</th></tr></thead>
+<tbody>
+<tr><th scope="row">Fitness time constant</th><td>42 days</td><td>alpha = 1 - e^(-1/42), about 0.0235</td></tr>
+<tr><th scope="row">Fatigue time constant</th><td>7 days</td><td>alpha = 1 - e^(-1/7), about 0.1331</td></tr>
+<tr><th scope="row">Freshness</th><td>fitness minus fatigue</td><td>negative in a hard block, positive in a taper</td></tr>
+<tr><th scope="row">Rest days</th><td>load 0, not skipped</td><td>the decay is the model</td></tr>
+</tbody>
+</table></div>
+<h2 id="the-formula">The formula</h2>
+
+<p>Two exponentially weighted moving averages over the same daily series.</p>
+
+<pre><code>alpha  = 1 - e^(-1 / timeConstant)
+value  = value + alpha x (todayLoad - value)</code></pre>
+
+<p>Fitness uses a time constant of 42 days. Fatigue uses 7. Freshness is fitness minus fatigue. Your daily load is the sum of every run that day, bucketed by your local calendar date rather than by UTC.</p>
+
+<div class="table-scroll"><table>
+<thead><tr><th scope="col">Line</th><th scope="col">Time constant</th><th scope="col">Weight on today</th></tr></thead>
+<tbody>
+<tr><td>fitness</td><td>42 days</td><td>2.4%</td></tr>
+<tr><td>fatigue</td><td>7 days</td><td>13.3%</td></tr>
+<tr><td>freshness</td><td>derived</td><td>fitness minus fatigue</td></tr>
+</tbody>
+</table></div>
+
+<h2 id="why-rest-days-are-zeros-not-gaps">Why rest days are zeros, not gaps</h2>
+
+<p>A day with no run contributes a load of zero to both averages. That pulls both lines down, quickly for fatigue and slowly for fitness.</p>
+
+<p>This is the whole mechanism of a <a href="/glossary/taper/">taper</a>. Cut volume and fatigue falls in about a week while fitness barely moves, so freshness climbs. Skip the zeros and the model cannot express that at all.</p>
+
+<h2 id="what-this-gets-wrong">What this gets wrong</h2>
+
+<p><strong>It is not fitness.</strong> It is a smoothed picture of how much you have been training. Swap long easy runs for short sharp ones and this number falls while your 5K time improves. That is the model behaving correctly and the name misleading you, which <a href="/blog/what-strava-fitness-score-measures/">we wrote about at length</a>.</p>
+
+<p><strong>It inherits every error in <a href="/glossary/training-load/">training load</a>.</strong> Wrong heart-rate zones bend both lines the same way.</p>
+
+<p><strong>The time constants are conventions.</strong> 42 and 7 come from the widely used formulation, not from a study of you. Busso's work showed the right constants vary between athletes and over a season.</p>
+
+<h2 id="what-we-show-you">What we show you</h2>
+
+<p>Two lines and a number, with the label saying what they are. We do not convert freshness into a traffic light or tell you whether to train today. The model does not know about your sleep, your job, or the fact that you are getting a cold.</p>
+
+
+
+<section class="sources">
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://pubmed.ncbi.nlm.nih.gov/7443716/" rel="noopener">Banister EW, Calvert TW. Planning for future performance. Can J Appl Sport Sci 5(3):170-176, 1980</a> <span class="kind">primary</span></li>
+<li><a href="https://doi.org/10.1249/01.MSS.0000074465.13621.37" rel="noopener">Busso T. Variable dose-response relationship between exercise training and performance. Med Sci Sports Exerc 35(7):1188-1195, 2003</a> <span class="kind">primary</span></li>
+<li><a href="https://search.worldcat.org/title/62281229" rel="noopener">Coggan A, Allen H. Training and Racing with a Power Meter — the CTL/ATL/TSB formulation</a> <span class="kind">reference</span></li>
+</ul>
+</section>
+<section class="changelog">
+<h2 id="changelog">Changelog</h2>
+<ul>
+<li><time datetime="2026-09-01">1 September 2026</time> — First published.</li>
+</ul>
+</section>
+<section class="related">
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/blog/what-strava-fitness-score-measures/">What Strava's Fitness score actually measures</a></li>
+<li><a href="/blog/why-garmin-strava-predict-different-times/">Why your watch and your app predict different race times</a></li>
+</ul>
+</section>
+<aside class="authorbox">
+<div>
+<p><strong>Parth Dixit</strong> — Co-founder, Inertial</p>
+<p>Co-founds Inertial with Aryan Dixit, and writes the method pages so you can check the maths.</p>
+</div>
+</aside>
+<p class="footer-line">Inertial shows this for your own runs — free, no ads. <a href="/waitlist">Join the waitlist →</a></p>
+</article>
+    </main>
+    <footer class="site">
+      <div class="wrap">
+        <nav aria-label="Site"><a href="/about/">About</a><a href="/method/">How we work</a><a href="/">Inertial</a></nav>
+        <p>
+          Plain Words is written by the people who build
+          Inertial. No ads, no affiliate links, nothing gated.
+          Every number here carries a source or a stated method.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

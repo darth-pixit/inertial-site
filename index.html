@@ -1,0 +1,2911 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Inertial — Run more, run better. Accuracy-first, privacy-first running app</title>
+    <!--
+      Canonical is relative on purpose: this page is served today from a
+      GitHub Pages project subpath and later from the bare domain, and a
+      relative href stays self-referential in both. See docs/preflight.md §2.
+    -->
+    <link rel="canonical" href="./" />
+    <meta
+      name="description"
+      content="A running app built accuracy-first and privacy-first. Training load, fitness and freshness, best efforts, grade-adjusted pace — free, forever. No ads."
+    />
+    <meta property="og:title" content="Inertial — Run more, run better." />
+    <meta
+      property="og:description"
+      content="A running app built accuracy-first and privacy-first. Everything other apps paywall is free here, forever. No ads."
+    />
+    <meta property="og:type" content="website" />
+    <link
+      rel="icon"
+      href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path d="M6,30 Q14,30 18,20 T30,10" fill="none" stroke="%230E7A6C" stroke-width="3.5" stroke-linecap="round"/><circle cx="30" cy="10" r="3.5" fill="%2314181C"/></svg>'
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap"
+    />
+    <style>
+      /* ————— Inertial tokens (apps/mobile theme system, ported per the design system) ————— */
+      :root {
+        --paper: #fafaf7;
+        --ink: #14181c;
+        --night: #0b0f14;
+        --night-surface: #121821;
+        --night-raised: #1a2230;
+        --bg: #fafaf7;
+        --surface: #ffffff;
+        --surface-alt: #f2f1ea;
+        --wash: #f0fdf9;
+        --wash-border: rgba(14, 122, 108, 0.18);
+        --line: rgba(0, 0, 0, 0.08);
+        --line-strong: rgba(0, 0, 0, 0.14);
+        --text: #14181c;
+        --text-dim: rgba(0, 0, 0, 0.55);
+        --text-faint: rgba(0, 0, 0, 0.4);
+        --on-ink: #ffffff;
+        --on-ink-dim: rgba(255, 255, 255, 0.55);
+        --on-ink-faint: rgba(255, 255, 255, 0.4);
+        --accent: #0e7a6c;
+        --accent-deep: #0b5f54;
+        --accent-bright: #2dd4bf;
+        --on-accent: #ffffff;
+        --accent-soft: rgba(14, 122, 108, 0.1);
+        --danger: #ef4444;
+        --serif-bg: #f7f5ee;
+        --map-bg: #edf4f2;
+        --map-stripe: #e3eeeb;
+        --map-label: #5b7a73;
+        --map-track: #0e7a6c;
+        --map-raw: #c4c9c4;
+        --medal-gold-light: #f3e7c6;
+        --medal-gold-face: #d9c07e;
+        --medal-gold-deep: #94803e;
+        --medal-gold-engrave: #5c4517;
+        --medal-gold-engrave-soft: rgba(92, 69, 23, 0.65);
+        --medal-gold-rim: rgba(122, 94, 40, 0.28);
+        --medal-steel-light: #f2f4f6;
+        --medal-steel-face: #c4cbd3;
+        --medal-steel-deep: #7c8894;
+        --medal-steel-engrave: #39424b;
+        --medal-steel-engrave-soft: rgba(57, 66, 75, 0.7);
+        --medal-steel-rim: rgba(70, 80, 90, 0.22);
+        --medal-plum-light: #eae4f2;
+        --medal-plum-face: #a092b8;
+        --medal-plum-deep: #584a73;
+        --medal-plum-engrave: #2e2344;
+        --medal-plum-engrave-soft: rgba(46, 35, 68, 0.7);
+        --medal-plum-rim: rgba(60, 45, 90, 0.25);
+        --medal-teal-light: #dff3ee;
+        --medal-teal-face: #7fbdb1;
+        --medal-teal-deep: #2e6b5f;
+        --medal-teal-engrave: #0b3b33;
+        --medal-teal-engrave-soft: rgba(11, 59, 51, 0.7);
+        --medal-teal-rim: rgba(20, 60, 52, 0.25);
+        --medal-locked-bg: #f1efe7;
+        --avatar-plum: #433a59;
+        --avatar-teal: #0b5f54;
+        --avatar-olive: #6b5a33;
+        --avatar-ink: #14181c;
+        --avatar-navy: #1e3a5f;
+        --avatar-berry: #58324a;
+        --avatar-fg: #f5f3ec;
+        --font-display: 'Space Grotesk', system-ui, sans-serif;
+        --font-serif: 'Newsreader', Georgia, serif;
+        --font-body: system-ui, -apple-system, 'Segoe UI', sans-serif;
+        --font-mono: ui-monospace, Menlo, Consolas, monospace;
+        --shadow-card: 0 2px 10px rgba(14, 122, 108, 0.07);
+        --shadow-accent: 0 4px 16px rgba(14, 122, 108, 0.3);
+        color-scheme: light;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) {
+          --bg: #0b0f14;
+          --surface: #121821;
+          --surface-alt: #1a2230;
+          --wash: rgba(45, 212, 191, 0.08);
+          --wash-border: rgba(45, 212, 191, 0.22);
+          --line: rgba(255, 255, 255, 0.08);
+          --line-strong: rgba(255, 255, 255, 0.14);
+          --text: #f5f7f6;
+          --text-dim: rgba(245, 247, 246, 0.6);
+          --text-faint: rgba(245, 247, 246, 0.42);
+          --ink: #f5f7f6;
+          --on-ink: #0b0f14;
+          --on-ink-dim: rgba(11, 15, 20, 0.55);
+          --on-ink-faint: rgba(11, 15, 20, 0.4);
+          --accent: #2dd4bf;
+          --accent-deep: #0e7a6c;
+          --accent-bright: #2dd4bf;
+          --on-accent: #06251f;
+          --accent-soft: rgba(45, 212, 191, 0.12);
+          --serif-bg: #10151b;
+          --map-bg: #101820;
+          --map-stripe: #15202b;
+          --map-label: #6e8b84;
+          --map-track: #2dd4bf;
+          --map-raw: #4a5259;
+          --medal-locked-bg: #1a2230;
+          --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.35);
+          color-scheme: dark;
+        }
+      }
+      :root[data-theme='dark'] {
+        --bg: #0b0f14;
+        --surface: #121821;
+        --surface-alt: #1a2230;
+        --wash: rgba(45, 212, 191, 0.08);
+        --wash-border: rgba(45, 212, 191, 0.22);
+        --line: rgba(255, 255, 255, 0.08);
+        --line-strong: rgba(255, 255, 255, 0.14);
+        --text: #f5f7f6;
+        --text-dim: rgba(245, 247, 246, 0.6);
+        --text-faint: rgba(245, 247, 246, 0.42);
+        --ink: #f5f7f6;
+        --on-ink: #0b0f14;
+        --on-ink-dim: rgba(11, 15, 20, 0.55);
+        --on-ink-faint: rgba(11, 15, 20, 0.4);
+        --accent: #2dd4bf;
+        --accent-deep: #0e7a6c;
+        --accent-bright: #2dd4bf;
+        --on-accent: #06251f;
+        --accent-soft: rgba(45, 212, 191, 0.12);
+        --serif-bg: #10151b;
+        --map-bg: #101820;
+        --map-stripe: #15202b;
+        --map-label: #6e8b84;
+        --map-track: #2dd4bf;
+        --map-raw: #4a5259;
+        --medal-locked-bg: #1a2230;
+        --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.35);
+        color-scheme: dark;
+      }
+
+      /* ————— base ————— */
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: var(--accent-deep);
+        text-decoration: none;
+      }
+      a:hover {
+        color: var(--accent);
+      }
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        text-wrap: balance;
+      }
+      p {
+        margin: 0;
+      }
+      :focus-visible {
+        outline: 2.5px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 6px;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .micro {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+      .micro.accent {
+        color: var(--accent);
+      }
+      .serif-h {
+        font-family: var(--font-serif);
+        font-weight: 500;
+        letter-spacing: 0;
+      }
+      .num {
+        font-variant-numeric: tabular-nums;
+      }
+      [hidden] {
+        display: none !important;
+      }
+
+      /* pills (app PillButton, ported) */
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 52px;
+        padding: 0 24px;
+        border-radius: 999px;
+        border: none;
+        background: var(--accent);
+        color: var(--on-accent);
+        font: 600 15px var(--font-body);
+        cursor: pointer;
+        transition:
+          transform 0.12s ease-out,
+          opacity 0.12s ease-out,
+          box-shadow 0.12s ease-out;
+        text-decoration: none;
+      }
+      .pill:hover {
+        color: var(--on-accent);
+        box-shadow: var(--shadow-accent);
+      }
+      .pill:active {
+        transform: scale(0.97);
+        opacity: 0.9;
+      }
+      .pill.small {
+        min-height: 36px;
+        padding: 0 16px;
+        font-size: 12.5px;
+      }
+      .pill.outline {
+        background: transparent;
+        color: var(--text);
+        border: 1.5px solid var(--line-strong);
+      }
+      .pill.outline:hover {
+        box-shadow: none;
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .pill:disabled {
+        opacity: 0.35;
+        cursor: default;
+        box-shadow: none;
+        transform: none;
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: var(--surface-alt);
+        color: var(--text-dim);
+        font: 500 12.5px var(--font-body);
+      }
+      .wash-card {
+        background: var(--wash);
+        border: 1px solid var(--wash-border);
+        border-radius: 14px;
+        padding: 12px 14px;
+        font: 12px/1.5 var(--font-body);
+        color: var(--accent-deep);
+      }
+      :root[data-theme='dark'] .wash-card,
+      :root[data-theme='dark'] .wl-error.info,
+      :root[data-theme='dark'] .wl-archive:has(input:checked),
+      :root[data-theme='dark'] .import-steps .n {
+        color: var(--accent-bright);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) .wash-card,
+        :root:not([data-theme='light']) .wl-error.info,
+        :root:not([data-theme='light']) .wl-archive:has(input:checked),
+        :root:not([data-theme='light']) .import-steps .n {
+          color: var(--accent-bright);
+        }
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        box-shadow: var(--shadow-card);
+      }
+      .avatar {
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--avatar-fg);
+        font-family: var(--font-display);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        flex: none;
+      }
+
+      /* nav */
+      .announce {
+        background: var(--ink);
+        color: var(--on-ink);
+        text-align: center;
+        padding: 9px 16px;
+        font-size: 13px;
+      }
+      .announce a {
+        color: var(--accent-bright);
+        font-weight: 600;
+      }
+      nav.site {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 18px 24px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text);
+      }
+      .brand:hover {
+        color: var(--text);
+      }
+      .brand .word {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 19px;
+        letter-spacing: -0.02em;
+      }
+      .navlinks {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        font-size: 14px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        flex: 1;
+      }
+      .navlinks a {
+        color: var(--text-dim);
+      }
+      .navlinks a:hover {
+        color: var(--accent);
+      }
+      .theme-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        border: 1.5px solid var(--line-strong);
+        background: transparent;
+        color: var(--text-dim);
+        cursor: pointer;
+        font-size: 15px;
+        line-height: 1;
+        flex: none;
+      }
+      .theme-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      @media (max-width: 760px) {
+        .navlinks .hide-sm {
+          display: none;
+        }
+      }
+
+      /* hero */
+      .hero {
+        display: flex;
+        gap: 64px;
+        flex-wrap: wrap;
+        align-items: center;
+        padding-top: 72px;
+        padding-bottom: 88px;
+      }
+      .hero-copy {
+        flex: 1 1 440px;
+        min-width: 300px;
+      }
+      .hero h1 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: clamp(42px, 7vw, 64px);
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+        margin: 0 0 18px;
+      }
+      .hero .tag {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-size: 22px;
+        color: var(--text-dim);
+        margin: 0 0 20px;
+      }
+      .hero .lede {
+        font-size: 16px;
+        color: var(--text-dim);
+        max-width: 460px;
+        margin: 0 0 32px;
+        text-wrap: pretty;
+      }
+      .hero-card-holder {
+        flex: 1 1 380px;
+        min-width: 300px;
+        max-width: 460px;
+      }
+      .feed-card {
+        padding: 18px;
+        border-radius: 20px;
+      }
+      .feed-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+      .feed-title {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .feed-sub {
+        font-size: 12px;
+        color: var(--text-faint);
+      }
+      .pr-star {
+        font-size: 12px;
+        color: var(--accent);
+        font-weight: 600;
+        margin-left: auto;
+      }
+      .stat-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 14px;
+      }
+      .stat {
+        flex: 1;
+      }
+      .stat .l {
+        font-size: 12px;
+        color: var(--text-faint);
+      }
+      .stat .v {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 18px;
+        font-variant-numeric: tabular-nums;
+      }
+      .stat .v .sfx {
+        font-size: 12px;
+        color: var(--text-faint);
+        font-weight: 400;
+      }
+      .stat.accent .v {
+        color: var(--accent);
+      }
+      .cheer-row {
+        border-top: 1px solid var(--line);
+        margin-top: 14px;
+        padding-top: 12px;
+        font-size: 12.5px;
+        color: var(--text-dim);
+      }
+
+      /* sections */
+      section.band {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      section.band.surface {
+        background: var(--surface);
+      }
+      section.band.serif {
+        background: var(--serif-bg);
+      }
+      .sect {
+        padding-top: 88px;
+        padding-bottom: 88px;
+      }
+      .sect h2 {
+        font-family: var(--font-serif);
+        font-weight: 500;
+        font-size: clamp(30px, 4.5vw, 40px);
+        line-height: 1.1;
+        margin: 0 0 14px;
+      }
+      .sect .sub {
+        font-size: 15.5px;
+        color: var(--text-dim);
+      }
+      .grid-free {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 16px;
+        margin-top: 44px;
+      }
+      .free-card {
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 22px;
+      }
+      .free-card .ico {
+        font-size: 22px;
+        margin-bottom: 12px;
+      }
+      .free-card h3 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 17px;
+        margin: 0 0 8px;
+        letter-spacing: -0.01em;
+      }
+      .free-card p {
+        font-size: 13.5px;
+        line-height: 1.55;
+        color: var(--text-dim);
+      }
+
+      /* phone mocks */
+      .phones {
+        display: flex;
+        gap: 24px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 44px;
+      }
+      .phone {
+        width: 250px;
+      }
+      .phone .frame {
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 8px;
+        background: var(--surface);
+        box-shadow: var(--shadow-card);
+      }
+      .phone .screen {
+        border-radius: 22px;
+        overflow: hidden;
+        height: 480px;
+        background: var(--bg);
+        display: flex;
+        flex-direction: column;
+        font-size: 11px;
+      }
+      .phone .cap {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        margin-top: 12px;
+        text-align: center;
+      }
+      .phone .frame.night {
+        background: var(--night-surface);
+      }
+      .mock-tabbar {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        border-top: 1px solid var(--line);
+        padding: 8px 6px 10px;
+        background: var(--surface);
+      }
+      .mock-tabbar .t {
+        font-size: 14px;
+        color: var(--text-faint);
+        text-align: center;
+        line-height: 1.2;
+      }
+      .mock-tabbar .t.on {
+        color: var(--accent);
+      }
+      .mock-tabbar .t .lbl {
+        display: block;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+      .mock-tabbar .go {
+        width: 44px;
+        height: 44px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: var(--on-ink);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font: 700 11px var(--font-display);
+        box-shadow: 0 4px 14px rgba(20, 24, 28, 0.3);
+      }
+      .mockcard {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 10px;
+        margin: 0 10px 10px;
+      }
+      .mockcard .h {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin-bottom: 7px;
+      }
+      .mockcard .nm {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 10.5px;
+      }
+      .mockcard .mt {
+        font-size: 9px;
+        color: var(--text-faint);
+      }
+      .mockstats {
+        display: flex;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .mockstats .s {
+        flex: 1;
+      }
+      .mockstats .s .l {
+        font-size: 8px;
+        color: var(--text-faint);
+      }
+      .mockstats .s .v {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 12px;
+        font-variant-numeric: tabular-nums;
+      }
+      .mock-cheer {
+        font-size: 9px;
+        color: var(--text-dim);
+        margin-top: 7px;
+      }
+      /* record screen: fixed night instrument panel — does not theme, by design (PRD §5.4) */
+      .night-panel {
+        background: #0b0f14;
+        color: #f5f7f6;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 16px 14px 14px;
+      }
+      .night-panel .status {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 8.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        color: rgba(245, 247, 246, 0.55);
+      }
+      .night-panel .giant {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 64px;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        color: #2dd4bf;
+        font-variant-numeric: tabular-nums;
+        margin-top: 22px;
+      }
+      .night-panel .glabel {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        color: rgba(245, 247, 246, 0.5);
+        margin-top: 4px;
+      }
+      .night-panel .duo {
+        display: flex;
+        gap: 14px;
+        margin-top: 22px;
+      }
+      .night-panel .duo .v {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 19px;
+        color: #f5f7f6;
+        font-variant-numeric: tabular-nums;
+      }
+      .night-panel .duo .l {
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        color: rgba(245, 247, 246, 0.5);
+        margin-top: 2px;
+      }
+      .night-panel .beacon-pill {
+        margin-top: auto;
+        align-self: flex-start;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: var(--font-mono);
+        font-size: 8.5px;
+        color: #2dd4bf;
+        background: rgba(45, 212, 191, 0.08);
+        border: 1px solid rgba(45, 212, 191, 0.22);
+        border-radius: 999px;
+        padding: 5px 10px;
+      }
+      .night-panel .controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 26px;
+        margin-top: 14px;
+      }
+      .night-panel .hold {
+        width: 52px;
+        height: 52px;
+        border-radius: 999px;
+        background: #f5f7f6;
+        color: #0b0f14;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font: 700 9px var(--font-display);
+      }
+      .night-panel .side {
+        font-size: 16px;
+        color: rgba(245, 247, 246, 0.55);
+      }
+      .mock-detail-body {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .mock-splits {
+        display: flex;
+        align-items: flex-end;
+        gap: 3px;
+        height: 34px;
+      }
+      .mock-splits i {
+        flex: 1;
+        background: var(--accent);
+        border-radius: 3px 3px 0 0;
+        opacity: 0.85;
+      }
+      .mock-read {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-size: 10px;
+        color: var(--text-dim);
+        line-height: 1.45;
+      }
+      .mock-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 7px 9px;
+        font-size: 9px;
+        color: var(--text-dim);
+      }
+      .mock-toggle .sw {
+        width: 26px;
+        height: 15px;
+        border-radius: 999px;
+        background: var(--accent);
+        position: relative;
+      }
+      .mock-toggle .sw::after {
+        content: '';
+        position: absolute;
+        right: 2px;
+        top: 2px;
+        width: 11px;
+        height: 11px;
+        border-radius: 999px;
+        background: #fff;
+      }
+
+      /* trophies */
+      .coins {
+        display: flex;
+        gap: 28px;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 44px;
+      }
+      .coin-face {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      /* import band */
+      .import-steps {
+        display: grid;
+        gap: 18px;
+        margin: 26px 0 0;
+        padding: 0;
+        list-style: none;
+        counter-reset: step;
+      }
+      .import-steps li {
+        display: flex;
+        gap: 14px;
+        align-items: baseline;
+      }
+      .import-steps .n {
+        counter-increment: step;
+        flex: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent-deep);
+        font: 700 13px/30px var(--font-display);
+        text-align: center;
+      }
+      .import-steps .n::before {
+        content: counter(step);
+      }
+      .import-steps p {
+        font-size: 14.5px;
+        line-height: 1.6;
+        color: var(--text-dim);
+      }
+      .import-steps strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+      .archive-card {
+        padding: 22px;
+      }
+      .archive-file {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        color: var(--text);
+      }
+      .archive-file .sz {
+        margin-left: auto;
+        color: var(--text-faint);
+      }
+      .archive-bar {
+        height: 8px;
+        border-radius: 999px;
+        background: var(--surface-alt);
+        overflow: hidden;
+        margin: 14px 0 8px;
+      }
+      .archive-bar i {
+        display: block;
+        height: 100%;
+        width: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+      }
+      .archive-done {
+        font-size: 12px;
+        color: var(--text-faint);
+        font-variant-numeric: tabular-nums;
+      }
+      .archive-rows {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 14px;
+        margin-top: 14px;
+        font-size: 13px;
+        color: var(--text-dim);
+      }
+      .archive-rows .ok {
+        color: var(--accent);
+        font-weight: 600;
+        margin-right: 5px;
+      }
+
+      /* two-up cards */
+      .two-up {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+      }
+      .big-card {
+        padding: 32px;
+      }
+      .big-card .ico {
+        font-size: 26px;
+        margin-bottom: 14px;
+      }
+      .big-card h3 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 22px;
+        letter-spacing: -0.02em;
+        margin: 0 0 10px;
+      }
+      .big-card p {
+        font-size: 14.5px;
+        color: var(--text-dim);
+        margin: 0 0 20px;
+      }
+      .quote {
+        font-size: 12.5px;
+        color: var(--text-faint);
+        margin-top: 12px;
+        font-style: italic;
+        font-family: var(--font-serif);
+      }
+
+      /* trust band + faq */
+      .split {
+        display: flex;
+        gap: 48px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .split > div {
+        min-width: 280px;
+      }
+      .faq-list {
+        display: grid;
+        gap: 12px;
+      }
+      .faq-item {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 20px 24px;
+      }
+      .faq-item .q {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 16px;
+        margin-bottom: 8px;
+      }
+      .faq-item .a {
+        font-size: 14.5px;
+        color: var(--text-dim);
+      }
+
+      /* ink cta */
+      .ink-cta {
+        background: var(--night);
+        text-align: center;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      .ink-cta h2 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: clamp(34px, 5.5vw, 48px);
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+        color: #f5f7f6;
+        margin: 0 0 14px;
+      }
+      .ink-cta .tag {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-size: 19px;
+        color: rgba(245, 247, 246, 0.6);
+        margin: 0 0 32px;
+      }
+      .ink-cta .foot {
+        font-size: 13px;
+        color: rgba(245, 247, 246, 0.4);
+        margin-top: 18px;
+      }
+      .ink-cta .pill {
+        background: #0e7a6c;
+        color: #fff;
+      }
+      .ink-cta .pill:hover {
+        box-shadow: 0 4px 16px rgba(45, 212, 191, 0.3);
+      }
+
+      /* footer */
+      footer.site {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+        align-items: center;
+        font-size: 13px;
+        color: var(--text-faint);
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+      footer.site a {
+        color: var(--text-faint);
+      }
+      footer.site a:hover {
+        color: var(--accent);
+      }
+      footer.site .brandline {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      footer.site .word {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--text);
+      }
+      footer.site .grow {
+        flex: 1;
+      }
+      footer.site .links {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      /* beacon night card */
+      .beacon-card {
+        background: var(--night);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 56px 48px;
+        display: flex;
+        gap: 48px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      @media (max-width: 640px) {
+        .beacon-card {
+          padding: 36px 24px;
+        }
+      }
+      .beacon-card h2 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: clamp(28px, 4vw, 36px);
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        color: #f5f7f6;
+        margin: 0 0 14px;
+      }
+      .beacon-card p {
+        font-size: 15px;
+        color: rgba(245, 247, 246, 0.6);
+        max-width: 440px;
+        margin: 0 0 24px;
+      }
+      .token-pill {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: #2dd4bf;
+        background: rgba(45, 212, 191, 0.08);
+        border: 1px solid rgba(45, 212, 191, 0.22);
+        border-radius: 999px;
+        padding: 10px 18px;
+        display: inline-block;
+      }
+      .pulse {
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+        background: var(--accent-bright);
+        display: inline-block;
+        flex: none;
+        animation: pulse 1s ease-in-out infinite;
+      }
+      .beacon-card .pulse {
+        background: #2dd4bf;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.35;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      /* privacy list */
+      .plist {
+        display: grid;
+        gap: 14px;
+        max-width: 480px;
+      }
+      .plist .row {
+        display: flex;
+        gap: 12px;
+        align-items: baseline;
+      }
+      .plist .row span.e {
+        font-size: 16px;
+        flex: none;
+      }
+      .plist p {
+        font-size: 15px;
+        line-height: 1.55;
+        color: var(--text-dim);
+      }
+      .plist strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      /* waitlist */
+      .wl-main {
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 24px;
+      }
+      .wl-box {
+        max-width: 480px;
+        width: 100%;
+        text-align: center;
+      }
+      .wl-box h1 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: clamp(34px, 6vw, 42px);
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+        margin: 0 0 14px;
+      }
+      .wl-box .lede {
+        font-size: 15.5px;
+        color: var(--text-dim);
+        margin: 0 0 32px;
+      }
+      .wl-form {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .wl-form input[type='tel'] {
+        flex: 1;
+        min-width: 220px;
+        min-height: 52px;
+        border-radius: 999px;
+        border: 1.5px solid var(--line-strong);
+        background: var(--surface);
+        padding: 0 22px;
+        font: 500 15px var(--font-body);
+        color: var(--text);
+        outline: none;
+      }
+      .wl-form input[type='tel']::placeholder {
+        color: var(--text-faint);
+      }
+      .wl-form input[type='tel']:focus {
+        border-color: var(--accent);
+      }
+      .wl-note {
+        max-width: 400px;
+        margin: 20px auto 0;
+      }
+      .wl-error {
+        font-size: 13px;
+        color: var(--danger);
+        margin-top: 14px;
+      }
+      .wl-error.info {
+        color: var(--accent-deep);
+        background: var(--wash);
+        border: 1px solid var(--wash-border);
+        border-radius: 14px;
+        padding: 10px 14px;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .wl-archive {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px;
+        padding: 7px 14px;
+        border-radius: 999px;
+        border: 1.5px solid var(--line-strong);
+        font-size: 13px;
+        color: var(--text-dim);
+        cursor: pointer;
+        user-select: none;
+      }
+      .wl-archive:has(input:checked) {
+        border-color: var(--accent);
+        color: var(--accent-deep);
+        background: var(--wash);
+      }
+      .wl-archive input {
+        accent-color: var(--accent);
+        margin: 0;
+      }
+      .wl-done h1 {
+        margin-bottom: 14px;
+      }
+      .wl-done .serif-line {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-size: 18px;
+        color: var(--text-dim);
+        margin-top: 24px;
+      }
+
+      /* route sketches */
+      .sketch {
+        display: block;
+        border-radius: 16px;
+        width: 100%;
+        height: auto;
+      }
+      .draw-anim .track-line {
+        stroke-dasharray: var(--len);
+        stroke-dashoffset: var(--len);
+        animation: draw 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+      }
+      @keyframes draw {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .pulse {
+          animation: none;
+          opacity: 1;
+        }
+        .draw-anim .track-line {
+          animation: none;
+          stroke-dashoffset: 0;
+        }
+        .pill,
+        .pill:active {
+          transition: none;
+          transform: none;
+        }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "name": "Inertial",
+            "description": "A running app built accuracy-first and privacy-first.",
+            "foundingLocation": { "@type": "Country", "name": "India" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Inertial",
+            "applicationCategory": "HealthApplication",
+            "operatingSystem": "iOS, Android",
+            "isAccessibleForFree": true,
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+            "featureList": [
+              "Training load",
+              "Fitness and freshness",
+              "Best efforts",
+              "Grade-adjusted pace",
+              "Full data export",
+              "Privacy zones"
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <!-- ==================== HOME ==================== -->
+    <div id="view-home">
+      <div class="announce">
+        Launching soon on Android and iOS — free, forever.
+        <a href="#/waitlist">Join the waitlist ↗</a>
+      </div>
+
+      <nav class="site" aria-label="Site">
+        <a href="#/" class="brand" data-mark></a>
+        <div class="navlinks">
+          <a href="#free" class="hide-sm">Free, forever</a>
+          <a href="#import" class="hide-sm">Bring your data</a>
+          <a href="#screens" class="hide-sm">The app</a>
+          <a href="#trophies" class="hide-sm">Trophies</a>
+          <a href="#/trust">Trust</a>
+          <a href="#faq" class="hide-sm">FAQ</a>
+        </div>
+        <button
+          class="theme-btn"
+          data-theme-toggle
+          aria-label="Switch between light and dark theme"
+        >
+          ◐
+        </button>
+        <a class="pill small" href="#/waitlist">Join the waitlist</a>
+      </nav>
+
+      <header class="wrap hero" id="top">
+        <div class="hero-copy">
+          <h1>Run more, run better.</h1>
+          <p class="tag">A body in motion stays in motion.</p>
+          <p class="lede">
+            A running app built accuracy-first and privacy-first. Everything other apps paywall is
+            free here, forever.
+          </p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center">
+            <a class="pill" href="#/waitlist">Join the waitlist</a>
+            <a class="pill outline" href="#/trust">How we earn your trust</a>
+          </div>
+          <div style="font-size: 13px; color: var(--text-faint); margin-top: 16px">
+            Android and iOS · your Strava history in one upload · no passwords
+          </div>
+        </div>
+        <div class="hero-card-holder">
+          <div class="card feed-card">
+            <div class="feed-head">
+              <span class="avatar" data-avatar="Meera Iyer" data-size="36"></span>
+              <div>
+                <div class="feed-title">Sunday long run</div>
+                <div class="feed-sub">Meera · 6:12 am · Cubbon Park</div>
+              </div>
+              <span class="pr-star">★ PR</span>
+            </div>
+            <div data-sketch="hero"></div>
+            <div class="stat-row">
+              <div class="stat">
+                <div class="l">Distance</div>
+                <div class="v num">
+                  <span data-countup="21.1" data-decimals="1">21.1</span>
+                  <span class="sfx">km</span>
+                </div>
+              </div>
+              <div class="stat">
+                <div class="l">Pace</div>
+                <div class="v num">5:41 <span class="sfx">/km</span></div>
+              </div>
+              <div class="stat">
+                <div class="l">Time</div>
+                <div class="v num">2:00:04</div>
+              </div>
+              <div class="stat accent">
+                <div class="l">Load</div>
+                <div class="v num" data-countup="182">182</div>
+              </div>
+            </div>
+            <div class="cheer-row">
+              👏 <span class="num" data-countup="217">217</span> cheers from 11 people — loudest at
+              km 12.
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="band surface" id="free">
+        <div class="wrap sect">
+          <div style="max-width: 560px">
+            <div class="micro" style="margin-bottom: 14px">Everything, unlocked</div>
+            <h2>
+              The charts others charge for.
+              <em style="color: var(--accent-deep); font-style: italic">Free, forever.</em>
+            </h2>
+            <p class="sub">If we build it, you get it.</p>
+          </div>
+          <div class="grid-free">
+            <div class="free-card">
+              <div class="ico">🎯</div>
+              <h3>Training load</h3>
+              <p>How much you're carrying this week, and when to put it down.</p>
+            </div>
+            <div class="free-card">
+              <div class="ico">📈</div>
+              <h3>Fitness &amp; freshness</h3>
+              <p>How fit you're getting and how tired you are, in two lines.</p>
+            </div>
+            <div class="free-card">
+              <div class="ico">★</div>
+              <h3>Best efforts</h3>
+              <p>Your fastest 1k, 5k, 10k and half, from every run you've logged.</p>
+            </div>
+            <div class="free-card">
+              <div class="ico">⛰</div>
+              <h3>Grade-adjusted pace</h3>
+              <p>Hills counted fairly: a 7:10 climb can be a 6:20 effort.</p>
+            </div>
+          </div>
+          <div style="margin-top: 24px; max-width: 640px">
+            <div class="wash-card">
+              No ads. No selling your data. Running data shouldn't be rent.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap sect" id="import">
+        <div class="split">
+          <div style="flex: 1 1 440px; min-width: 300px">
+            <div class="micro accent" style="margin-bottom: 14px">The switching moment</div>
+            <h2 class="serif-h" style="font-size: clamp(30px, 4.5vw, 40px); margin-bottom: 14px">
+              Your whole history, home in one upload.
+            </h2>
+            <p class="sub" style="max-width: 480px">
+              Ask Strava for your archive, upload the ZIP once, and we do the rest.
+            </p>
+            <ol class="import-steps" style="max-width: 500px">
+              <li>
+                <span class="n"></span>
+                <p>
+                  <strong>Ask for your archive.</strong> In Strava: Settings → My account →
+                  "Download or delete your account". The ZIP lands in your email.
+                </p>
+              </li>
+              <li>
+                <span class="n"></span>
+                <p>
+                  <strong>Upload it once.</strong> Resumable, so a flaky connection can't kill it. A
+                  2&nbsp;GB, eight-year archive is done in under 15 minutes.
+                </p>
+              </li>
+              <li>
+                <span class="n"></span>
+                <p>
+                  <strong>Everything comes home.</strong> Every run, PR, photo and shoe, re-timed by
+                  our engine with the differences shown.
+                </p>
+              </li>
+            </ol>
+            <p
+              style="
+                font-size: 13.5px;
+                color: var(--text-faint);
+                margin-top: 22px;
+                max-width: 500px;
+              "
+            >
+              FIT, GPX and TCX archives from watches and other apps work the same way. Anything
+              unreadable lands in a "needs attention" list with a reason and a retry.
+            </p>
+          </div>
+          <div style="flex: 1 1 340px; min-width: 300px; max-width: 440px">
+            <div class="card archive-card">
+              <div class="archive-file">
+                <span>📦</span>
+                <span>strava_export_2026.zip</span>
+                <span class="sz num">2.1 GB</span>
+              </div>
+              <div class="archive-bar"><i></i></div>
+              <div class="archive-done num">Imported · 11 min 42 s</div>
+              <div class="archive-rows">
+                <span><span class="ok">✓</span><span class="num">1,204</span> activities</span>
+                <span><span class="ok">✓</span><span class="num">118</span> photos attached</span>
+                <span><span class="ok">✓</span>PRs &amp; bests re-timed</span>
+                <span><span class="ok">✓</span>3 shoes, mileage carried</span>
+              </div>
+              <div style="margin-top: 16px">
+                <div class="wash-card">
+                  0 files in needs-attention — nothing was dropped silently.
+                </div>
+              </div>
+            </div>
+            <div class="quote" style="text-align: center">"Done. 8 years, home in 11 minutes."</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap sect" id="screens" style="text-align: center">
+        <div class="micro" style="margin-bottom: 14px">The app</div>
+        <h2>Built like an instrument, not a billboard.</h2>
+        <p class="sub" style="max-width: 520px; margin: 0 auto">
+          The feed, the night instrument panel, and a run detail that shows its work.
+        </p>
+        <div class="phones">
+          <div class="phone">
+            <div class="frame">
+              <div class="screen">
+                <div style="display: flex; align-items: center; gap: 6px; padding: 12px 12px 8px">
+                  <span data-mark-mini></span>
+                  <span
+                    style="
+                      font-family: var(--font-display);
+                      font-weight: 700;
+                      font-size: 12px;
+                      letter-spacing: -0.02em;
+                    "
+                    >Inertial</span
+                  >
+                  <span style="margin-left: auto; font-size: 11px; color: var(--text-faint)"
+                    >🔍</span
+                  >
+                </div>
+                <div class="mockcard">
+                  <div class="h">
+                    <span class="avatar" data-avatar="Meera Iyer" data-size="20"></span>
+                    <div>
+                      <div class="nm">Sunday long run</div>
+                      <div class="mt">Meera · Cubbon Park</div>
+                    </div>
+                    <span
+                      style="
+                        margin-left: auto;
+                        font-size: 8.5px;
+                        color: var(--accent);
+                        font-weight: 600;
+                      "
+                      >★ PR</span
+                    >
+                  </div>
+                  <div data-sketch="feedmini"></div>
+                  <div class="mockstats">
+                    <div class="s">
+                      <div class="l">Distance</div>
+                      <div class="v">21.1</div>
+                    </div>
+                    <div class="s">
+                      <div class="l">Pace</div>
+                      <div class="v">5:41</div>
+                    </div>
+                    <div class="s">
+                      <div class="l">Cheers</div>
+                      <div class="v" style="color: var(--accent)">217</div>
+                    </div>
+                  </div>
+                  <div class="mock-cheer">👏 You and 10 others cheered</div>
+                </div>
+                <div class="mockcard">
+                  <div class="h">
+                    <span class="avatar" data-avatar="Arjun Rao" data-size="20"></span>
+                    <div>
+                      <div class="nm">Easy shakeout</div>
+                      <div class="mt">Arjun · Deer Park</div>
+                    </div>
+                  </div>
+                  <div class="mockstats">
+                    <div class="s">
+                      <div class="l">Distance</div>
+                      <div class="v">6.0</div>
+                    </div>
+                    <div class="s">
+                      <div class="l">Pace</div>
+                      <div class="v">6:24</div>
+                    </div>
+                    <div class="s">
+                      <div class="l">Time</div>
+                      <div class="v">38:22</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-tabbar">
+                  <div class="t on">▤<span class="lbl">Feed</span></div>
+                  <div class="go">GO</div>
+                  <div class="t">◉<span class="lbl">You</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="cap">Feed</div>
+          </div>
+          <div class="phone">
+            <div class="frame night">
+              <div class="screen">
+                <div class="night-panel">
+                  <div class="status">
+                    <span class="pulse" style="background: #2dd4bf"></span> RECORDING · GPS STRONG
+                  </div>
+                  <div class="giant">5:41</div>
+                  <div class="glabel">PACE /KM</div>
+                  <div class="duo">
+                    <div>
+                      <div class="v">12.4</div>
+                      <div class="l">KM</div>
+                    </div>
+                    <div>
+                      <div class="v">1:10:32</div>
+                      <div class="l">TIME</div>
+                    </div>
+                    <div>
+                      <div class="v">156</div>
+                      <div class="l">BPM</div>
+                    </div>
+                  </div>
+                  <div class="beacon-pill">
+                    <span class="pulse" style="background: #2dd4bf"></span> beacon live · 3 watching
+                  </div>
+                  <div class="controls">
+                    <div class="side">♪</div>
+                    <div class="hold">HOLD</div>
+                    <div class="side">⦿</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cap">Record · night instruments</div>
+          </div>
+          <div class="phone">
+            <div class="frame">
+              <div class="screen">
+                <div data-sketch="detailhero"></div>
+                <div class="mock-detail-body">
+                  <div class="mockstats">
+                    <div class="s">
+                      <div class="l">Distance</div>
+                      <div class="v">21.1 km</div>
+                    </div>
+                    <div class="s">
+                      <div class="l">Pace</div>
+                      <div class="v">5:41</div>
+                    </div>
+                    <div class="s">
+                      <div class="l">Load</div>
+                      <div class="v" style="color: var(--accent)">182</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="
+                        font-size: 8px;
+                        font-weight: 600;
+                        letter-spacing: 0.08em;
+                        color: var(--text-faint);
+                        margin-bottom: 4px;
+                      "
+                    >
+                      SPLITS /KM
+                    </div>
+                    <div class="mock-splits">
+                      <i style="height: 52%"></i><i style="height: 60%"></i
+                      ><i style="height: 56%"></i><i style="height: 66%"></i
+                      ><i style="height: 62%"></i><i style="height: 74%"></i
+                      ><i style="height: 70%"></i><i style="height: 82%"></i
+                      ><i style="height: 88%"></i><i style="height: 100%; opacity: 1"></i>
+                    </div>
+                  </div>
+                  <p class="mock-read">
+                    Negative splits after km 15 — your strongest closing 5&nbsp;k since March.
+                  </p>
+                  <div class="mock-toggle"><span>Show raw GPS</span><span class="sw"></span></div>
+                </div>
+                <div class="mock-tabbar">
+                  <div class="t">▤<span class="lbl">Feed</span></div>
+                  <div class="go">GO</div>
+                  <div class="t on">◉<span class="lbl">You</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="cap">Run detail</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band serif" id="trophies">
+        <div class="wrap sect" style="text-align: center">
+          <div class="micro" style="margin-bottom: 14px">Trophies &amp; challenges</div>
+          <h2>Engraved, not gamified.</h2>
+          <p class="sub" style="max-width: 520px; margin: 0 auto">
+            Streaks, bests, events and challenges struck as coins, your number engraved on the face.
+          </p>
+          <div class="coins" data-coins></div>
+          <p
+            style="font-size: 13px; color: var(--text-faint); margin: 32px auto 0; max-width: 420px"
+          >
+            Challenges are free too. Join with one tap and cheer friends along the way.
+          </p>
+        </div>
+      </section>
+
+      <section class="wrap sect two-up">
+        <div class="card big-card">
+          <div class="ico">📤</div>
+          <h3>Your data leaves with you, too</h3>
+          <p>
+            A full export of everything you've added is yours from Settings, and every run's raw
+            file downloads from its transparency view. Deleting your account happens in-app, export
+            offered first.
+          </p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap">
+            <span class="chip">Full-account export</span>
+            <span class="chip">Raw per-run files</span>
+            <span class="chip">Delete in-app</span>
+          </div>
+        </div>
+        <div class="card big-card">
+          <div class="ico">⌚</div>
+          <h3>On your wrist too</h3>
+          <p>
+            An Apple Watch app is on the way: the night instruments on your wrist, readable
+            mid-stride in the dark. The watch is your remote and heart-rate source; your phone owns
+            the recording.
+          </p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap">
+            <span class="chip">Wrist heart rate</span>
+            <span class="chip">Auto-pause</span>
+            <span class="chip">Hold to stop</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="band surface">
+        <div class="wrap" style="padding-top: 72px; padding-bottom: 72px">
+          <div class="split">
+            <div style="flex: 1 1 400px">
+              <div class="micro" style="margin-bottom: 14px">Trust</div>
+              <h2
+                class="serif-h"
+                style="font-size: clamp(28px, 4vw, 34px); line-height: 1.12; margin-bottom: 12px"
+              >
+                If we correct it, we show it. If it's yours, it stays yours.
+              </h2>
+              <p class="sub" style="max-width: 460px; margin-bottom: 24px">
+                Raw vs corrected GPS on every run, 200&nbsp;m around home hidden from every shared
+                map, and a live beacon your family opens from WhatsApp.
+              </p>
+              <a class="pill outline" href="#/trust">Read how we earn your trust</a>
+            </div>
+            <div style="flex: 1 1 340px">
+              <div data-sketch="honest"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="wrap"
+        id="faq"
+        style="max-width: 760px; padding-top: 88px; padding-bottom: 88px"
+      >
+        <div class="micro" style="margin-bottom: 14px; text-align: center">FAQ</div>
+        <h2
+          class="serif-h"
+          style="font-size: clamp(30px, 4.5vw, 40px); margin-bottom: 40px; text-align: center"
+        >
+          Fair questions.
+        </h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="q">Is it really free? What's the catch?</div>
+            <p class="a">
+              Free, forever: training load, fitness &amp; freshness, best efforts, grade-adjusted
+              pace. No ads, no premium tier, no selling your data. Race organizers will pay for
+              registrations; athletes never will. If that ever changes, we'll say so first.
+            </p>
+          </div>
+          <div class="faq-item">
+            <div class="q">How do I bring in my old runs?</div>
+            <p class="a">
+              In Strava: Settings → My account → "Download or delete your account", and the ZIP
+              arrives by email. Upload it here once and every run, PR and photo comes home, re-timed
+              by our engine. FIT, GPX and TCX archives from other apps and watches work the same
+              way.
+            </p>
+          </div>
+          <div class="faq-item">
+            <div class="q">What do you do with my location data?</div>
+            <p class="a">
+              It stays yours. A privacy zone hides the 200&nbsp;m around home from every shared map,
+              photos lose their location before they leave your phone, and nothing about where you
+              run feeds suggestions.
+            </p>
+          </div>
+          <div class="faq-item">
+            <div class="q">Android or iOS?</div>
+            <p class="a">
+              Both, Android first for polish, with an Apple Watch app on the way. Sign in with
+              Google, Apple or your phone number. No passwords.
+            </p>
+          </div>
+          <div class="faq-item">
+            <div class="q">When do I get in?</div>
+            <p class="a">
+              Batch by batch, a small club first. Join the waitlist and we'll message you on
+              WhatsApp when your spot opens.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ink-cta">
+        <div class="wrap" style="padding-top: 96px; padding-bottom: 96px">
+          <span data-mark-lg></span>
+          <h2>Be first out the door.</h2>
+          <p class="tag">A body in motion stays in motion.</p>
+          <a class="pill" href="#/waitlist">Join the waitlist</a>
+          <div class="foot">Free, forever · no ads, ever</div>
+        </div>
+      </section>
+
+      <footer class="site wrap">
+        <div class="brandline"><span data-mark-sm></span><span class="word">Inertial</span></div>
+        <div class="grow"></div>
+        <div class="links">
+          <a href="#/trust">Trust &amp; privacy</a>
+          <a href="#/waitlist">Waitlist</a>
+          <a href="./blog/">Plain Words</a>
+        </div>
+        <div>Built by Parth Dixit &amp; Aryan Dixit, co-founders</div>
+        <div>Made in India 🇮🇳 · your data, yours by right</div>
+      </footer>
+    </div>
+
+    <!-- ==================== TRUST ==================== -->
+    <div id="view-trust" hidden>
+      <nav class="site" aria-label="Site">
+        <a href="#/" class="brand" data-mark></a>
+        <div class="navlinks">
+          <a href="#/">‹ Back home</a>
+          <a href="#accuracy" class="hide-sm">Accuracy</a>
+          <a href="#privacy" class="hide-sm">Privacy</a>
+          <a href="#beacon" class="hide-sm">Beacon</a>
+        </div>
+        <button
+          class="theme-btn"
+          data-theme-toggle
+          aria-label="Switch between light and dark theme"
+        >
+          ◐
+        </button>
+        <a class="pill small" href="#/waitlist">Join the waitlist</a>
+      </nav>
+
+      <header
+        class="wrap"
+        style="max-width: 760px; text-align: center; padding-top: 72px; padding-bottom: 40px"
+      >
+        <div class="micro accent" style="margin-bottom: 18px">How we earn your trust</div>
+        <h1
+          class="serif-h"
+          style="font-size: clamp(36px, 6vw, 52px); line-height: 1.08; margin-bottom: 18px"
+        >
+          Honesty is the whole product.
+        </h1>
+        <p class="sub" style="text-wrap: pretty">
+          Running apps quietly smooth your pace, drop your points and map your front door. Inertial
+          does the opposite, and shows its work.
+        </p>
+      </header>
+
+      <section id="accuracy" class="wrap" style="padding-top: 64px; padding-bottom: 64px">
+        <div class="split">
+          <div style="flex: 1 1 380px"><div data-sketch="honest2"></div></div>
+          <div style="flex: 1 1 420px">
+            <div class="micro" style="margin-bottom: 14px">Accuracy first</div>
+            <h2 class="serif-h" style="font-size: clamp(30px, 4.5vw, 40px); margin-bottom: 16px">
+              If we correct it, we show it.
+            </h2>
+            <p class="sub" style="max-width: 460px; margin-bottom: 20px">
+              GPS lies sometimes. When it does, we fix the track and keep the raw trace in grey on
+              every run. Every dropped point carries a reason.
+            </p>
+            <div class="wash-card">
+              That spike at km 4? It would have meant 47 km/h for a second. We flagged it, fixed it,
+              and kept the original so you can check our work.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="privacy" class="band surface">
+        <div class="wrap sect">
+          <div class="split" style="flex-wrap: wrap-reverse">
+            <div style="flex: 1 1 420px">
+              <div class="micro" style="margin-bottom: 14px">Privacy first</div>
+              <h2 class="serif-h" style="font-size: clamp(30px, 4.5vw, 40px); margin-bottom: 16px">
+                Your data. Yours by right.
+              </h2>
+              <div class="plist">
+                <div class="row">
+                  <span class="e">🏠</span>
+                  <p>
+                    <strong>Your home stays off the map.</strong> A privacy zone hides the
+                    200&nbsp;m around it from every shared map — on by default, for everyone who
+                    isn't you.
+                  </p>
+                </div>
+                <div class="row">
+                  <span class="e">📷</span>
+                  <p>
+                    <strong>Photos lose their location.</strong> Location data is stripped from
+                    every photo before it leaves your phone.
+                  </p>
+                </div>
+                <div class="row">
+                  <span class="e">🔒</span>
+                  <p>
+                    <strong>Plain-language privacy.</strong> Every setting explains itself in one
+                    sentence.
+                  </p>
+                </div>
+                <div class="row">
+                  <span class="e">👥</span>
+                  <p>
+                    <strong>You choose who sees each run.</strong> 🔒 only you, 👥 followers, or 🌍
+                    everyone — chosen explicitly at sign-up, changeable per run.
+                  </p>
+                </div>
+              </div>
+              <div style="margin-top: 20px; max-width: 480px">
+                <div class="wash-card">
+                  Suggestions come from races you both ran, contacts matched as hashes (never
+                  uploaded), and mutual follows. Never from where you run.
+                </div>
+              </div>
+            </div>
+            <div style="flex: 1 1 380px"><div data-sketch="privacy"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="beacon" class="wrap" style="padding-top: 88px; padding-bottom: 88px">
+        <div class="beacon-card">
+          <div style="flex: 1 1 400px">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px">
+              <span class="pulse"></span>
+              <span
+                style="
+                  font-size: 11px;
+                  font-weight: 600;
+                  letter-spacing: 0.14em;
+                  text-transform: uppercase;
+                  color: #2dd4bf;
+                "
+                >Live beacon</span
+              >
+            </div>
+            <h2>One WhatsApp link. They watch you run.</h2>
+            <p>
+              Share a beacon before a long run or race. Family opens the link, no account or app,
+              and sees your live dot, pace and distance until you're done. The link is an unlisted
+              random token that expires soon after you finish, and your start point is fuzzed like
+              every shared map.
+            </p>
+            <div class="token-pill">inertial.run/live/x7k2fq9m</div>
+          </div>
+          <div style="flex: 1 1 340px"><div data-sketch="beacon"></div></div>
+        </div>
+      </section>
+
+      <section id="who" class="wrap" style="max-width: 760px; padding-bottom: 64px">
+        <div class="micro" style="margin-bottom: 14px">Who we are</div>
+        <h2 class="serif-h" style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 16px">
+          Two people, both named.
+        </h2>
+        <p class="sub" style="margin-bottom: 20px">
+          Inertial is built by <strong>Parth Dixit</strong> and <strong>Aryan Dixit</strong>,
+          co-founders. Every promise on this page is signed by two people you can name.
+        </p>
+        <div class="wash-card">
+          Parth also writes <a href="./blog/">Plain Words</a>, where the method behind every figure
+          in the app is written out with its sources.
+        </div>
+      </section>
+
+      <section class="wrap" style="max-width: 760px; text-align: center; padding-bottom: 88px">
+        <p
+          class="serif-h"
+          style="font-style: italic; font-size: 20px; color: var(--text-dim); margin-bottom: 24px"
+        >
+          Heavy days press deeper. Rest sits light. And your data stays yours.
+        </p>
+        <a class="pill" href="#/waitlist">Join the waitlist</a>
+      </section>
+
+      <footer class="site wrap" style="border-top: 1px solid var(--line)">
+        <div class="brandline"><span data-mark-sm></span><span class="word">Inertial</span></div>
+        <div class="grow"></div>
+        <div class="links">
+          <a href="#/">Home</a>
+          <a href="#/waitlist">Waitlist</a>
+        </div>
+        <div>Built by Parth Dixit &amp; Aryan Dixit, co-founders</div>
+        <div>Made in India 🇮🇳 · your data, yours by right</div>
+      </footer>
+    </div>
+
+    <!-- ==================== WAITLIST ==================== -->
+    <div id="view-invite" hidden>
+      <nav class="site" aria-label="Site">
+        <a href="#/" class="brand" data-mark></a>
+        <div class="navlinks"><a href="#/">‹ Back home</a></div>
+        <button
+          class="theme-btn"
+          data-theme-toggle
+          aria-label="Switch between light and dark theme"
+        >
+          ◐
+        </button>
+      </nav>
+
+      <main class="wl-main">
+        <div class="wl-box">
+          <span data-mark-lg-accent></span>
+          <div id="inv-loading">
+            <h1>Opening the invite…</h1>
+          </div>
+
+          <div id="inv-found" hidden>
+            <h1 id="inv-title">A challenge</h1>
+            <p class="lede" id="inv-lede"></p>
+            <div class="wash-card" style="text-align: center">
+              <div style="font-size: 13px; color: var(--text-faint)">Your code</div>
+              <div
+                id="inv-code"
+                style="
+                  font-family: ui-monospace, monospace;
+                  font-size: 28px;
+                  letter-spacing: 4px;
+                  margin-top: 4px;
+                "
+              ></div>
+            </div>
+            <p class="lede" style="margin-top: 24px">
+              Get the app, then enter that code. Joining shows your name and your total to everyone
+              in the challenge. Your runs stay as private as they already are.
+            </p>
+            <a class="pill" href="#/waitlist" style="display: inline-block; margin-top: 8px"
+              >Get the app</a
+            >
+          </div>
+
+          <div id="inv-missing" hidden>
+            <h1>That invite has expired.</h1>
+            <p class="lede">
+              The challenge it pointed at has ended, or the code was mistyped. Ask whoever sent it
+              for a fresh one.
+            </p>
+            <a class="pill" href="#/" style="display: inline-block">Back home</a>
+          </div>
+
+          <div style="font-size: 13px; color: var(--text-faint); margin-top: 32px">
+            Free, forever · no ads, ever
+          </div>
+        </div>
+      </main>
+
+      <footer class="site wrap">
+        <div class="links"><a href="#/trust">Trust &amp; privacy</a></div>
+        <div class="grow"></div>
+        <div>Built by Parth Dixit &amp; Aryan Dixit, co-founders</div>
+        <div>Made in India 🇮🇳 · your data, yours by right</div>
+      </footer>
+    </div>
+
+    <div id="view-waitlist" hidden>
+      <nav class="site" aria-label="Site">
+        <a href="#/" class="brand" data-mark></a>
+        <div class="navlinks"><a href="#/">‹ Back home</a></div>
+        <button
+          class="theme-btn"
+          data-theme-toggle
+          aria-label="Switch between light and dark theme"
+        >
+          ◐
+        </button>
+      </nav>
+
+      <main class="wl-main">
+        <div class="wl-box">
+          <span data-mark-lg-accent></span>
+          <div id="wl-form-state">
+            <h1>Be first out the door.</h1>
+            <p class="lede">
+              We're letting runners in batch by batch. Leave your number and we'll message you on
+              WhatsApp when your spot opens.
+            </p>
+            <form class="wl-form" id="wl-form" novalidate>
+              <label
+                for="wl-phone"
+                style="
+                  position: absolute;
+                  width: 1px;
+                  height: 1px;
+                  overflow: hidden;
+                  clip: rect(0 0 0 0);
+                "
+                >Phone number</label
+              >
+              <input
+                type="tel"
+                id="wl-phone"
+                name="phone"
+                placeholder="+91 98765 43210"
+                autocomplete="tel"
+                inputmode="tel"
+              />
+              <button type="submit" class="pill" id="wl-submit" disabled>
+                Enter your number to join
+              </button>
+            </form>
+            <label class="wl-archive">
+              <input type="checkbox" id="wl-archive" />
+              <span>📦 I'm bringing my history from another app</span>
+            </label>
+            <div class="wl-error" id="wl-error" hidden></div>
+            <div class="wl-note">
+              <div class="wash-card" style="text-align: center" id="wl-privacy-note">
+                Your number is used once — to tell you you're in. Never shared, never sold, gone the
+                moment you ask.
+              </div>
+            </div>
+          </div>
+          <div id="wl-done-state" class="wl-done" hidden>
+            <h1>You're in line. 🎉</h1>
+            <p class="lede" style="margin-bottom: 0">
+              We'll message <strong id="wl-done-phone" style="color: var(--accent)"></strong> on
+              WhatsApp when your spot opens.
+            </p>
+            <p class="serif-line">A body in motion stays in motion. See you soon.</p>
+          </div>
+          <div style="font-size: 13px; color: var(--text-faint); margin-top: 32px">
+            Free, forever · no ads, ever
+          </div>
+        </div>
+      </main>
+
+      <footer class="site wrap">
+        <div class="links"><a href="#/trust">Trust &amp; privacy</a></div>
+        <div class="grow"></div>
+        <div>Built by Parth Dixit &amp; Aryan Dixit, co-founders</div>
+        <div>Made in India 🇮🇳 · your data, yours by right</div>
+      </footer>
+    </div>
+
+    <script>
+      /* Default site config. A sibling config.js overrides it — see README.
+   - waitlist {url, anonKey}: the form inserts straight into Supabase.
+   - productionUrl: set on deploys that CANNOT reach the database (e.g. the
+     artifact preview, whose platform blocks all network calls) — the form
+     then forwards the typed number there, prefilled via ?join=.
+   With neither, submit shows an honest "nothing was sent" note. */
+      window.INERTIAL_SITE = { waitlist: null, productionUrl: '' };
+    </script>
+    <script src="./config.js"></script>
+    <script>
+      (function () {
+        'use strict';
+
+        /* ————— brand mark (assets/mark.svg from the design system, inlined) ————— */
+        function markSvg(size, stroke, dot) {
+          return (
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="' +
+            size +
+            '" height="' +
+            size +
+            '" aria-hidden="true"><path d="M6,30 Q14,30 18,20 T30,10" fill="none" stroke="' +
+            stroke +
+            '" stroke-width="3.5" stroke-linecap="round"></path><circle cx="30" cy="10" r="3.5" fill="' +
+            dot +
+            '"></circle></svg>'
+          );
+        }
+        document.querySelectorAll('[data-mark]').forEach(function (el) {
+          el.innerHTML =
+            markSvg(28, 'var(--accent)', 'var(--text)') + '<span class="word">Inertial</span>';
+        });
+        document.querySelectorAll('[data-mark-sm]').forEach(function (el) {
+          el.innerHTML = markSvg(20, 'var(--accent)', 'var(--text)');
+        });
+        document.querySelectorAll('[data-mark-mini]').forEach(function (el) {
+          el.innerHTML = markSvg(14, 'var(--accent)', 'var(--text)');
+        });
+        document.querySelectorAll('[data-mark-lg]').forEach(function (el) {
+          el.outerHTML =
+            '<div style="margin-bottom:20px">' + markSvg(44, '#2DD4BF', '#F5F7F6') + '</div>';
+        });
+        document.querySelectorAll('[data-mark-lg-accent]').forEach(function (el) {
+          el.outerHTML =
+            '<div style="margin-bottom:20px">' +
+            markSvg(40, 'var(--accent)', 'var(--text)') +
+            '</div>';
+        });
+
+        /* ————— avatars: deep-tone discs, stable hash (ui/Avatar, ported) ————— */
+        var TONES = [
+          'var(--avatar-plum)',
+          'var(--avatar-teal)',
+          'var(--avatar-olive)',
+          'var(--avatar-ink)',
+          'var(--avatar-navy)',
+          'var(--avatar-berry)',
+        ];
+        function avatarTone(key) {
+          var h = 0;
+          for (var i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
+          return TONES[h % TONES.length];
+        }
+        function initialsOf(name) {
+          var parts = name.trim().split(/\s+/).filter(Boolean);
+          if (!parts[0]) return '·';
+          var tail = parts.length > 1 ? parts[parts.length - 1] : undefined;
+          return (parts[0].charAt(0) + (tail ? tail.charAt(0) : parts[0].charAt(1))).toUpperCase();
+        }
+        document.querySelectorAll('[data-avatar]').forEach(function (el) {
+          var name = el.getAttribute('data-avatar');
+          var size = parseInt(el.getAttribute('data-size') || '38', 10);
+          el.classList.add('avatar');
+          el.style.width = size + 'px';
+          el.style.height = size + 'px';
+          el.style.background = avatarTone(name);
+          el.style.fontSize = Math.max(9, Math.round(size * 0.34)) + 'px';
+          el.textContent = initialsOf(name);
+        });
+
+        /* ————— RouteSketch (charts/RouteSketch, ported): hatched sketch map ————— */
+        var sketchSeq = 0;
+        function poly(pts) {
+          return pts
+            .map(function (p, i) {
+              return (i === 0 ? 'M' : 'L') + p.x.toFixed(1) + ',' + p.y.toFixed(1);
+            })
+            .join(' ');
+        }
+        function routeSketch(opts) {
+          var W = 342,
+            H = Math.round(W / (opts.aspect || 342 / 170));
+          var id = 'hatch' + ++sketchSeq;
+          var px = function (p) {
+            return { x: p.x * W, y: p.y * H };
+          };
+          var pts = (opts.route || []).map(px);
+          var rawPts = (opts.raw || []).map(px);
+          var tail = opts.fadeTail && pts.length >= 2 ? pts.slice(-2) : null;
+          var solid = tail ? pts.slice(0, -1) : pts;
+          var s =
+            '<svg class="sketch' +
+            (opts.draw ? ' draw-anim' : '') +
+            '" viewBox="0 0 ' +
+            W +
+            ' ' +
+            H +
+            '" role="img" aria-label="' +
+            (opts.alt || 'Sketch map of a running route') +
+            '">';
+          s +=
+            '<defs><pattern id="' +
+            id +
+            '" width="8" height="8" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">' +
+            '<rect width="8" height="8" fill="var(--map-bg)"></rect><rect width="4" height="8" fill="var(--map-stripe)"></rect></pattern></defs>';
+          s += '<rect width="' + W + '" height="' + H + '" fill="url(#' + id + ')" rx="16"></rect>';
+          if (rawPts.length > 1)
+            s +=
+              '<path d="' +
+              poly(rawPts) +
+              '" stroke="var(--map-raw)" stroke-width="2.5" stroke-linecap="round" opacity="0.8" fill="none"></path>';
+          if (solid.length > 1)
+            s +=
+              '<path class="track-line" d="' +
+              poly(solid) +
+              '" stroke="var(--map-track)" stroke-width="3" stroke-linecap="round" fill="none" style="--len:600"></path>';
+          if (tail)
+            s +=
+              '<path d="' +
+              poly(tail) +
+              '" stroke="var(--map-track)" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 5" opacity="0.25" fill="none"></path>';
+          (opts.drops || []).forEach(function (m) {
+            var p = px(m);
+            s +=
+              '<circle cx="' +
+              p.x +
+              '" cy="' +
+              p.y +
+              '" r="4" fill="var(--danger)" opacity="0.8"></circle>';
+          });
+          if (opts.homeZone) {
+            var hz = px(opts.homeZone);
+            s +=
+              '<g><circle cx="' +
+              hz.x +
+              '" cy="' +
+              hz.y +
+              '" r="34" fill="rgba(14,122,108,0.12)" stroke="var(--map-track)" stroke-width="1.5" stroke-dasharray="4 4"></circle>' +
+              '<text x="' +
+              hz.x +
+              '" y="' +
+              (hz.y + 4) +
+              '" text-anchor="middle" font-size="13">🏠</text></g>';
+          }
+          if (typeof opts.liveAt === 'number' && pts.length) {
+            var li = Math.max(
+              0,
+              Math.min(pts.length - 1, Math.round(opts.liveAt * (pts.length - 1))),
+            );
+            var lp = pts[li];
+            s +=
+              '<g><circle cx="' +
+              lp.x +
+              '" cy="' +
+              lp.y +
+              '" r="10" fill="rgba(45,212,191,0.25)"></circle>' +
+              '<circle class="live-dot" cx="' +
+              lp.x +
+              '" cy="' +
+              lp.y +
+              '" r="5.5" fill="var(--map-track)" stroke="var(--night)" stroke-width="2.5"></circle></g>';
+          }
+          if (opts.caption)
+            s +=
+              '<text x="' +
+              W / 2 +
+              '" y="' +
+              (H - 10) +
+              '" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="var(--map-label)">' +
+              opts.caption +
+              '</text>';
+          return s + '</svg>';
+        }
+
+        var honestRoute = [
+          { x: 0.06, y: 0.7 },
+          { x: 0.2, y: 0.5 },
+          { x: 0.34, y: 0.58 },
+          { x: 0.48, y: 0.36 },
+          { x: 0.62, y: 0.46 },
+          { x: 0.76, y: 0.3 },
+          { x: 0.92, y: 0.4 },
+        ];
+        var honestRaw = [
+          { x: 0.06, y: 0.7 },
+          { x: 0.2, y: 0.5 },
+          { x: 0.3, y: 0.75 },
+          { x: 0.36, y: 0.3 },
+          { x: 0.48, y: 0.36 },
+          { x: 0.62, y: 0.46 },
+          { x: 0.7, y: 0.15 },
+          { x: 0.76, y: 0.3 },
+          { x: 0.92, y: 0.4 },
+        ];
+        var SKETCHES = {
+          hero: {
+            route: [
+              { x: 0.08, y: 0.78 },
+              { x: 0.18, y: 0.55 },
+              { x: 0.3, y: 0.62 },
+              { x: 0.42, y: 0.4 },
+              { x: 0.55, y: 0.48 },
+              { x: 0.66, y: 0.28 },
+              { x: 0.78, y: 0.38 },
+              { x: 0.88, y: 0.24 },
+              { x: 0.93, y: 0.35 },
+            ],
+            caption: 'km 12.4 · 84 m ↑ · 6:58 /km',
+            fadeTail: true,
+            draw: true,
+            alt: 'Sketch map of a long run with the last stretch fading out',
+          },
+          feedmini: {
+            route: [
+              { x: 0.1, y: 0.7 },
+              { x: 0.3, y: 0.45 },
+              { x: 0.5, y: 0.55 },
+              { x: 0.7, y: 0.32 },
+              { x: 0.9, y: 0.42 },
+            ],
+            aspect: 342 / 110,
+          },
+          detailhero: {
+            route: honestRoute,
+            raw: honestRaw,
+            drops: [
+              { x: 0.3, y: 0.75 },
+              { x: 0.7, y: 0.15 },
+            ],
+            caption: 'raw trace · corrected track',
+            aspect: 342 / 150,
+            alt: 'Run detail hero: corrected track over the raw GPS trace',
+          },
+          honest: {
+            route: honestRoute,
+            raw: honestRaw,
+            drops: [
+              { x: 0.3, y: 0.75 },
+              { x: 0.7, y: 0.15 },
+            ],
+            caption: 'raw trace · corrected track · 2 GPS drops flagged',
+            alt: 'Corrected route shown over its raw GPS trace with two flagged drops',
+          },
+          honest2: {
+            route: honestRoute,
+            raw: honestRaw,
+            drops: [
+              { x: 0.3, y: 0.75 },
+              { x: 0.7, y: 0.15 },
+            ],
+            caption: 'raw trace · corrected track · 2 GPS drops flagged',
+            aspect: 342 / 220,
+            alt: 'Corrected route shown over its raw GPS trace with two flagged drops',
+          },
+          privacy: {
+            route: [
+              { x: 0.15, y: 0.3 },
+              { x: 0.3, y: 0.45 },
+              { x: 0.45, y: 0.35 },
+              { x: 0.58, y: 0.55 },
+              { x: 0.7, y: 0.5 },
+              { x: 0.8, y: 0.68 },
+              { x: 0.86, y: 0.74 },
+            ],
+            fadeTail: true,
+            homeZone: { x: 0.87, y: 0.75 },
+            caption: 'privacy zone · 200 m · hidden from everyone but you',
+            aspect: 342 / 220,
+            alt: 'Route fading into a dashed privacy zone around home',
+          },
+          beacon: {
+            route: [
+              { x: 0.08, y: 0.6 },
+              { x: 0.22, y: 0.4 },
+              { x: 0.36, y: 0.5 },
+              { x: 0.5, y: 0.32 },
+              { x: 0.64, y: 0.44 },
+              { x: 0.78, y: 0.3 },
+              { x: 0.9, y: 0.42 },
+            ],
+            liveAt: 0.62,
+            caption: 'live · km 13.1 of 21.1 · 5:52 /km',
+            alt: 'Live beacon: a runner’s current position on the route',
+          },
+        };
+        document.querySelectorAll('[data-sketch]').forEach(function (el) {
+          var def = SKETCHES[el.getAttribute('data-sketch')];
+          if (def) el.innerHTML = routeSketch(def);
+        });
+
+        /* ————— MedalCoin (social/MedalCoin, ported): engraved-coin trophies ————— */
+        var GLYPHS = {
+          flame: 'M12,3 C12,8 8,9 8,13 a4,4 0 0,0 8,0 C16,10 13,9 12,3 Z',
+          moon: 'M15,4 a8,8 0 1,0 5,14 a9,9 0 0,1 -5,-14 Z',
+          sunrise:
+            'M4,17 L20,17 M12,13 a5,5 0 0,0 -5,4 L17,17 a5,5 0 0,0 -5,-4 Z M12,10 L12,6 M6,12 L8,13.5 M18,12 L16,13.5',
+        };
+        var ROMAN = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+        function medalCoin(o) {
+          var size = o.size || 104,
+            metal = o.metal || 'gold';
+          var v = function (k) {
+            return 'var(--medal-' + metal + '-' + k + ')';
+          };
+          var engrave = o.locked ? 'var(--text-faint)' : v('engrave');
+          var soft = o.locked ? 'var(--text-faint)' : v('engrave-soft');
+          var gid = 'metal' + ++sketchSeq;
+          var inner = '';
+          if (o.glyph && GLYPHS[o.glyph]) {
+            var gs = Math.round(size * 0.3);
+            inner +=
+              '<svg width="' +
+              gs +
+              '" height="' +
+              gs +
+              '" viewBox="0 0 24 24" style="opacity:.8" aria-hidden="true"><path d="' +
+              GLYPHS[o.glyph] +
+              '" fill="none" stroke="' +
+              engrave +
+              '" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"></path></svg>';
+          } else if (o.stat) {
+            inner +=
+              '<div style="font-family:var(--font-display);font-weight:700;font-size:' +
+              Math.round(size * (o.stat.length > 3 ? 0.17 : 0.23)) +
+              'px;color:' +
+              engrave +
+              ';line-height:1.1" class="num">' +
+              o.stat +
+              '</div>';
+          }
+          if (o.statSub)
+            inner +=
+              '<div style="font-family:var(--font-mono);font-size:' +
+              Math.max(7, Math.round(size * 0.105)) +
+              'px;color:' +
+              soft +
+              ';margin-top:1px" class="num">' +
+              o.statSub +
+              '</div>';
+          if (o.caption)
+            inner +=
+              '<div style="font-family:var(--font-display);font-weight:700;font-size:' +
+              Math.max(7, Math.round(size * 0.1)) +
+              'px;letter-spacing:' +
+              Math.max(1, size * 0.016) +
+              'px;color:' +
+              (o.glyph || o.stat ? engrave : soft) +
+              ';margin-top:' +
+              (o.glyph || o.stat ? Math.round(size * 0.045) : 0) +
+              'px">' +
+              o.caption +
+              '</div>';
+          if (o.count >= 2)
+            inner +=
+              '<div style="font-family:var(--font-display);font-weight:700;font-size:' +
+              Math.max(7, Math.round(size * 0.095)) +
+              'px;letter-spacing:1px;color:' +
+              soft +
+              ';margin-top:1px">× ' +
+              (ROMAN[o.count] || '×' + o.count) +
+              '</div>';
+          if (o.locked) {
+            return (
+              '<div role="img" aria-label="' +
+              (o.alt || 'Locked trophy blank') +
+              '" style="width:' +
+              size +
+              'px;height:' +
+              size +
+              'px;border-radius:50%;background:var(--medal-locked-bg);border:1.5px dashed rgba(128,128,128,0.35);box-shadow:inset 0 0 0 5px rgba(128,128,128,0.06);display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box"><div class="coin-face">' +
+              inner +
+              '</div></div>'
+            );
+          }
+          return (
+            '<div role="img" aria-label="' +
+            (o.alt || 'Engraved trophy coin') +
+            '" style="width:' +
+            size +
+            'px;height:' +
+            size +
+            'px;position:relative;display:inline-flex;align-items:center;justify-content:center">' +
+            '<svg width="' +
+            size +
+            '" height="' +
+            size +
+            '" style="position:absolute;inset:0" aria-hidden="true"><defs><radialGradient id="' +
+            gid +
+            '" cx="34%" cy="26%" r="90%">' +
+            '<stop offset="0" stop-color="' +
+            v('light') +
+            '"></stop><stop offset="0.52" stop-color="' +
+            v('face') +
+            '"></stop><stop offset="0.96" stop-color="' +
+            v('deep') +
+            '"></stop></radialGradient></defs>' +
+            '<circle cx="' +
+            size / 2 +
+            '" cy="' +
+            size / 2 +
+            '" r="' +
+            size / 2 +
+            '" fill="url(#' +
+            gid +
+            ')"></circle>' +
+            '<circle cx="' +
+            size / 2 +
+            '" cy="' +
+            size / 2 +
+            '" r="' +
+            (size / 2 - 1.5) +
+            '" stroke="rgba(255,255,255,0.3)" stroke-width="3" fill="none"></circle>' +
+            '<circle cx="' +
+            size / 2 +
+            '" cy="' +
+            size / 2 +
+            '" r="' +
+            (size / 2 - Math.max(6, size * 0.09)) +
+            '" stroke="' +
+            v('rim') +
+            '" stroke-width="' +
+            Math.max(4, size * 0.07) +
+            '" fill="none"></circle></svg>' +
+            '<div class="coin-face">' +
+            inner +
+            '</div></div>'
+          );
+        }
+        document.querySelectorAll('[data-coins]').forEach(function (el) {
+          el.innerHTML =
+            medalCoin({
+              metal: 'gold',
+              glyph: 'flame',
+              caption: 'STREAK 30',
+              count: 4,
+              alt: 'Gold coin: 30-day streak, earned four times',
+            }) +
+            medalCoin({
+              metal: 'steel',
+              stat: '21.1',
+              statSub: '1:47:12',
+              caption: 'HALF BEST',
+              alt: 'Steel coin: half-marathon best, 1:47:12',
+            }) +
+            medalCoin({
+              metal: 'plum',
+              glyph: 'sunrise',
+              caption: 'MUMBAI 2026',
+              alt: 'Plum coin: Mumbai 2026 event',
+            }) +
+            medalCoin({
+              metal: 'teal',
+              stat: '100',
+              statSub: 'km · February',
+              caption: 'CHALLENGE',
+              alt: 'Teal coin: 100 km February challenge',
+            }) +
+            medalCoin({
+              metal: 'gold',
+              glyph: 'moon',
+              caption: 'NIGHT OWL',
+              locked: true,
+              alt: 'Locked blank: night owl trophy, not yet earned',
+            });
+        });
+
+        /* ————— count-up numerals: "numbers settle like pace" ————— */
+        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        function countUp(el) {
+          if (reduceMotion) return;
+          var target = parseFloat(el.getAttribute('data-countup'));
+          var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+          var t0 = null,
+            dur = 900;
+          function step(t) {
+            if (t0 === null) t0 = t;
+            var p = Math.min(1, (t - t0) / dur);
+            var eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = (target * eased).toFixed(decimals);
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        }
+        if ('IntersectionObserver' in window) {
+          var seen = new WeakSet();
+          var io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (en) {
+                if (en.isIntersecting && !seen.has(en.target)) {
+                  seen.add(en.target);
+                  countUp(en.target);
+                }
+              });
+            },
+            { threshold: 0.6 },
+          );
+          document.querySelectorAll('[data-countup]').forEach(function (el) {
+            io.observe(el);
+          });
+        }
+
+        /* ————— theme toggle (F8: light/dark ship in week one) ————— */
+        function storedTheme() {
+          try {
+            return localStorage.getItem('inertial-theme');
+          } catch (e) {
+            return null;
+          }
+        }
+        function applyTheme(t) {
+          if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+          else document.documentElement.removeAttribute('data-theme');
+        }
+        applyTheme(storedTheme());
+        document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var cur = document.documentElement.getAttribute('data-theme');
+            var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var isDark = cur ? cur === 'dark' : systemDark;
+            var next = isDark ? 'light' : 'dark';
+            applyTheme(next);
+            try {
+              localStorage.setItem('inertial-theme', next);
+            } catch (e) {
+              /* private mode: theme just won't persist */
+            }
+          });
+        });
+
+        /* ————— hash router: #/ home · #/trust · #/waitlist · bare #id scrolls ————— */
+        var VIEWS = {
+          '': 'view-home',
+          '#/': 'view-home',
+          '#/trust': 'view-trust',
+          '#/waitlist': 'view-waitlist',
+        };
+        var ALL_VIEWS = ['view-home', 'view-trust', 'view-waitlist', 'view-invite'];
+        function showOnly(viewId) {
+          ALL_VIEWS.forEach(function (id) {
+            document.getElementById(id).hidden = id !== viewId;
+          });
+        }
+        function route() {
+          var h = location.hash;
+          // #/c/K3F9QX — a challenge invite pasted into a group chat. The app
+          // handles it when installed; this page is what everyone else lands
+          // on, so it has to say what the challenge is before it asks for an
+          // install.
+          var invite = /^#\/c\/([A-Za-z0-9]{4,12})$/.exec(h);
+          if (invite) {
+            showOnly('view-invite');
+            window.scrollTo(0, 0);
+            loadInvite(invite[1].toUpperCase());
+            return;
+          }
+          var viewId = VIEWS[h];
+          if (viewId) {
+            showOnly(viewId);
+            window.scrollTo(0, 0);
+            return;
+          }
+          // bare fragment: make sure a view containing it is visible, then scroll
+          var el = h.length > 1 ? document.getElementById(h.slice(1)) : null;
+          if (el) {
+            var host = el.closest('#view-home,#view-trust,#view-waitlist,#view-invite');
+            if (host && host.hidden) showOnly(host.id);
+            el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+          }
+        }
+
+        var inviteLoaded = null;
+        function loadInvite(code) {
+          if (inviteLoaded === code) return;
+          inviteLoaded = code;
+          var box = window.INERTIAL_SITE && window.INERTIAL_SITE.waitlist;
+          document.getElementById('inv-code').textContent = code;
+          function show(which) {
+            ['inv-loading', 'inv-found', 'inv-missing'].forEach(function (id) {
+              document.getElementById(id).hidden = id !== which;
+            });
+          }
+          if (!box || !box.url || !box.anonKey) {
+            // A preview build has no project to ask. The code is still the
+            // useful half of the invite, so show it rather than an error.
+            document.getElementById('inv-title').textContent = 'You have been invited';
+            document.getElementById('inv-lede').textContent =
+              'This preview cannot look the challenge up, so here is the code itself.';
+            show('inv-found');
+            return;
+          }
+          fetch(box.url + '/rest/v1/rpc/api_challenge_by_code', {
+            method: 'POST',
+            headers: {
+              apikey: box.anonKey,
+              Authorization: 'Bearer ' + box.anonKey,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ code: code }),
+          })
+            .then(function (res) {
+              return res.ok ? res.json() : null;
+            })
+            .then(function (rows) {
+              var row = rows && rows.length ? rows[0] : null;
+              if (!row) {
+                show('inv-missing');
+                return;
+              }
+              document.getElementById('inv-title').textContent =
+                (row.emoji ? row.emoji + ' ' : '') + row.title;
+              var people = Number(row.member_count) || 0;
+              document.getElementById('inv-lede').textContent =
+                (row.owner_name ? row.owner_name + ' started this. ' : '') +
+                (people === 1 ? '1 runner is in.' : people + ' runners are in.');
+              show('inv-found');
+            })
+            .catch(function () {
+              show('inv-missing');
+            });
+        }
+        window.addEventListener('hashchange', route);
+        route();
+
+        /* ————— waitlist ————— */
+        // Three modes, decided by config: live (Supabase insert), handoff (a
+        // preview that forwards the typed number to the production site's
+        // waitlist via ?join=), or plain preview (honest inline note, nothing
+        // sent). The form itself is always visible and validating.
+        var siteCfg = window.INERTIAL_SITE || {};
+        var cfg = siteCfg.waitlist || null;
+        var live = !!(cfg && cfg.url && cfg.anonKey);
+        var prodUrl = typeof siteCfg.productionUrl === 'string' ? siteCfg.productionUrl : '';
+        var formState = document.getElementById('wl-form-state');
+        var doneState = document.getElementById('wl-done-state');
+        var form = document.getElementById('wl-form');
+        var input = document.getElementById('wl-phone');
+        var archiveBox = document.getElementById('wl-archive');
+        var submit = document.getElementById('wl-submit');
+        var errBox = document.getElementById('wl-error');
+        function digits(s) {
+          return s.replace(/\D/g, '');
+        }
+        function valid() {
+          var d = digits(input.value);
+          return d.length >= 10 && d.length <= 15;
+        }
+        function refresh() {
+          var ok = valid();
+          submit.disabled = !ok;
+          submit.textContent = ok ? 'Join the waitlist' : 'Enter your number to join';
+        }
+        function say(msg, info) {
+          errBox.textContent = msg;
+          errBox.className = info ? 'wl-error info' : 'wl-error';
+          errBox.hidden = false;
+        }
+        input.addEventListener('input', refresh);
+        // A handoff from the preview arrives as ?join=+91…&archive=1 before the hash.
+        try {
+          var params = new URLSearchParams(location.search);
+          var joined = params.get('join');
+          if (joined && digits(joined).length >= 10) {
+            input.value = joined;
+            if (params.get('archive') === '1') archiveBox.checked = true;
+          }
+        } catch (e) {
+          /* no URLSearchParams: the form just starts empty */
+        }
+        refresh();
+        form.addEventListener('submit', function (ev) {
+          ev.preventDefault();
+          if (!valid() || submit.dataset.busy) return;
+          errBox.hidden = true;
+          var raw = input.value.trim();
+          var d = digits(raw);
+          // India-first: a bare 10-digit number is assumed to be +91
+          var phone = raw.charAt(0) === '+' ? '+' + d : d.length === 10 ? '+91' + d : '+' + d;
+          var wantsImport = !!archiveBox.checked;
+          if (!live) {
+            if (prodUrl) {
+              // This deployment can't reach the database (e.g. the artifact
+              // preview) — carry the number to the production site, prefilled.
+              submit.textContent = 'Taking you to the site…';
+              location.href =
+                prodUrl +
+                '?join=' +
+                encodeURIComponent(phone) +
+                (wantsImport ? '&archive=1' : '') +
+                '#/waitlist';
+            } else {
+              say(
+                'This preview can’t store numbers, so nothing was sent. The live site takes it from here.',
+                true,
+              );
+            }
+            return;
+          }
+          submit.dataset.busy = '1';
+          submit.textContent = 'Joining…';
+          fetch(cfg.url + '/rest/v1/waitlist_signups', {
+            method: 'POST',
+            headers: {
+              apikey: cfg.anonKey,
+              Authorization: 'Bearer ' + cfg.anonKey,
+              'Content-Type': 'application/json',
+              Prefer: 'return=minimal',
+            },
+            body: JSON.stringify({ phone: phone, source: 'website', wants_import: wantsImport }),
+          })
+            .then(function (res) {
+              if (res.status === 201 || res.status === 409) {
+                // 409 = already in line — same happy truth
+                formState.hidden = true;
+                document.getElementById('wl-done-phone').textContent = phone;
+                doneState.hidden = false;
+              } else if (res.status === 404) {
+                fail('The waitlist isn’t open just yet. Nothing was stored — try again in a day.');
+              } else {
+                fail('That didn’t go through. Check the number and try again.');
+              }
+            })
+            .catch(function () {
+              fail('Couldn’t reach the waitlist. Check your connection and try again.');
+            });
+          function fail(msg) {
+            delete submit.dataset.busy;
+            refresh();
+            say(msg, false);
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

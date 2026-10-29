@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>What Strava's Fitness score actually measures · Plain Words</title>
+    <meta name="description" content="It is a 42-day average of training load, not fitness. That is why it can fall by 10 points in the block where you got faster." />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://inertial.run/blog/what-strava-fitness-score-measures/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="What Strava's Fitness score actually measures · Plain Words" />
+    <meta property="og:description" content="It is a 42-day average of training load, not fitness. That is why it can fall by 10 points in the block where you got faster." />
+    <meta property="og:url" content="https://inertial.run/blog/what-strava-fitness-score-measures/" />
+    <meta property="og:site_name" content="Plain Words" />
+    <link rel="alternate" type="application/rss+xml" title="Plain Words" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"
+    />
+    <link rel="stylesheet" href="/assets/plain-words.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "What Strava's Fitness score actually measures",
+  "description": "It is a 42-day average of training load, not fitness. That is why it can fall by 10 points in the block where you got faster.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://inertial.run/blog/what-strava-fitness-score-measures/"
+  },
+  "datePublished": "2026-09-01T09:00:00+05:30",
+  "dateModified": "2026-09-01T09:00:00+05:30",
+  "author": {
+    "@type": "Person",
+    "name": "Parth Dixit",
+    "jobTitle": "Co-founder, Inertial"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inertial",
+    "url": "https://inertial.run",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://inertial.run/assets/logo-512.png"
+    },
+    "founder": [
+      {
+        "@type": "Person",
+        "name": "Parth Dixit",
+        "jobTitle": "Co-founder, Inertial"
+      },
+      {
+        "@type": "Person",
+        "name": "Aryan Dixit",
+        "jobTitle": "Co-founder, Inertial"
+      }
+    ]
+  },
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "citation": [
+    {
+      "@type": "CreativeWork",
+      "name": "Banister EW, Calvert TW. Planning for future performance. Can J Appl Sport Sci 5(3):170-176, 1980",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/7443716/"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Morton RH, Fitz-Clarke JR, Banister EW. Modeling human performance in running. J Appl Physiol 69(3):1171-1177, 1990",
+      "url": "https://doi.org/10.1152/jappl.1990.69.3.1171"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Busso T. Variable dose-response relationship between exercise training and performance. Med Sci Sports Exerc 35(7):1188-1195, 2003",
+      "url": "https://doi.org/10.1249/01.MSS.0000074465.13621.37"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Borresen J, Lambert MI. The quantification of training load. Sports Med 39(9):779-795, 2009",
+      "url": "https://doi.org/10.2165/11317780-000000000-00000"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Strava support: Fitness and Freshness (accessed 1 September 2026)",
+      "url": "https://support.strava.com/hc/en-us/articles/216917147-Fitness-Freshness"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Plain Words",
+      "item": "https://inertial.run/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://inertial.run/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "What Strava's Fitness score actually measures",
+      "item": "https://inertial.run/blog/what-strava-fitness-score-measures/"
+    }
+  ]
+}
+</script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="title" href="/blog/">Plain Words</a>
+        <span class="tagline">Running data, in plain words.</span>
+        <nav aria-label="Sections"><a href="/blog/">Articles</a><a href="/glossary/">Glossary</a><a href="/tools/">Tools</a><a href="/method/">Method</a><a href="/about/">About</a></nav>
+      </div>
+    </header>
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/blog/">Plain Words</a></li><li><a href="/blog/">Articles</a></li><li aria-current="page">What Strava's Fitness score actually measures</li></ol></nav>
+    <main id="main">
+<article>
+<p class="kicker">Metrics, in plain words</p>
+<h1>What Strava's Fitness score actually measures</h1>
+<div class="bluf"><p>It is a 42-day exponentially weighted average of your daily training load, computed from heart rate. It measures how much you have been training, not how fit you are. That is why it can fall 10 points during the block where your 5K time improved.</p></div>
+<div class="byline"><span>By Parth Dixit</span><span>Published <time datetime="2026-09-01T09:00:00+05:30">1 September 2026</time></span></div>
+<div class="table-scroll"><table>
+<caption>The numbers on this page, in one place.</caption>
+<thead><tr><th scope="col">What</th><th scope="col">Number</th><th scope="col">The qualifier</th></tr></thead>
+<tbody>
+<tr><th scope="row">What it actually is</th><td>42-day average of training load</td><td>a smoothed dose, not a fitness test</td></tr>
+<tr><th scope="row">How much one run moves it</th><td>about 2.4%</td><td>the weight a 42-day average puts on today</td></tr>
+<tr><th scope="row">What it needs</th><td>heart rate on every run</td><td>runs without it score zero or get estimated</td></tr>
+<tr><th scope="row">Freshness</th><td>fitness minus a 7-day average</td><td>negative in a hard week by design</td></tr>
+<tr><th scope="row">Comparable between people?</th><td>No</td><td>it depends on your own zones and baseline</td></tr>
+</tbody>
+</table></div>
+<h2 id="what-is-the-fitness-score-actually-measuring">What is the Fitness score actually measuring?</h2>
+
+<p>Your <a href="/glossary/training-load/">training load</a>, averaged over about six weeks. Nothing else.</p>
+
+<p>Each run gets a load number from your heart rate and how long you ran. Those daily numbers feed a 42-day exponentially weighted average. That average is the line labelled Fitness.</p>
+
+<p>The model is older than the app. Banister and Calvert published it in 1980, and it has been in coaching software ever since under the name chronic training load. One runner on a forum put the correct answer in nine words: it _does not track fitness but chronic training load_.</p>
+
+<h2 id="why-does-it-fall-when-i-am-getting-faster">Why does it fall when I am getting faster?</h2>
+
+<p>Because volume and speed are different things, and the chart only knows one of them.</p>
+
+<p>Consider two consecutive months. In month one you run 60 km (37 mi) a week, all easy. In month two you cut to 40 km (25 mi) and add two hard sessions. Your total load falls. Your 5K time improves. The Fitness line goes down.</p>
+
+<div class="table-scroll"><table>
+<thead><tr><th scope="col">What changed</th><th scope="col">Load</th><th scope="col">Your 5K</th></tr></thead>
+<tbody>
+<tr><td>More easy volume</td><td>up</td><td>slower or flat</td></tr>
+<tr><td>Same volume, more intensity</td><td>slightly up</td><td>faster</td></tr>
+<tr><td>Less volume, more intensity</td><td>down</td><td>faster</td></tr>
+<tr><td>Taper for a race</td><td>down</td><td>much faster</td></tr>
+</tbody>
+</table></div>
+
+<p>The last row is the one that catches people out. A good <a href="/glossary/taper/">taper</a> always lowers this number. If it did not, the taper would not be working.</p>
+
+<h2 id="why-is-it-built-on-heart-rate-and-why-does-that-matter">Why is it built on heart rate, and why does that matter?</h2>
+
+<p>Because heart rate is the only intensity signal most watches have for every run. It is also the weakest link in the chain.</p>
+
+<p>The load calculation uses your heart-rate reserve, which needs your maximum and your resting rate. Most people have never measured either. If your maximum is a formula guess that is 10 bpm too low, every run scores as harder than it was, and your Fitness line is inflated for months.</p>
+
+<p>Three practical consequences:</p>
+
+<ul>
+<li>A run recorded without a heart-rate strap or watch may score nothing at all.</li>
+<li>Hot weather raises heart rate at the same pace, so summer inflates the line.</li>
+<li>Two runners doing identical training will have different numbers.</li>
+</ul>
+
+<p>If you want to sanity-check your own zones, the <a href="/tools/heart-rate-zones/">heart rate zone calculator</a> shows what five different methods say your maximum is, and how far apart they are.</p>
+
+<h2 id="how-do-i-tell-which-case-i-am-in">How do I tell which case I am in?</h2>
+
+<p>This is the decision rule. Look at the last four weeks and answer in order.</p>
+
+<div class="table-scroll"><table>
+<thead><tr><th scope="col">What you see</th><th scope="col">What it means</th><th scope="col">What to do</th></tr></thead>
+<tbody>
+<tr><td>Fitness down, volume down</td><td>you trained less</td><td>nothing, if that was the plan</td></tr>
+<tr><td>Fitness down, volume same</td><td>intensity or heart-rate data changed</td><td>check for missing heart-rate runs</td></tr>
+<tr><td>Fitness down, race times better</td><td>you traded volume for quality</td><td>ignore the line</td></tr>
+<tr><td>Fitness down in taper week</td><td>the taper is working</td><td>ignore the line</td></tr>
+<tr><td>Fitness flat for months, times flat</td><td>a genuine plateau</td><td>change something</td></tr>
+</tbody>
+</table></div>
+
+<p>Only the last row is a training problem. The other four are the metric describing something other than what its name suggests.</p>
+
+<h2 id="what-should-i-look-at-instead">What should I look at instead?</h2>
+
+<p>Three things, in this order.</p>
+
+<p><strong>Your race and time-trial times.</strong> The only direct measure of fitness on this list. A 5K every six weeks tells you more than any chart.</p>
+
+<p><strong>Your pace at a fixed easy heart rate.</strong> If you cover more ground at 140 bpm than you did in March, you are fitter. This is the single most useful trend a running app can show you, and it needs no model at all.</p>
+
+<p><strong>Weekly volume and how many weeks you strung together.</strong> That is what the Fitness line is really tracking, so you may as well read it directly.</p>
+
+<p>The <a href="/glossary/training-load/">glossary entry on training load</a> covers what goes into the daily number, and <a href="/method/fitness-and-freshness/">our method page</a> gives the exact time constants we use, which are the same 42 and 7 days.</p>
+
+<h2 id="would-a-better-name-fix-this">Would a better name fix this?</h2>
+
+<p>Mostly, yes. Almost every complaint about this metric is a complaint about the word Fitness sitting above a chart of training volume.</p>
+
+<p>Call the same line Training load and the confusion goes away. The chart becomes useful immediately: it shows whether you are building, holding or backing off, which is what it was designed to show in 1980.</p>
+
+<p>We name it that way in Inertial for exactly this reason. It is not a better model. It is the same model with an honest label.</p>
+<aside class="callout experience pending">
+<h3>What I have seen</h3>
+<p><strong>Not written yet.</strong> Parth: what did your own fitness line do across your last build, and what was your 5K doing at the same time? A specific fortnight with both numbers is what this section needs.</p>
+</aside>
+
+<section class="faq">
+<h2 id="questions-runners-actually-ask">Questions runners actually ask</h2>
+<dl>
+<dt>Why did my fitness score drop while I got faster?</dt>
+<dd>Because the score follows training volume, not speed. A block that swaps long easy runs for short sharp ones lowers total load while improving your 5K. Both things are true at once, and only one of them is on the chart.</dd>
+<dt>Is a fitness score of 60 good?</dt>
+<dd>It is not anything on its own. The number depends on your heart-rate zones, your recent baseline and how many runs carried heart rate. Two runners of identical ability can sit 30 points apart. Only its direction over weeks means something.</dd>
+<dt>Why does my fitness fall when I take a rest week?</dt>
+<dd>A day with no run enters the average as zero. That is the model working: the decay is how it represents detraining. A single easy week moves the 42-day line by only a few points.</dd>
+<dt>Should I try to keep freshness positive?</dt>
+<dd>Not during a training block. Freshness is meant to be negative when you are training hard and positive when you taper. Chasing a positive number all year means never training hard enough to need recovery.</dd>
+</dl>
+</section>
+<section class="sources">
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://pubmed.ncbi.nlm.nih.gov/7443716/" rel="noopener">Banister EW, Calvert TW. Planning for future performance. Can J Appl Sport Sci 5(3):170-176, 1980</a> <span class="kind">primary</span></li>
+<li><a href="https://doi.org/10.1152/jappl.1990.69.3.1171" rel="noopener">Morton RH, Fitz-Clarke JR, Banister EW. Modeling human performance in running. J Appl Physiol 69(3):1171-1177, 1990</a> <span class="kind">primary</span></li>
+<li><a href="https://doi.org/10.1249/01.MSS.0000074465.13621.37" rel="noopener">Busso T. Variable dose-response relationship between exercise training and performance. Med Sci Sports Exerc 35(7):1188-1195, 2003</a> <span class="kind">primary</span></li>
+<li><a href="https://doi.org/10.2165/11317780-000000000-00000" rel="noopener">Borresen J, Lambert MI. The quantification of training load. Sports Med 39(9):779-795, 2009</a> <span class="kind">primary</span></li>
+<li><a href="https://support.strava.com/hc/en-us/articles/216917147-Fitness-Freshness" rel="noopener">Strava support: Fitness and Freshness (accessed 1 September 2026)</a> <span class="kind">vendor</span></li>
+</ul>
+</section>
+<section class="changelog">
+<h2 id="changelog">Changelog</h2>
+<ul>
+<li><time datetime="2026-09-01">1 September 2026</time> — First published.</li>
+</ul>
+</section>
+<section class="related">
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/blog/why-garmin-strava-predict-different-times/">Why your watch and your app predict different race times</a></li>
+</ul>
+</section>
+<aside class="authorbox">
+<div>
+<p><strong>Parth Dixit</strong> — Co-founder, Inertial</p>
+<p>Co-founds Inertial with Aryan Dixit, and writes the method pages so you can check the maths.</p>
+</div>
+</aside>
+<p class="footer-line">Inertial shows this for your own runs — free, no ads. <a href="/waitlist">Join the waitlist →</a></p>
+</article>
+    </main>
+    <footer class="site">
+      <div class="wrap">
+        <nav aria-label="Site"><a href="/about/">About</a><a href="/method/">How we work</a><a href="/">Inertial</a></nav>
+        <p>
+          Plain Words is written by the people who build
+          Inertial. No ads, no affiliate links, nothing gated.
+          Every number here carries a source or a stated method.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

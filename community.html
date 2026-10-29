@@ -1,0 +1,731 @@
+<!doctype html>
+<!--
+  /community — the community rules a runner accepts at sign-in (Apple
+  Guideline 1.2: terms with a zero-tolerance clause, agreed before anyone can
+  post). The app links here from the sign-in screen and Settings → About
+  (apps/mobile/src/brand.ts COMMUNITY_URL). Terms of use are Apple's Standard
+  EULA; this page is the product rules on top, not a legal contract — that is
+  counsel's (docs/beta/appstore-submission.md).
+
+  Same shell as privacy.html: self-contained, no build step, tokens and
+  components inline. Every claim matches the app: ··· report/hide/block on
+  runs, comments, stories and profiles (apps/mobile/src/ui/moderation.tsx),
+  the 24-hour review promise in the report sheet, the pre-post text filter
+  (apps/mobile/src/domain/contentFilter.ts), bidirectional blocking (0009).
+-->
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Community rules · Inertial</title>
+    <meta
+      name="description"
+      content="The rules every Inertial runner accepts: no abuse, no hate, no sexual content, no fake runs. Report anything with ··· and we review it within 24 hours."
+    />
+    <meta property="og:title" content="Inertial — Community rules" />
+    <meta
+      property="og:description"
+      content="A privacy zone hides the 200 m around home from every shared map. Photos lose their location. Plain-language settings. You choose who sees each run."
+    />
+    <meta property="og:type" content="website" />
+    <link
+      rel="icon"
+      href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path d="M6,30 Q14,30 18,20 T30,10" fill="none" stroke="%230E7A6C" stroke-width="3.5" stroke-linecap="round"/><circle cx="30" cy="10" r="3.5" fill="%2314181C"/></svg>'
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap"
+    />
+    <style>
+      /* ————— Inertial tokens (apps/mobile theme system, ported per the design system —
+         the full block from index.html, verbatim, so the two files stay diffable) ————— */
+      :root {
+        --paper: #fafaf7;
+        --ink: #14181c;
+        --night: #0b0f14;
+        --night-surface: #121821;
+        --night-raised: #1a2230;
+        --bg: #fafaf7;
+        --surface: #ffffff;
+        --surface-alt: #f2f1ea;
+        --wash: #f0fdf9;
+        --wash-border: rgba(14, 122, 108, 0.18);
+        --line: rgba(0, 0, 0, 0.08);
+        --line-strong: rgba(0, 0, 0, 0.14);
+        --text: #14181c;
+        --text-dim: rgba(0, 0, 0, 0.55);
+        --text-faint: rgba(0, 0, 0, 0.4);
+        --on-ink: #ffffff;
+        --on-ink-dim: rgba(255, 255, 255, 0.55);
+        --on-ink-faint: rgba(255, 255, 255, 0.4);
+        --accent: #0e7a6c;
+        --accent-deep: #0b5f54;
+        --accent-bright: #2dd4bf;
+        --on-accent: #ffffff;
+        --accent-soft: rgba(14, 122, 108, 0.1);
+        --danger: #ef4444;
+        --serif-bg: #f7f5ee;
+        --map-bg: #edf4f2;
+        --map-stripe: #e3eeeb;
+        --map-label: #5b7a73;
+        --map-track: #0e7a6c;
+        --map-raw: #c4c9c4;
+        --font-display: 'Space Grotesk', system-ui, sans-serif;
+        --font-serif: 'Newsreader', Georgia, serif;
+        --font-body: system-ui, -apple-system, 'Segoe UI', sans-serif;
+        --font-mono: ui-monospace, Menlo, Consolas, monospace;
+        --shadow-card: 0 2px 10px rgba(14, 122, 108, 0.07);
+        --shadow-accent: 0 4px 16px rgba(14, 122, 108, 0.3);
+        color-scheme: light;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) {
+          --bg: #0b0f14;
+          --surface: #121821;
+          --surface-alt: #1a2230;
+          --wash: rgba(45, 212, 191, 0.08);
+          --wash-border: rgba(45, 212, 191, 0.22);
+          --line: rgba(255, 255, 255, 0.08);
+          --line-strong: rgba(255, 255, 255, 0.14);
+          --text: #f5f7f6;
+          --text-dim: rgba(245, 247, 246, 0.6);
+          --text-faint: rgba(245, 247, 246, 0.42);
+          --ink: #f5f7f6;
+          --on-ink: #0b0f14;
+          --on-ink-dim: rgba(11, 15, 20, 0.55);
+          --on-ink-faint: rgba(11, 15, 20, 0.4);
+          --accent: #2dd4bf;
+          --accent-deep: #0e7a6c;
+          --accent-bright: #2dd4bf;
+          --on-accent: #06251f;
+          --accent-soft: rgba(45, 212, 191, 0.12);
+          --serif-bg: #10151b;
+          --map-bg: #101820;
+          --map-stripe: #15202b;
+          --map-label: #6e8b84;
+          --map-track: #2dd4bf;
+          --map-raw: #4a5259;
+          --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.35);
+          color-scheme: dark;
+        }
+      }
+      :root[data-theme='dark'] {
+        --bg: #0b0f14;
+        --surface: #121821;
+        --surface-alt: #1a2230;
+        --wash: rgba(45, 212, 191, 0.08);
+        --wash-border: rgba(45, 212, 191, 0.22);
+        --line: rgba(255, 255, 255, 0.08);
+        --line-strong: rgba(255, 255, 255, 0.14);
+        --text: #f5f7f6;
+        --text-dim: rgba(245, 247, 246, 0.6);
+        --text-faint: rgba(245, 247, 246, 0.42);
+        --ink: #f5f7f6;
+        --on-ink: #0b0f14;
+        --on-ink-dim: rgba(11, 15, 20, 0.55);
+        --on-ink-faint: rgba(11, 15, 20, 0.4);
+        --accent: #2dd4bf;
+        --accent-deep: #0e7a6c;
+        --accent-bright: #2dd4bf;
+        --on-accent: #06251f;
+        --accent-soft: rgba(45, 212, 191, 0.12);
+        --serif-bg: #10151b;
+        --map-bg: #101820;
+        --map-stripe: #15202b;
+        --map-label: #6e8b84;
+        --map-track: #2dd4bf;
+        --map-raw: #4a5259;
+        --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.35);
+        color-scheme: dark;
+      }
+
+      /* ————— base ————— */
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: var(--accent-deep);
+        text-decoration: none;
+      }
+      a:hover {
+        color: var(--accent);
+      }
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        text-wrap: balance;
+      }
+      p {
+        margin: 0;
+      }
+      :focus-visible {
+        outline: 2.5px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 6px;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .micro {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+      .serif-h {
+        font-family: var(--font-serif);
+        font-weight: 500;
+        letter-spacing: 0;
+      }
+
+      /* pills (app PillButton, ported) */
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 52px;
+        padding: 0 24px;
+        border-radius: 999px;
+        border: none;
+        background: var(--accent);
+        color: var(--on-accent);
+        font: 600 15px var(--font-body);
+        cursor: pointer;
+        transition:
+          transform 0.12s ease-out,
+          opacity 0.12s ease-out,
+          box-shadow 0.12s ease-out;
+        text-decoration: none;
+      }
+      .pill:hover {
+        color: var(--on-accent);
+        box-shadow: var(--shadow-accent);
+      }
+      .pill:active {
+        transform: scale(0.97);
+        opacity: 0.9;
+      }
+      .pill.small {
+        min-height: 36px;
+        padding: 0 16px;
+        font-size: 12.5px;
+      }
+      .pill.outline {
+        background: transparent;
+        color: var(--text);
+        border: 1.5px solid var(--line-strong);
+      }
+      .pill.outline:hover {
+        box-shadow: none;
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .wash-card {
+        background: var(--wash);
+        border: 1px solid var(--wash-border);
+        border-radius: 14px;
+        padding: 12px 14px;
+        font: 12px/1.5 var(--font-body);
+        color: var(--accent-deep);
+      }
+      :root[data-theme='dark'] .wash-card {
+        color: var(--accent-bright);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) .wash-card {
+          color: var(--accent-bright);
+        }
+      }
+
+      /* nav */
+      nav.site {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 18px 24px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text);
+      }
+      .brand:hover {
+        color: var(--text);
+      }
+      .brand .word {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 19px;
+        letter-spacing: -0.02em;
+      }
+      .navlinks {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        font-size: 14px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        flex: 1;
+      }
+      .navlinks a {
+        color: var(--text-dim);
+      }
+      .navlinks a:hover {
+        color: var(--accent);
+      }
+      .theme-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        border: 1.5px solid var(--line-strong);
+        background: transparent;
+        color: var(--text-dim);
+        cursor: pointer;
+        font-size: 15px;
+        line-height: 1;
+        flex: none;
+      }
+      .theme-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      @media (max-width: 760px) {
+        .navlinks .hide-sm {
+          display: none;
+        }
+      }
+
+      /* sections */
+      section.band {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      section.band.surface {
+        background: var(--surface);
+      }
+      .sect {
+        padding-top: 88px;
+        padding-bottom: 88px;
+      }
+      .sect h1,
+      .sect h2 {
+        font-family: var(--font-serif);
+        font-weight: 500;
+        font-size: clamp(30px, 4.5vw, 40px);
+        line-height: 1.1;
+        margin: 0 0 14px;
+      }
+      .split {
+        display: flex;
+        gap: 48px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .split > div {
+        min-width: 280px;
+      }
+
+      /* footer */
+      footer.site {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+        align-items: center;
+        font-size: 13px;
+        color: var(--text-faint);
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+      footer.site a {
+        color: var(--text-faint);
+      }
+      footer.site a:hover {
+        color: var(--accent);
+      }
+      footer.site .brandline {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      footer.site .word {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--text);
+      }
+      footer.site .grow {
+        flex: 1;
+      }
+      footer.site .links {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      /* privacy list */
+      .plist {
+        display: grid;
+        gap: 14px;
+        max-width: 480px;
+      }
+      .plist .row {
+        display: flex;
+        gap: 12px;
+        align-items: baseline;
+      }
+      .plist .row span.e {
+        font-size: 16px;
+        flex: none;
+      }
+      .plist p {
+        font-size: 15px;
+        line-height: 1.55;
+        color: var(--text-dim);
+      }
+      .plist strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      /* route sketches */
+      .sketch {
+        display: block;
+        border-radius: 16px;
+        width: 100%;
+        height: auto;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .pill,
+        .pill:active {
+          transition: none;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="site" aria-label="Site">
+      <a href="./" class="brand" data-mark></a>
+      <div class="navlinks">
+        <a href="./">‹ Back home</a>
+        <a href="./#/trust" class="hide-sm">Trust</a>
+      </div>
+      <button class="theme-btn" data-theme-toggle aria-label="Switch between light and dark theme">
+        ◐
+      </button>
+      <a class="pill small" href="./#/waitlist">Join the waitlist</a>
+    </nav>
+
+    <section id="community" class="band surface">
+      <div class="wrap sect">
+        <div style="max-width: 720px">
+          <div class="micro" style="margin-bottom: 14px">Community rules</div>
+          <h1 class="serif-h" style="font-size: clamp(30px, 4.5vw, 40px); margin-bottom: 16px">
+            Run kind. Post kind.
+          </h1>
+          <p style="margin-bottom: 20px">
+            Signing in means you accept these rules and the terms of use. There is zero tolerance
+            for objectionable content or abusive people.
+          </p>
+          <div class="plist">
+            <div class="row">
+              <span class="e">🚫</span>
+              <p>
+                <strong>No abuse or hate.</strong> No harassment, threats, bullying or slurs about
+                anyone’s race, religion, caste, gender, sexuality or body.
+              </p>
+            </div>
+            <div class="row">
+              <span class="e">🔞</span>
+              <p>
+                <strong>No sexual or violent content.</strong> No nudity, sexual material, gore or
+                anything that encourages self-harm.
+              </p>
+            </div>
+            <div class="row">
+              <span class="e">🏃</span>
+              <p>
+                <strong>Real runs, real people.</strong> No fabricated runs, no pretending to be
+                someone else, no spam or scams.
+              </p>
+            </div>
+            <div class="row">
+              <span class="e">⋯</span>
+              <p>
+                <strong>Report anything with ···.</strong> Every run, comment, story and profile has
+                it. A report hides the content from you at once.
+              </p>
+            </div>
+            <div class="row">
+              <span class="e">⏱</span>
+              <p>
+                <strong>Reviewed within 24 hours.</strong> We remove content that breaks these rules
+                and remove the accounts that post it.
+              </p>
+            </div>
+            <div class="row">
+              <span class="e">🛑</span>
+              <p>
+                <strong>Block works both ways.</strong> A blocked person can’t see you, and you
+                won’t see them.
+              </p>
+            </div>
+          </div>
+          <div style="margin-top: 20px; max-width: 560px">
+            <div class="wash-card">
+              Obvious abuse is stopped before it posts. For anything else, write to
+              <a href="mailto:safety@inertial.run">safety@inertial.run</a>.
+            </div>
+          </div>
+          <p style="margin-top: 20px">
+            Terms of use:
+            <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+              >Apple’s standard licence agreement</a
+            >. Privacy: <a href="./privacy">how your data is handled</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="wrap"
+      style="max-width: 760px; text-align: center; padding-top: 88px; padding-bottom: 88px"
+    >
+      <div
+        style="
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <a class="pill" href="./#/waitlist">Join the waitlist</a>
+        <a class="pill outline" href="./#/trust">Read how we earn your trust</a>
+      </div>
+    </section>
+
+    <footer class="site wrap" style="border-top: 1px solid var(--line)">
+      <div class="brandline"><span data-mark-sm></span><span class="word">Inertial</span></div>
+      <div class="grow"></div>
+      <div class="links">
+        <a href="./">Home</a>
+        <a href="./#/trust">Trust &amp; privacy</a>
+        <a href="./community">Community rules</a>
+        <a href="./#/waitlist">Waitlist</a>
+      </div>
+      <div>Built by Parth Dixit &amp; Aryan Dixit, co-founders</div>
+      <div>Made in India 🇮🇳 · your data, yours by right</div>
+    </footer>
+
+    <script>
+      (function () {
+        'use strict';
+
+        /* ————— brand mark (assets/mark.svg from the design system, inlined) ————— */
+        function markSvg(size, stroke, dot) {
+          return (
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="' +
+            size +
+            '" height="' +
+            size +
+            '" aria-hidden="true"><path d="M6,30 Q14,30 18,20 T30,10" fill="none" stroke="' +
+            stroke +
+            '" stroke-width="3.5" stroke-linecap="round"></path><circle cx="30" cy="10" r="3.5" fill="' +
+            dot +
+            '"></circle></svg>'
+          );
+        }
+        document.querySelectorAll('[data-mark]').forEach(function (el) {
+          el.innerHTML =
+            markSvg(28, 'var(--accent)', 'var(--text)') + '<span class="word">Inertial</span>';
+        });
+        document.querySelectorAll('[data-mark-sm]').forEach(function (el) {
+          el.innerHTML = markSvg(20, 'var(--accent)', 'var(--text)');
+        });
+
+        /* ————— RouteSketch (charts/RouteSketch, ported verbatim from index.html) ————— */
+        var sketchSeq = 0;
+        function poly(pts) {
+          return pts
+            .map(function (p, i) {
+              return (i === 0 ? 'M' : 'L') + p.x.toFixed(1) + ',' + p.y.toFixed(1);
+            })
+            .join(' ');
+        }
+        function routeSketch(opts) {
+          var W = 342,
+            H = Math.round(W / (opts.aspect || 342 / 170));
+          var id = 'hatch' + ++sketchSeq;
+          var px = function (p) {
+            return { x: p.x * W, y: p.y * H };
+          };
+          var pts = (opts.route || []).map(px);
+          var rawPts = (opts.raw || []).map(px);
+          var tail = opts.fadeTail && pts.length >= 2 ? pts.slice(-2) : null;
+          var solid = tail ? pts.slice(0, -1) : pts;
+          var s =
+            '<svg class="sketch' +
+            (opts.draw ? ' draw-anim' : '') +
+            '" viewBox="0 0 ' +
+            W +
+            ' ' +
+            H +
+            '" role="img" aria-label="' +
+            (opts.alt || 'Sketch map of a running route') +
+            '">';
+          s +=
+            '<defs><pattern id="' +
+            id +
+            '" width="8" height="8" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">' +
+            '<rect width="8" height="8" fill="var(--map-bg)"></rect><rect width="4" height="8" fill="var(--map-stripe)"></rect></pattern></defs>';
+          s += '<rect width="' + W + '" height="' + H + '" fill="url(#' + id + ')" rx="16"></rect>';
+          if (rawPts.length > 1)
+            s +=
+              '<path d="' +
+              poly(rawPts) +
+              '" stroke="var(--map-raw)" stroke-width="2.5" stroke-linecap="round" opacity="0.8" fill="none"></path>';
+          if (solid.length > 1)
+            s +=
+              '<path class="track-line" d="' +
+              poly(solid) +
+              '" stroke="var(--map-track)" stroke-width="3" stroke-linecap="round" fill="none" style="--len:600"></path>';
+          if (tail)
+            s +=
+              '<path d="' +
+              poly(tail) +
+              '" stroke="var(--map-track)" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 5" opacity="0.25" fill="none"></path>';
+          (opts.drops || []).forEach(function (m) {
+            var p = px(m);
+            s +=
+              '<circle cx="' +
+              p.x +
+              '" cy="' +
+              p.y +
+              '" r="4" fill="var(--danger)" opacity="0.8"></circle>';
+          });
+          if (opts.homeZone) {
+            var hz = px(opts.homeZone);
+            s +=
+              '<g><circle cx="' +
+              hz.x +
+              '" cy="' +
+              hz.y +
+              '" r="34" fill="rgba(14,122,108,0.12)" stroke="var(--map-track)" stroke-width="1.5" stroke-dasharray="4 4"></circle>' +
+              '<text x="' +
+              hz.x +
+              '" y="' +
+              (hz.y + 4) +
+              '" text-anchor="middle" font-size="13">🏠</text></g>';
+          }
+          if (typeof opts.liveAt === 'number' && pts.length) {
+            var li = Math.max(
+              0,
+              Math.min(pts.length - 1, Math.round(opts.liveAt * (pts.length - 1))),
+            );
+            var lp = pts[li];
+            s +=
+              '<g><circle cx="' +
+              lp.x +
+              '" cy="' +
+              lp.y +
+              '" r="10" fill="rgba(45,212,191,0.25)"></circle>' +
+              '<circle class="live-dot" cx="' +
+              lp.x +
+              '" cy="' +
+              lp.y +
+              '" r="5.5" fill="var(--map-track)" stroke="var(--night)" stroke-width="2.5"></circle></g>';
+          }
+          if (opts.caption)
+            s +=
+              '<text x="' +
+              W / 2 +
+              '" y="' +
+              (H - 10) +
+              '" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="var(--map-label)">' +
+              opts.caption +
+              '</text>';
+          return s + '</svg>';
+        }
+
+        var SKETCHES = {
+          privacy: {
+            route: [
+              { x: 0.15, y: 0.3 },
+              { x: 0.3, y: 0.45 },
+              { x: 0.45, y: 0.35 },
+              { x: 0.58, y: 0.55 },
+              { x: 0.7, y: 0.5 },
+              { x: 0.8, y: 0.68 },
+              { x: 0.86, y: 0.74 },
+            ],
+            fadeTail: true,
+            homeZone: { x: 0.87, y: 0.75 },
+            caption: 'privacy zone · 200 m · hidden from everyone but you',
+            aspect: 342 / 220,
+            alt: 'Route fading into a dashed privacy zone around home',
+          },
+        };
+        document.querySelectorAll('[data-sketch]').forEach(function (el) {
+          var def = SKETCHES[el.getAttribute('data-sketch')];
+          if (def) el.innerHTML = routeSketch(def);
+        });
+
+        /* ————— theme toggle (F8: light/dark ship in week one) ————— */
+        function storedTheme() {
+          try {
+            return localStorage.getItem('inertial-theme');
+          } catch (e) {
+            return null;
+          }
+        }
+        function applyTheme(t) {
+          if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+          else document.documentElement.removeAttribute('data-theme');
+        }
+        applyTheme(storedTheme());
+        document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var cur = document.documentElement.getAttribute('data-theme');
+            var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var isDark = cur ? cur === 'dark' : systemDark;
+            var next = isDark ? 'light' : 'dark';
+            applyTheme(next);
+            try {
+              localStorage.setItem('inertial-theme', next);
+            } catch (e) {
+              /* private mode: theme just won't persist */
+            }
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
