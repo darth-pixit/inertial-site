@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Plain Words</title>
+    <link>https://inertial.run/blog/</link>
+    <description>Every metric, benchmark and adjustment a runner meets on a watch, explained with numbers, methods and sources. No ads, no affiliates, nothing gated.</description>
+    <language>en</language>
+    <item>
+      <title>Is a sub-4 marathon realistic? A five-input reality check</title>
+      <link>https://inertial.run/blog/is-sub-4-marathon-realistic/</link>
+      <guid isPermaLink="true">https://inertial.run/blog/is-sub-4-marathon-realistic/</guid>
+      <pubDate>Tue, 01 Sep 2026 03:30:00 GMT</pubDate>
+      <description>Sub-4 needs 5:41/km (9:09/mi). Five inputs decide whether that is yours: half time, weekly volume, longest run, course and heat.</description>
+    </item>
+    <item>
+      <title>What Strava's Fitness score actually measures</title>
+      <link>https://inertial.run/blog/what-strava-fitness-score-measures/</link>
+      <guid isPermaLink="true">https://inertial.run/blog/what-strava-fitness-score-measures/</guid>
+      <pubDate>Tue, 01 Sep 2026 03:30:00 GMT</pubDate>
+      <description>It is a 42-day average of training load, not fitness. That is why it can fall by 10 points in the block where you got faster.</description>
+    </item>
+    <item>
+      <title>Why your watch and your app predict different race times</title>
+      <link>https://inertial.run/blog/why-garmin-strava-predict-different-times/</link>
+      <guid isPermaLink="true">https://inertial.run/blog/why-garmin-strava-predict-different-times/</guid>
+      <pubDate>Tue, 01 Sep 2026 03:30:00 GMT</pubDate>
+      <description>One reads your training, the other reads one race. From a 25:00 5K, 3 published models already disagree by 6 minutes at marathon distance.</description>
+    </item>
+  </channel>
+</rss>
