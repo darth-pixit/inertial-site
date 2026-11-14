@@ -1,0 +1,58 @@
+<!doctype html>
+<!--
+  inertial.run/ig — the one link for Instagram (bio, DMs, stories).
+  Forwards to the waitlist tagged src=ig, so signups from Instagram show up as
+  source 'ig'. The og: tags match waitlist.html so a link pasted in a DM
+  previews like the waitlist page. Relative URL: works at the domain root and
+  under a github.io subpath alike.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Join the waitlist · Inertial</title>
+    <meta name="robots" content="noindex" />
+    <meta
+      name="description"
+      content="Join the Inertial waitlist. Leave your email and we'll write when your spot opens. Free, forever, with no ads."
+    />
+    <meta property="og:title" content="Inertial — Join the waitlist" />
+    <meta
+      property="og:description"
+      content="A running app built accuracy-first and privacy-first. Leave your email and we'll write when your spot opens."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="https://inertial.run/waitlist" />
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <meta http-equiv="refresh" content="0; url=waitlist?src=ig" />
+    <script>
+      location.replace('waitlist?src=ig');
+    </script>
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+      body {
+        margin: 0;
+        padding: 32px 16px;
+        font:
+          16px/1.5 system-ui,
+          sans-serif;
+        background: #fafbf6;
+        color: #111;
+      }
+      a {
+        color: inherit;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #111;
+          color: #fafbf6;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="waitlist?src=ig">Join the waitlist</a>
+  </body>
+</html>

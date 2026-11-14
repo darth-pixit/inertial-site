@@ -1,0 +1,804 @@
+<!doctype html>
+<!--
+  /waitlist — the one shareable link for joining the beta. Email is required;
+  a WhatsApp number is optional. Share it with a source tag so we can tell
+  which link worked:  https://inertial.run/waitlist?src=instagram
+  (?src= or ?ref=, lowercase slug, falls back to "website").
+
+  Same shell as privacy.html: self-contained, no build step, tokens inline.
+  config.js supplies the publishable Supabase values; RLS
+  (packages/db/migrations/0008_waitlist.sql + 0029_waitlist_email.sql) makes
+  that key insert-only, so it can add a signup and never read one back.
+  Without config.js (a preview deploy) the form still validates and says
+  honestly that nothing was sent.
+-->
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Join the waitlist · Inertial</title>
+    <meta
+      name="description"
+      content="Join the Inertial waitlist. Leave your email and we'll write when your spot opens. Free, forever, with no ads."
+    />
+    <meta property="og:title" content="Inertial — Join the waitlist" />
+    <meta
+      property="og:description"
+      content="A running app built accuracy-first and privacy-first. Leave your email and we'll write when your spot opens."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon-180.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#FAFBF6" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap"
+    />
+    <style>
+      /* ————— Inertial tokens (apps/mobile theme system, ported per the design system —
+         the full block from index.html, verbatim, so the two files stay diffable) ————— */
+      :root {
+        --paper: #fafaf7;
+        --ink: #14181c;
+        --night: #0b0f14;
+        --night-surface: #121821;
+        --night-raised: #1a2230;
+        --bg: #fafaf7;
+        --surface: #ffffff;
+        --surface-alt: #f2f1ea;
+        --wash: #f0fdf9;
+        --wash-border: rgba(14, 122, 108, 0.18);
+        --line: rgba(0, 0, 0, 0.08);
+        --line-strong: rgba(0, 0, 0, 0.14);
+        --text: #14181c;
+        --text-dim: rgba(0, 0, 0, 0.55);
+        --text-faint: rgba(0, 0, 0, 0.4);
+        --on-ink: #ffffff;
+        --on-ink-dim: rgba(255, 255, 255, 0.55);
+        --on-ink-faint: rgba(255, 255, 255, 0.4);
+        --accent: #0e7a6c;
+        --accent-deep: #0b5f54;
+        --accent-bright: #2dd4bf;
+        --on-accent: #ffffff;
+        --accent-soft: rgba(14, 122, 108, 0.1);
+        --danger: #ef4444;
+        --serif-bg: #f7f5ee;
+        --map-bg: #edf4f2;
+        --map-stripe: #e3eeeb;
+        --map-label: #5b7a73;
+        --map-track: #0e7a6c;
+        --map-raw: #c4c9c4;
+        --font-display: 'Space Grotesk', system-ui, sans-serif;
+        --font-serif: 'Newsreader', Georgia, serif;
+        --font-body: system-ui, -apple-system, 'Segoe UI', sans-serif;
+        --font-mono: ui-monospace, Menlo, Consolas, monospace;
+        --shadow-card: 0 2px 10px rgba(14, 122, 108, 0.07);
+        --shadow-accent: 0 4px 16px rgba(14, 122, 108, 0.3);
+        color-scheme: light;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) {
+          --bg: #0b0f14;
+          --surface: #121821;
+          --surface-alt: #1a2230;
+          --wash: rgba(45, 212, 191, 0.08);
+          --wash-border: rgba(45, 212, 191, 0.22);
+          --line: rgba(255, 255, 255, 0.08);
+          --line-strong: rgba(255, 255, 255, 0.14);
+          --text: #f5f7f6;
+          --text-dim: rgba(245, 247, 246, 0.6);
+          --text-faint: rgba(245, 247, 246, 0.42);
+          --ink: #f5f7f6;
+          --on-ink: #0b0f14;
+          --on-ink-dim: rgba(11, 15, 20, 0.55);
+          --on-ink-faint: rgba(11, 15, 20, 0.4);
+          --accent: #2dd4bf;
+          --accent-deep: #0e7a6c;
+          --accent-bright: #2dd4bf;
+          --on-accent: #06251f;
+          --accent-soft: rgba(45, 212, 191, 0.12);
+          --serif-bg: #10151b;
+          --map-bg: #101820;
+          --map-stripe: #15202b;
+          --map-label: #6e8b84;
+          --map-track: #2dd4bf;
+          --map-raw: #4a5259;
+          --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.35);
+          color-scheme: dark;
+        }
+      }
+      :root[data-theme='dark'] {
+        --bg: #0b0f14;
+        --surface: #121821;
+        --surface-alt: #1a2230;
+        --wash: rgba(45, 212, 191, 0.08);
+        --wash-border: rgba(45, 212, 191, 0.22);
+        --line: rgba(255, 255, 255, 0.08);
+        --line-strong: rgba(255, 255, 255, 0.14);
+        --text: #f5f7f6;
+        --text-dim: rgba(245, 247, 246, 0.6);
+        --text-faint: rgba(245, 247, 246, 0.42);
+        --ink: #f5f7f6;
+        --on-ink: #0b0f14;
+        --on-ink-dim: rgba(11, 15, 20, 0.55);
+        --on-ink-faint: rgba(11, 15, 20, 0.4);
+        --accent: #2dd4bf;
+        --accent-deep: #0e7a6c;
+        --accent-bright: #2dd4bf;
+        --on-accent: #06251f;
+        --accent-soft: rgba(45, 212, 191, 0.12);
+        --serif-bg: #10151b;
+        --map-bg: #101820;
+        --map-stripe: #15202b;
+        --map-label: #6e8b84;
+        --map-track: #2dd4bf;
+        --map-raw: #4a5259;
+        --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.35);
+        color-scheme: dark;
+      }
+
+      /* ————— base ————— */
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: var(--accent-deep);
+        text-decoration: none;
+      }
+      a:hover {
+        color: var(--accent);
+      }
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        text-wrap: balance;
+      }
+      p {
+        margin: 0;
+      }
+      :focus-visible {
+        outline: 2.5px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 6px;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .micro {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+      .serif-h {
+        font-family: var(--font-serif);
+        font-weight: 500;
+        letter-spacing: 0;
+      }
+
+      /* pills (app PillButton, ported) */
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 52px;
+        padding: 0 24px;
+        border-radius: 999px;
+        border: none;
+        background: var(--accent);
+        color: var(--on-accent);
+        font: 600 15px var(--font-body);
+        cursor: pointer;
+        transition:
+          transform 0.12s ease-out,
+          opacity 0.12s ease-out,
+          box-shadow 0.12s ease-out;
+        text-decoration: none;
+      }
+      .pill:hover {
+        color: var(--on-accent);
+        box-shadow: var(--shadow-accent);
+      }
+      .pill:active {
+        transform: scale(0.97);
+        opacity: 0.9;
+      }
+      .pill.small {
+        min-height: 36px;
+        padding: 0 16px;
+        font-size: 12.5px;
+      }
+      .pill.outline {
+        background: transparent;
+        color: var(--text);
+        border: 1.5px solid var(--line-strong);
+      }
+      .pill.outline:hover {
+        box-shadow: none;
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .wash-card {
+        background: var(--wash);
+        border: 1px solid var(--wash-border);
+        border-radius: 14px;
+        padding: 12px 14px;
+        font: 12px/1.5 var(--font-body);
+        color: var(--accent-deep);
+      }
+      :root[data-theme='dark'] .wash-card {
+        color: var(--accent-bright);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) .wash-card {
+          color: var(--accent-bright);
+        }
+      }
+
+      /* nav */
+      nav.site {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 18px 24px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text);
+      }
+      .brand:hover {
+        color: var(--text);
+      }
+      .brand .word {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 19px;
+        letter-spacing: -0.02em;
+      }
+      .navlinks {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        font-size: 14px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        flex: 1;
+      }
+      .navlinks a {
+        color: var(--text-dim);
+      }
+      .navlinks a:hover {
+        color: var(--accent);
+      }
+      .theme-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        border: 1.5px solid var(--line-strong);
+        background: transparent;
+        color: var(--text-dim);
+        cursor: pointer;
+        font-size: 15px;
+        line-height: 1;
+        flex: none;
+      }
+      .theme-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      @media (max-width: 760px) {
+        .navlinks .hide-sm {
+          display: none;
+        }
+      }
+
+      /* sections */
+      section.band {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      section.band.surface {
+        background: var(--surface);
+      }
+      .sect {
+        padding-top: 88px;
+        padding-bottom: 88px;
+      }
+      .sect h1,
+      .sect h2 {
+        font-family: var(--font-serif);
+        font-weight: 500;
+        font-size: clamp(30px, 4.5vw, 40px);
+        line-height: 1.1;
+        margin: 0 0 14px;
+      }
+      .split {
+        display: flex;
+        gap: 48px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .split > div {
+        min-width: 280px;
+      }
+
+      /* footer */
+      footer.site {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+        align-items: center;
+        font-size: 13px;
+        color: var(--text-faint);
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+      footer.site a {
+        color: var(--text-faint);
+      }
+      footer.site a:hover {
+        color: var(--accent);
+      }
+      footer.site .brandline {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      footer.site .word {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--text);
+      }
+      footer.site .grow {
+        flex: 1;
+      }
+      footer.site .links {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      /* waitlist (from index.html, email first) */
+      .wl-main {
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 16px;
+      }
+      .wl-box {
+        max-width: 460px;
+        width: 100%;
+        text-align: center;
+      }
+      .wl-box h1 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: clamp(34px, 6vw, 42px);
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+        margin: 18px 0 14px;
+      }
+      .wl-box .lede {
+        font-size: 15.5px;
+        color: var(--text-dim);
+        margin: 0 0 28px;
+      }
+      .wl-form {
+        display: grid;
+        gap: 12px;
+        text-align: left;
+      }
+      .wl-field label {
+        display: block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        margin: 0 0 6px 18px;
+      }
+      .wl-field input {
+        width: 100%;
+        min-height: 52px;
+        border-radius: 999px;
+        border: 1.5px solid var(--line-strong);
+        background: var(--surface);
+        padding: 0 22px;
+        font: 500 16px var(--font-body);
+        color: var(--text);
+        outline: none;
+      }
+      .wl-field input::placeholder {
+        color: var(--text-faint);
+      }
+      .wl-field input:focus {
+        border-color: var(--accent);
+      }
+      .wl-field input[aria-invalid='true'] {
+        border-color: var(--danger);
+      }
+      .wl-form .pill {
+        width: 100%;
+        margin-top: 4px;
+      }
+      .wl-form .pill:disabled {
+        opacity: 0.5;
+        cursor: default;
+        box-shadow: none;
+      }
+      .wl-trap {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+      .wl-archive {
+        display: inline-flex;
+        align-items: center;
+        justify-self: center;
+        gap: 8px;
+        padding: 7px 14px;
+        border-radius: 999px;
+        border: 1.5px solid var(--line-strong);
+        font-size: 13px;
+        color: var(--text-dim);
+        cursor: pointer;
+        user-select: none;
+      }
+      .wl-archive:has(input:checked) {
+        border-color: var(--accent);
+        color: var(--accent-deep);
+        background: var(--wash);
+      }
+      .wl-archive input {
+        accent-color: var(--accent);
+        margin: 0;
+      }
+      .wl-error {
+        font-size: 13px;
+        color: var(--danger);
+        margin-top: 14px;
+      }
+      .wl-error.info {
+        color: var(--accent-deep);
+        background: var(--wash);
+        border: 1px solid var(--wash-border);
+        border-radius: 14px;
+        padding: 10px 14px;
+      }
+      .wl-note {
+        margin: 20px auto 0;
+      }
+      .wl-done .serif-line {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-size: 18px;
+        color: var(--text-dim);
+        margin-top: 24px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .pill,
+        .pill:active {
+          transition: none;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="site" aria-label="Site">
+      <a href="./" class="brand" data-mark></a>
+      <div class="navlinks">
+        <a href="./">‹ Back home</a>
+        <a href="./#/trust" class="hide-sm">Trust</a>
+      </div>
+      <button class="theme-btn" data-theme-toggle aria-label="Switch between light and dark theme">
+        ◐
+      </button>
+    </nav>
+
+    <main class="wl-main">
+      <div class="wl-box">
+        <span data-mark-lg></span>
+        <div id="wl-form-state">
+          <h1>Be first out the door.</h1>
+          <p class="lede">
+            We're letting runners in batch by batch. Leave your email and we'll write when your spot
+            opens.
+          </p>
+          <form class="wl-form" id="wl-form" novalidate>
+            <div class="wl-field">
+              <label for="wl-email">Email</label>
+              <input
+                type="email"
+                id="wl-email"
+                name="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                inputmode="email"
+                autocapitalize="off"
+                spellcheck="false"
+                required
+              />
+            </div>
+            <div class="wl-field">
+              <label for="wl-phone">WhatsApp · optional</label>
+              <input
+                type="tel"
+                id="wl-phone"
+                name="phone"
+                placeholder="+91 98765 43210"
+                autocomplete="tel"
+                inputmode="tel"
+              />
+            </div>
+            <div class="wl-trap" aria-hidden="true">
+              <label for="wl-website">Leave this empty</label>
+              <input type="text" id="wl-website" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+            <label class="wl-archive">
+              <input type="checkbox" id="wl-archive" />
+              <span>📦 I'm bringing my history from another app</span>
+            </label>
+            <button type="submit" class="pill" id="wl-submit" disabled>
+              Enter your email to join
+            </button>
+          </form>
+          <div class="wl-error" id="wl-error" role="status" hidden></div>
+          <div class="wl-note">
+            <div class="wash-card" style="text-align: center">
+              Used once, to tell you you're in. Never shared, never sold, gone the moment you ask.
+            </div>
+          </div>
+        </div>
+        <div id="wl-done-state" class="wl-done" hidden>
+          <h1 id="wl-done-title">You're in line. 🎉</h1>
+          <p class="lede" style="margin-bottom: 0">
+            We'll write to <strong id="wl-done-email" style="color: var(--accent)"></strong> when
+            your spot opens.
+          </p>
+          <p class="serif-line">A body in motion stays in motion. See you soon.</p>
+        </div>
+        <div style="font-size: 13px; color: var(--text-faint); margin-top: 32px">
+          Free, forever · no ads, ever
+        </div>
+      </div>
+    </main>
+
+    <footer class="site wrap" style="border-top: 1px solid var(--line)">
+      <div class="brandline"><span data-mark-sm></span><span class="word">Inertial</span></div>
+      <div class="grow"></div>
+      <div class="links">
+        <a href="./">Home</a>
+        <a href="./#/trust">Trust &amp; privacy</a>
+        <a href="./privacy">Privacy policy</a>
+      </div>
+      <div>Built by Parth Dixit &amp; Aryan Dixit, co-founders</div>
+      <div>Made in India 🇮🇳 · your data, yours by right</div>
+    </footer>
+
+    <script>
+      /* Defaults; config.js (production) overrides with the Supabase values. */
+      window.INERTIAL_SITE = { waitlist: null };
+    </script>
+    <script src="./config.js"></script>
+    <script>
+      (function () {
+        'use strict';
+
+        /* ————— brand mark (assets/mark.svg from the design system, inlined) ————— */
+        function markSvg(size, stroke, dot) {
+          return (
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="' +
+            size +
+            '" height="' +
+            size +
+            '" aria-hidden="true"><path d="M6,30 Q14,30 18,20 T30,10" fill="none" stroke="' +
+            stroke +
+            '" stroke-width="3.5" stroke-linecap="round"></path><circle cx="30" cy="10" r="3.5" fill="' +
+            dot +
+            '"></circle></svg>'
+          );
+        }
+        document.querySelectorAll('[data-mark]').forEach(function (el) {
+          el.innerHTML =
+            markSvg(28, 'var(--accent)', 'var(--text)') + '<span class="word">Inertial</span>';
+        });
+        document.querySelectorAll('[data-mark-sm]').forEach(function (el) {
+          el.innerHTML = markSvg(20, 'var(--accent)', 'var(--text)');
+        });
+
+        document.querySelectorAll('[data-mark-lg]').forEach(function (el) {
+          el.innerHTML = markSvg(56, 'var(--accent)', 'var(--text)');
+        });
+
+        /* ————— waitlist ————— */
+        var cfg = (window.INERTIAL_SITE || {}).waitlist || null;
+        var live = !!(cfg && cfg.url && cfg.anonKey);
+        var form = document.getElementById('wl-form');
+        var emailIn = document.getElementById('wl-email');
+        var phoneIn = document.getElementById('wl-phone');
+        var trap = document.getElementById('wl-website');
+        var archiveBox = document.getElementById('wl-archive');
+        var submit = document.getElementById('wl-submit');
+        var errBox = document.getElementById('wl-error');
+
+        // Same shape the database checks (0029): lowercase, one @, a dot-tld.
+        var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/;
+        function email() {
+          return emailIn.value.trim().toLowerCase();
+        }
+        function emailOk() {
+          var e = email();
+          return e.length >= 6 && e.length <= 254 && EMAIL_RE.test(e);
+        }
+        // Optional. India-first: a bare 10-digit number is assumed to be +91.
+        function phone() {
+          var raw = phoneIn.value.trim();
+          var d = raw.replace(/\D/g, '');
+          if (!d) return '';
+          if (d.length < 10 || d.length > 15) return null;
+          return raw.charAt(0) === '+' ? '+' + d : d.length === 10 ? '+91' + d : '+' + d;
+        }
+        // Which shared link brought them: ?src=instagram (or ?ref=). Slug only.
+        function source() {
+          try {
+            var p = new URLSearchParams(location.search);
+            var s = (p.get('src') || p.get('ref') || '')
+              .toLowerCase()
+              .replace(/[^a-z0-9-]+/g, '-')
+              .replace(/^-+|-+$/g, '')
+              .slice(0, 32);
+            return /^[a-z0-9][a-z0-9-]{0,31}$/.test(s) ? s : 'website';
+          } catch (e) {
+            return 'website';
+          }
+        }
+        function refresh() {
+          var ok = emailOk();
+          submit.disabled = !ok;
+          submit.textContent = ok ? 'Join the waitlist' : 'Enter your email to join';
+        }
+        function say(msg, info) {
+          errBox.textContent = msg;
+          errBox.className = info ? 'wl-error info' : 'wl-error';
+          errBox.hidden = false;
+        }
+        function done(already) {
+          document.getElementById('wl-form-state').hidden = true;
+          document.getElementById('wl-done-email').textContent = email();
+          if (already)
+            document.getElementById('wl-done-title').textContent = "You're already in line.";
+          document.getElementById('wl-done-state').hidden = false;
+        }
+        emailIn.addEventListener('input', function () {
+          emailIn.removeAttribute('aria-invalid');
+          refresh();
+        });
+        phoneIn.addEventListener('input', function () {
+          phoneIn.removeAttribute('aria-invalid');
+        });
+        refresh();
+
+        form.addEventListener('submit', function (ev) {
+          ev.preventDefault();
+          if (submit.dataset.busy) return;
+          errBox.hidden = true;
+          if (!emailOk()) {
+            emailIn.setAttribute('aria-invalid', 'true');
+            say('That email doesn’t look right. Check it and try again.', false);
+            return;
+          }
+          var ph = phone();
+          if (ph === null) {
+            phoneIn.setAttribute('aria-invalid', 'true');
+            say('That number doesn’t look right. Fix it, or leave it blank.', false);
+            return;
+          }
+          // A bot filled the hidden field: show the happy state, send nothing.
+          if (trap.value) {
+            done(false);
+            return;
+          }
+          if (!live) {
+            say(
+              'This preview can’t save signups, so nothing was sent. The live site takes it from here.',
+              true,
+            );
+            return;
+          }
+          var row = { email: email(), source: source(), wants_import: !!archiveBox.checked };
+          if (ph) row.phone = ph;
+          submit.dataset.busy = '1';
+          submit.textContent = 'Joining…';
+          fetch(cfg.url + '/rest/v1/waitlist_signups', {
+            method: 'POST',
+            headers: {
+              apikey: cfg.anonKey,
+              Authorization: 'Bearer ' + cfg.anonKey,
+              'Content-Type': 'application/json',
+              Prefer: 'return=minimal',
+            },
+            body: JSON.stringify(row),
+          })
+            .then(function (res) {
+              if (res.status === 201) done(false);
+              // 409 = this email (or number) is already on the list
+              else if (res.status === 409) done(true);
+              else fail('That didn’t go through, so nothing was saved. Try again in a moment.');
+            })
+            .catch(function () {
+              fail('Couldn’t reach the waitlist. Check your connection and try again.');
+            });
+          function fail(msg) {
+            delete submit.dataset.busy;
+            refresh();
+            say(msg, false);
+          }
+        });
+
+        /* ————— theme toggle (F8: light/dark ship in week one) ————— */
+        function storedTheme() {
+          try {
+            return localStorage.getItem('inertial-theme');
+          } catch (e) {
+            return null;
+          }
+        }
+        function applyTheme(t) {
+          if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+          else document.documentElement.removeAttribute('data-theme');
+        }
+        applyTheme(storedTheme());
+        document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var cur = document.documentElement.getAttribute('data-theme');
+            var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var isDark = cur ? cur === 'dark' : systemDark;
+            var next = isDark ? 'light' : 'dark';
+            applyTheme(next);
+            try {
+              localStorage.setItem('inertial-theme', next);
+            } catch (e) {
+              /* private mode: theme just won't persist */
+            }
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
