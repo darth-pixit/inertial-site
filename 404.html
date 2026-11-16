@@ -1,0 +1,104 @@
+<!doctype html>
+<!--
+  GitHub Pages serves this file for every path it has no file for. One family
+  of those paths is real: /run/<id>, the run links the app shares
+  (apps/mobile/src/share/activityLinks.ts). With the app installed, the OS
+  opens those links in the app straight away (/.well-known/ files, staged by
+  deploy/push-site.sh) and this page never shows. Without it, or when the OS
+  has not verified the link yet, this page offers to open the run in the app.
+  Every other path gets a plain "not found". No run data is read here: the
+  app shows the run after sign-in, under the runner's own sharing settings.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#FAFBF6" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Inertial.run</title>
+    <style>
+      :root {
+        --bg: #fafaf7;
+        --text: #14181c;
+        --dim: rgba(0, 0, 0, 0.55);
+        --accent: #0e7a6c;
+        --on-accent: #ffffff;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0b0f14;
+          --text: #f5f7f6;
+          --dim: rgba(255, 255, 255, 0.6);
+          --accent: #2dd4bf;
+          --on-accent: #0b0f14;
+        }
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          18px/1.5 system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+      }
+      main {
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 64px 16px;
+      }
+      h1 {
+        font-size: 28px;
+        margin: 0 0 12px;
+      }
+      p {
+        color: var(--dim);
+      }
+      a.cta {
+        display: block;
+        margin: 28px 0 16px;
+        padding: 16px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: var(--on-accent);
+        text-align: center;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      a.plain {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <main id="page">
+      <h1>Page not found</h1>
+      <p>This page doesn’t exist.</p>
+      <a class="plain" href="/">Go to Inertial.run</a>
+    </main>
+    <script>
+      (function () {
+        var m = location.pathname.match(
+          /^\/run\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\/?$/i,
+        );
+        if (!m) return;
+        document.title = 'Open run · Inertial.run';
+        var page = document.getElementById('page');
+        page.innerHTML =
+          '<h1>Open this run in Inertial</h1>' +
+          '<p>Sign in to see it. The runner’s sharing settings still apply.</p>' +
+          '<a class="cta" id="open">Open Inertial</a>' +
+          '<p>No app yet? Install Inertial, then open this link again.</p>' +
+          '<a class="plain" href="/">About Inertial.run</a>';
+        document.getElementById('open').href = 'inertial://activity/' + m[1].toLowerCase();
+      })();
+    </script>
+  </body>
+</html>
