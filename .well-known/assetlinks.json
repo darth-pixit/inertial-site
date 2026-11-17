@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.rundev.recorder",
+      "sha256_cert_fingerprints": [
+        "77:07:57:4D:94:63:5A:59:E4:90:8D:11:F2:21:2F:58:4C:4B:D4:10:74:9E:40:F7:53:61:DD:1A:5A:F0:49:0D",
+        "BC:97:3A:77:AE:63:94:75:EA:08:F2:5C:60:F5:DC:20:DA:6E:A4:52:06:23:BE:E4:AE:0C:F7:E3:10:90:22:AF"
+      ]
+    }
+  }
+]

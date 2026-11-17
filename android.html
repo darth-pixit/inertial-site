@@ -1,0 +1,58 @@
+<!doctype html>
+<!--
+  inertial.run/android — the one download link for the Android beta.
+  Forwards to the latest release on darth-pixit/inertial-site, whose asset is
+  always named inertial-beta.apk, so this link never changes between builds.
+  The beta-invite email and /beta both use it. A new build: publish a new
+  release on that repo with the same file name, then update the fingerprints
+  in beta.html and in LIVE_CONFIG (supabase/functions/beta-invite/template.ts).
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Inertial for Android</title>
+    <meta name="robots" content="noindex" />
+    <meta name="description" content="Download the Inertial closed beta for Android." />
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <meta
+      http-equiv="refresh"
+      content="0; url=https://github.com/darth-pixit/inertial-site/releases/latest/download/inertial-beta.apk"
+    />
+    <script>
+      location.replace(
+        'https://github.com/darth-pixit/inertial-site/releases/latest/download/inertial-beta.apk',
+      );
+    </script>
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+      body {
+        margin: 0;
+        padding: 32px 16px;
+        font:
+          16px/1.5 system-ui,
+          sans-serif;
+        background: #fafbf6;
+        color: #111;
+      }
+      a {
+        color: inherit;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #111;
+          color: #fafbf6;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a
+      href="https://github.com/darth-pixit/inertial-site/releases/latest/download/inertial-beta.apk"
+      >Download for Android</a
+    >
+    <p>The full install guide is at <a href="beta">inertial.run/beta</a>.</p>
+  </body>
+</html>
