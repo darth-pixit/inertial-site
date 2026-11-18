@@ -408,7 +408,8 @@
         width: 100%;
         text-align: center;
       }
-      .wl-box h1 {
+      .wl-box h1,
+      .wl-box .wl-title {
         font-family: var(--font-display);
         font-weight: 700;
         font-size: clamp(34px, 6vw, 42px);
@@ -595,7 +596,7 @@
           </div>
         </div>
         <div id="wl-done-state" class="wl-done" hidden>
-          <h1 id="wl-done-title">You're in line. 🎉</h1>
+          <p class="wl-title" id="wl-done-title">You're in line. 🎉</p>
           <p class="lede" style="margin-bottom: 0">
             We'll write to <strong id="wl-done-email" style="color: var(--accent)"></strong> when
             your spot opens.

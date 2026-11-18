@@ -1170,7 +1170,8 @@
         width: 100%;
         text-align: center;
       }
-      .wl-box h1 {
+      .wl-box h1,
+      .wl-box .wl-title {
         font-family: var(--font-display);
         font-weight: 700;
         font-size: clamp(34px, 6vw, 42px);
@@ -1847,12 +1848,12 @@
         style="max-width: 760px; text-align: center; padding-top: 72px; padding-bottom: 40px"
       >
         <div class="micro accent" style="margin-bottom: 18px">How we earn your trust</div>
-        <h1
+        <h2
           class="serif-h"
           style="font-size: clamp(36px, 6vw, 52px); line-height: 1.08; margin-bottom: 18px"
         >
           Honesty is the whole product.
-        </h1>
+        </h2>
         <p class="sub" style="text-wrap: pretty">
           Running apps quietly smooth your pace, drop your points and map your front door. Inertial
           does the opposite, and shows its work.
@@ -2014,11 +2015,11 @@
         <div class="wl-box">
           <span data-mark-lg-accent></span>
           <div id="inv-loading">
-            <h1>Opening the invite…</h1>
+            <p class="wl-title">Opening the invite…</p>
           </div>
 
           <div id="inv-found" hidden>
-            <h1 id="inv-title">A challenge</h1>
+            <p class="wl-title" id="inv-title">A challenge</p>
             <p class="lede" id="inv-lede"></p>
             <div class="wash-card" style="text-align: center">
               <div style="font-size: 13px; color: var(--text-faint)">Your code</div>
@@ -2042,7 +2043,7 @@
           </div>
 
           <div id="inv-missing" hidden>
-            <h1>That invite has expired.</h1>
+            <p class="wl-title">That invite has expired.</p>
             <p class="lede">
               The challenge it pointed at has ended, or the code was mistyped. Ask whoever sent it
               for a fresh one.
