@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Plain Words</title>
     <link>https://inertial.run/blog/</link>
+    <atom:link href="https://inertial.run/rss.xml" rel="self" type="application/rss+xml" />
     <description>Every metric, benchmark and adjustment a runner meets on a watch, explained with numbers, methods and sources. No ads, no affiliates, nothing gated.</description>
     <language>en</language>
     <item>
