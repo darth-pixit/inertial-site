@@ -1,0 +1,43 @@
+User-agent: *
+Allow: /
+
+# Answer-engine crawlers — must be allowed (citations)
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: Claude-User
+Allow: /
+User-agent: Googlebot
+Allow: /
+User-agent: bingbot
+Allow: /
+User-agent: Applebot
+Allow: /
+User-agent: DuckAssistBot
+Allow: /
+User-agent: meta-webindexer
+Allow: /
+
+# Training crawlers — DECISION PENDING (CONTENT_ENGINE §15, item 5).
+# Default until decided: allowed. Blocking these does NOT affect search
+# citations per OpenAI/Anthropic docs, but blocking Google-Extended removes
+# the site from Gemini grounding.
+# User-agent: GPTBot
+# Disallow: /
+# User-agent: ClaudeBot
+# Disallow: /
+# User-agent: Google-Extended
+# Disallow: /
+# User-agent: CCBot
+# Disallow: /
+# User-agent: Bytespider
+# Disallow: /
+
+Sitemap: https://inertial.run/sitemap.xml
