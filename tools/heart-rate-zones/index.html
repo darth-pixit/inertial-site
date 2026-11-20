@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Heart rate zone calculator: five methods, and what your watch uses · Plain Words</title>
+    <title>Heart rate zone calculator: five methods · Plain Words</title>
     <meta name="description" content="Zones under 220−age, Tanaka, Gulati, Karvonen and threshold percentages — with the spread between them printed, because at any age it is around 10 bpm." />
     
     <link rel="canonical" href="https://inertial.run/tools/heart-rate-zones/" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Heart rate zone calculator: five methods, and what your watch uses · Plain Words" />
+    <meta property="og:title" content="Heart rate zone calculator: five methods · Plain Words" />
     <meta property="og:description" content="Zones under 220−age, Tanaka, Gulati, Karvonen and threshold percentages — with the spread between them printed, because at any age it is around 10 bpm." />
     <meta property="og:url" content="https://inertial.run/tools/heart-rate-zones/" />
     <meta property="og:site_name" content="Plain Words" />
@@ -60,12 +60,18 @@
       {
         "@type": "Person",
         "name": "Parth Dixit",
-        "jobTitle": "Co-founder, Inertial"
+        "@id": "https://inertial.run/about/#parth",
+        "url": "https://inertial.run/about/#parth",
+        "jobTitle": "Co-founder, Inertial",
+        "description": "Co-founds Inertial with Aryan Dixit, and writes Plain Words, including the method pages, so the arithmetic can be checked."
       },
       {
         "@type": "Person",
         "name": "Aryan Dixit",
-        "jobTitle": "Co-founder, Inertial"
+        "@id": "https://inertial.run/about/#aryan",
+        "url": "https://inertial.run/about/#aryan",
+        "jobTitle": "Co-founder, Inertial",
+        "description": "Co-founds Inertial with Parth Dixit. He does not write Plain Words, so his name is on the company rather than on a byline."
       }
     ]
   }
@@ -86,7 +92,10 @@
   "author": {
     "@type": "Person",
     "name": "Parth Dixit",
-    "jobTitle": "Co-founder, Inertial"
+    "@id": "https://inertial.run/about/#parth",
+    "url": "https://inertial.run/about/#parth",
+    "jobTitle": "Co-founder, Inertial",
+    "description": "Parth co-founds Inertial and writes Plain Words — running data explained with numbers, methods and sources."
   },
   "publisher": {
     "@type": "Organization",
@@ -101,12 +110,18 @@
       {
         "@type": "Person",
         "name": "Parth Dixit",
-        "jobTitle": "Co-founder, Inertial"
+        "@id": "https://inertial.run/about/#parth",
+        "url": "https://inertial.run/about/#parth",
+        "jobTitle": "Co-founder, Inertial",
+        "description": "Co-founds Inertial with Aryan Dixit, and writes Plain Words, including the method pages, so the arithmetic can be checked."
       },
       {
         "@type": "Person",
         "name": "Aryan Dixit",
-        "jobTitle": "Co-founder, Inertial"
+        "@id": "https://inertial.run/about/#aryan",
+        "url": "https://inertial.run/about/#aryan",
+        "jobTitle": "Co-founder, Inertial",
+        "description": "Co-founds Inertial with Parth Dixit. He does not write Plain Words, so his name is on the company rather than on a byline."
       }
     ]
   },
@@ -137,6 +152,38 @@
       "@type": "CreativeWork",
       "name": "American Heart Association, target heart rates chart (reviewed 2024)",
       "url": "https://www.heart.org/en/healthy-living/fitness/fitness-basics/target-heart-rates"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is 220 minus age accurate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is a rough population average with no original research behind it — Robergs and Landwehr traced it in 2002 and found no study it was derived from. Tanaka fits real data better, but every formula carries a standard deviation of roughly 10 bpm, so any of them can be badly wrong for one person."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does my watch say I was in zone 5 for an entire easy run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Usually one of three things: your maximum is set from a formula and is too low for you, the watch is using a wrist sensor that locked onto your cadence, or the run genuinely was not easy. The order to check them in is on the zones page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use percent of max or Karvonen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Karvonen, if you know your resting heart rate — it accounts for the fact that your heart rate does not start at zero. The two methods can differ by 10 bpm or more in the easy zones, which is exactly the range where the difference decides whether a run is easy."
+      }
     }
   ]
 }
@@ -183,7 +230,7 @@
 <p class="kicker">Tool</p>
 <h1>Heart rate zone calculator: five methods, and what your watch uses</h1>
 <div class="bluf"><p>At 40, five published formulas put your maximum heart rate between 180 and 185 bpm — and the measured spread between individuals is far wider than that, around 10 to 12 bpm either side. If you have ever seen a genuine maximum on a watch, use it; it beats every formula here.</p></div>
-<div class="byline"><span>By Parth Dixit</span><span>Published <time datetime="2026-09-01T09:00:00+05:30">1 September 2026</time></span></div>
+<div class="byline"><span>By <a href="/about/#parth">Parth Dixit</a></span><span>Published <time datetime="2026-09-01T09:00:00+05:30">1 September 2026</time></span></div>
 <form class="tool" data-tool="heart-rate-zones">
 <div class="fields">
 <div><label for="hr-age">Age</label>
@@ -231,7 +278,7 @@
 </table></div>
 </div>
 </form>
-<p class="footer-line"><a href="/waitlist?src=heart-rate-zones">See this on your own runs →</a></p>
+<p class="footer-line"><a href="/waitlist/?src=heart-rate-zones">See this on your own runs →</a></p>
 <h2 id="how-this-works">How this works</h2>
 
 <p>Five estimates of one number, then the zones that follow from it.</p>
@@ -287,14 +334,25 @@
 </ul>
 </section>
 <section class="related">
+<h2 id="glossary-links">In the glossary</h2>
+<ul>
+<li><a href="/glossary/max-heart-rate/">Maximum heart rate</a></li>
+<li><a href="/glossary/heart-rate-zones/">Heart rate zones</a></li>
+<li><a href="/glossary/zone-2/">Zone 2</a></li>
+<li><a href="/glossary/threshold-pace/">Threshold pace</a></li>
+</ul>
+</section>
+<section class="related">
 <h2 id="related">Related</h2>
 <ul>
 <li><a href="/blog/what-strava-fitness-score-measures/">What Strava's Fitness score actually measures</a></li>
+<li><a href="/blog/is-sub-4-marathon-realistic/">Is a sub-4 marathon realistic? A five-input reality check</a></li>
+<li><a href="/blog/why-garmin-strava-predict-different-times/">Why your watch and your app predict different race times</a></li>
 </ul>
 </section>
 <aside class="authorbox">
 <div>
-<p><strong>Parth Dixit</strong> — Co-founder, Inertial</p>
+<p><strong><a href="/about/#parth">Parth Dixit</a></strong> — Co-founder, Inertial</p>
 <p>Co-founds Inertial with Aryan Dixit, and writes the method pages so you can check the maths.</p>
 </div>
 </aside>

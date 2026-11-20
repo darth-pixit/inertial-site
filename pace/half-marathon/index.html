@@ -34,6 +34,51 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://inertial.run/pace/half-marathon/",
+  "url": "https://inertial.run/pace/half-marathon/",
+  "name": "Half marathon pace charts",
+  "description": "21.0975 km (13.11 mi) finish times as a pace, with splits and a halfway target. 5 charts, from 1:30:00 to 2:30:00.",
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "What pace is a 1:30 half marathon?",
+        "url": "https://inertial.run/pace/half-marathon/1-30-00/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "What pace is a 1:45 half marathon?",
+        "url": "https://inertial.run/pace/half-marathon/1-45-00/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "What pace is a 2-hour half marathon?",
+        "url": "https://inertial.run/pace/half-marathon/2-00-00/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "What pace is a 2:15 half marathon?",
+        "url": "https://inertial.run/pace/half-marathon/2-15-00/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": "What pace is a 2:30 half marathon?",
+        "url": "https://inertial.run/pace/half-marathon/2-30-00/"
+      }
+    ]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
     {
@@ -72,13 +117,31 @@
 <div class="prose">
 <p class="kicker">Pace</p>
 <h1>Half marathon pace charts</h1>
-<p>The half marathon is 21.0975 km (13.11 mi). It is long enough that the first 10 km (6.2 mi) has to feel too easy. The people who fade after 16 km (10 mi) almost always ran the opening half at their 10K pace.</p>
+<p>A half marathon pace chart converts a finish time into the pace that covers 21.0975 km (13.11 mi). These pages are the times runners look up: 1:30:00, 1:45:00, 2:00:00, 2:15:00 and 2:30:00. Each one shows the even pace in min/km and min/mi, kilometre and mile splits, the halfway clock, and the slightly faster pace a long GPS trace requires.</p>
 
-<p>Each chart below is one finish time: the pace in min/km and min/mi, the full splits in both units, the halfway clock time on even pace, and the pace your watch has to show when its trace runs about 1.5% long. The times covered here are 1:30:00, 1:45:00, 2:00:00, 2:15:00, 2:30:00.</p>
+<h2 id="how-to-read-the-chart">How to read the chart</h2>
 
-<p>If your goal is not in that list, the <a href="/tools/pace-calculator/">pace calculator</a> does any half marathon time with the same maths. The <a href="/pace/">full set</a> covers the other distances.</p>
+<p>The title is a clock time. The bold pace is the one that hits it if you never drift. Halfway is 10.55 km (6.55 mi), and on even pace the clock there is half the finish time: 45:00 in a 1:30:00 half, 1:00:00 in a 2:00:00 half, 1:15:00 in a 2:30:00 half. That is the number to know before you start. The chart is not a suggestion to &quot;see how you feel&quot;. It is the pace, and the halfway check that tells you whether you are still on it.</p>
+
+<p>Both units are on the page because watches disagree about which one they display. Min/mi equals min/km times 1.609344. Use the column your screen is set to. The mile table ends at 13.11 mi, so the final row is a partial mile. Ignore that row and your elapsed time will not match the title, even if every full mile was perfect.</p>
+
+<h2 id="the-first-10-kilometres">The first 10 kilometres</h2>
+
+<p>A half marathon is long enough that the first 10 km (6.21 mi) has to feel too easy. The pace that feels right at the start of a <a href="/pace/10k/">10K</a> is a 10K pace. Holding it to 10 km of a half means the second 11 km is where the time leaves. The people who fade after 16 km (9.9 mi) are usually the ones who ran the opening half of the race at the shorter distance.</p>
+
+<p>Ten seconds a kilometre slower than the chart, for the whole 21.0975 km, is about 3 minutes 31 seconds late. That is 10 seconds times the distance, not a judgment. It is why the halfway clock matters more here than it does in a 5K. A 2% negative split — halfway at 2% slower than even, which the chart also prints — costs a little early and gives it back late. Going through halfway faster than even is borrowing. The <a href="/glossary/negative-split/">negative split</a> page is the definition. On this distance the modest version is the one the chart's second halfway figure describes.</p>
+
+<h2 id="watch-overage">Watch overage</h2>
+
+<p>The measured course is the shortest legal route, plus the small extra a certified course adds so it cannot be short. You run wider than that, and a GPS watch adds more because successive points sit off the true line. The total on the wrist is often 1 to 1.5% long. On a 2:00:00 half, 1.5% is 1 minute 48 seconds of extra time if you pace the watch as though it were the course. Each chart prints the watch pace that absorbs about 1.5% and still finishes on the title. The same division for any other time is the <a href="/tools/pace-calculator/">pace calculator</a>. Why the trace inflates is <a href="/glossary/gps-accuracy/">GPS accuracy</a>.</p>
+
+<p>Heat changes the effort at a given pace, which this chart does not model. If the day is warm, the pace on the page is still the pace for the time, and the time may no longer be the right goal. <a href="/glossary/dew-point/">Dew point</a> is the page for that decision. The chart will not make the adjustment for you.</p>
+
+<h2 id="what-these-five-times-leave-out">What these five times leave out</h2>
+
+<p>1:30:00, 1:45:00, 2:00:00, 2:15:00 and 2:30:00 are the searches. A 1:40 or a 2:05 is not a reason to guess between two charts. Put the time into the calculator and read the splits it prints. The <a href="/pace/marathon/">marathon pace charts</a> are a different race, 42.195 km (26.22 mi), and a half-marathon pace is not a marathon pace with the hope that you hang on.</p>
 </div>
-<section class="prose"><h2 id="charts">half marathon charts</h2><ul class="pill-row"><li><a href="/pace/half-marathon/1-30-00/">1:30:00</a></li><li><a href="/pace/half-marathon/1-45-00/">1:45:00</a></li><li><a href="/pace/half-marathon/2-00-00/">2:00:00</a></li><li><a href="/pace/half-marathon/2-15-00/">2:15:00</a></li><li><a href="/pace/half-marathon/2-30-00/">2:30:00</a></li></ul><p><a href="/pace/">All pace charts</a> · <a href="/tools/pace-calculator/">Pace calculator</a></p></section>
+<section class="prose"><h2 id="charts">Finish times</h2><ul class="pill-row"><li><a href="/pace/half-marathon/1-30-00/">1:30:00</a></li><li><a href="/pace/half-marathon/1-45-00/">1:45:00</a></li><li><a href="/pace/half-marathon/2-00-00/">2:00:00</a></li><li><a href="/pace/half-marathon/2-15-00/">2:15:00</a></li><li><a href="/pace/half-marathon/2-30-00/">2:30:00</a></li></ul><p><a href="/pace/">All pace charts</a> · <a href="/tools/pace-calculator/">Pace calculator</a></p></section>
     </main>
     <footer class="site">
       <div class="wrap">

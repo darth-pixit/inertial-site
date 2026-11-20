@@ -7,9 +7,9 @@ Every number in Plain Words names its method and sources. Drafts are not listed 
 ## Inertial, the app
 
 - [Inertial — the running app](https://inertial.run/): What the app does: accurate recording, whole-history import, training analytics, privacy zones, and a calm feed.
-- [Join the waitlist](https://inertial.run/waitlist): The first 1,000 on the waitlist get their first year free.
-- [Privacy](https://inertial.run/privacy): How the app treats location, photos and your data.
-- [Community rules](https://inertial.run/community): What is and is not allowed in the feed and comments.
+- [Join the waitlist](https://inertial.run/waitlist/): The first 1,000 on the waitlist get their first year free.
+- [Privacy](https://inertial.run/privacy/): How the app treats location, photos and your data.
+- [Community rules](https://inertial.run/community/): What is and is not allowed in the feed and comments.
 
 ## Plain Words, the publication
 

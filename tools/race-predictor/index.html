@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Race time predictor: Riegel, VDOT and Cameron, side by side · Plain Words</title>
+    <title>Race predictor: Riegel, VDOT and Cameron · Plain Words</title>
     <meta name="description" content="Riegel, VDOT and Cameron from one race, side by side. A 25:00 5K puts your marathon 6 minutes apart across the 3 models. The spread is the answer." />
     
     <link rel="canonical" href="https://inertial.run/tools/race-predictor/" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Race time predictor: Riegel, VDOT and Cameron, side by side · Plain Words" />
+    <meta property="og:title" content="Race predictor: Riegel, VDOT and Cameron · Plain Words" />
     <meta property="og:description" content="Riegel, VDOT and Cameron from one race, side by side. A 25:00 5K puts your marathon 6 minutes apart across the 3 models. The spread is the answer." />
     <meta property="og:url" content="https://inertial.run/tools/race-predictor/" />
     <meta property="og:site_name" content="Plain Words" />
@@ -60,12 +60,18 @@
       {
         "@type": "Person",
         "name": "Parth Dixit",
-        "jobTitle": "Co-founder, Inertial"
+        "@id": "https://inertial.run/about/#parth",
+        "url": "https://inertial.run/about/#parth",
+        "jobTitle": "Co-founder, Inertial",
+        "description": "Co-founds Inertial with Aryan Dixit, and writes Plain Words, including the method pages, so the arithmetic can be checked."
       },
       {
         "@type": "Person",
         "name": "Aryan Dixit",
-        "jobTitle": "Co-founder, Inertial"
+        "@id": "https://inertial.run/about/#aryan",
+        "url": "https://inertial.run/about/#aryan",
+        "jobTitle": "Co-founder, Inertial",
+        "description": "Co-founds Inertial with Parth Dixit. He does not write Plain Words, so his name is on the company rather than on a byline."
       }
     ]
   }
@@ -86,7 +92,10 @@
   "author": {
     "@type": "Person",
     "name": "Parth Dixit",
-    "jobTitle": "Co-founder, Inertial"
+    "@id": "https://inertial.run/about/#parth",
+    "url": "https://inertial.run/about/#parth",
+    "jobTitle": "Co-founder, Inertial",
+    "description": "Parth co-founds Inertial and writes Plain Words — running data explained with numbers, methods and sources."
   },
   "publisher": {
     "@type": "Organization",
@@ -101,12 +110,18 @@
       {
         "@type": "Person",
         "name": "Parth Dixit",
-        "jobTitle": "Co-founder, Inertial"
+        "@id": "https://inertial.run/about/#parth",
+        "url": "https://inertial.run/about/#parth",
+        "jobTitle": "Co-founder, Inertial",
+        "description": "Co-founds Inertial with Aryan Dixit, and writes Plain Words, including the method pages, so the arithmetic can be checked."
       },
       {
         "@type": "Person",
         "name": "Aryan Dixit",
-        "jobTitle": "Co-founder, Inertial"
+        "@id": "https://inertial.run/about/#aryan",
+        "url": "https://inertial.run/about/#aryan",
+        "jobTitle": "Co-founder, Inertial",
+        "description": "Co-founds Inertial with Parth Dixit. He does not write Plain Words, so his name is on the company rather than on a byline."
       }
     ]
   },
@@ -132,6 +147,38 @@
       "@type": "CreativeWork",
       "name": "Keogh A et al. Prediction equations for marathon performance: a systematic review. Int J Sports Physiol Perform 14(9):1159-1169, 2019",
       "url": "https://doi.org/10.1123/ijspp.2019-0360"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Garmin says 3:18 and Strava says 3:47 — which do I pace off?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Neither, directly. A watch prediction is a fitness estimate from your recent runs; an app prediction is usually a formula applied to a recent race. Pace off a race you actually ran at a distance close to the target, then check it against the band this tool prints."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the marathon prediction look too fast?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because every model on this page extrapolates speed and knows nothing about endurance. Riegel at 1.06 in particular is optimistic at marathon distance for people running under about 60 km per week — that is why the tool also prints the 1.07 figure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which model is most accurate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For distances close to the race you entered, they agree closely enough that the question does not matter. For a marathon predicted from a 5K, none of them is reliable on its own, and the honest output is the range."
+      }
     }
   ]
 }
@@ -178,7 +225,7 @@
 <p class="kicker">Tool</p>
 <h1>Race time predictor: Riegel, VDOT and Cameron, side by side</h1>
 <div class="bluf"><p>From a 25:00 5K, Riegel, VDOT and Cameron put your marathon within about four minutes of each other. From a shorter race, or with low weekly volume, the spread widens fast — and the spread, not any single model, is the honest answer.</p></div>
-<div class="byline"><span>By Parth Dixit</span><span>Published <time datetime="2026-09-01T09:00:00+05:30">1 September 2026</time></span></div>
+<div class="byline"><span>By <a href="/about/#parth">Parth Dixit</a></span><span>Published <time datetime="2026-09-01T09:00:00+05:30">1 September 2026</time></span></div>
 <form class="tool" data-tool="race-predictor">
 <div class="fields">
 <div><label for="pred-distance">A race you actually ran</label>
@@ -200,7 +247,7 @@
 </table></div>
 </div>
 </form>
-<p class="footer-line"><a href="/waitlist?src=race-predictor">See this on your own runs →</a></p>
+<p class="footer-line"><a href="/waitlist/?src=race-predictor">See this on your own runs →</a></p>
 <h2 id="how-this-works">How this works</h2>
 
 <p>Three published models, run on the same input, printed side by side.</p>
@@ -257,15 +304,25 @@
 </ul>
 </section>
 <section class="related">
+<h2 id="glossary-links">In the glossary</h2>
+<ul>
+<li><a href="/glossary/vo2max-estimate/">VO2max estimate</a></li>
+<li><a href="/glossary/riegel-formula/">Riegel formula</a></li>
+<li><a href="/glossary/race-predictor/">Race predictor</a></li>
+<li><a href="/glossary/best-efforts/">Best efforts</a></li>
+</ul>
+</section>
+<section class="related">
 <h2 id="related">Related</h2>
 <ul>
 <li><a href="/blog/why-garmin-strava-predict-different-times/">Why your watch and your app predict different race times</a></li>
 <li><a href="/blog/is-sub-4-marathon-realistic/">Is a sub-4 marathon realistic? A five-input reality check</a></li>
+<li><a href="/blog/what-strava-fitness-score-measures/">What Strava's Fitness score actually measures</a></li>
 </ul>
 </section>
 <aside class="authorbox">
 <div>
-<p><strong>Parth Dixit</strong> — Co-founder, Inertial</p>
+<p><strong><a href="/about/#parth">Parth Dixit</a></strong> — Co-founder, Inertial</p>
 <p>Co-founds Inertial with Aryan Dixit, and writes the method pages so you can check the maths.</p>
 </div>
 </aside>

@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Why your watch and your app predict different race times · Plain Words</title>
+    <title>Why your watch and app predict different times · Plain Words</title>
     <meta name="description" content="One reads your training, the other reads one race. From a 25:00 5K, 3 published models already disagree by 6 minutes at marathon distance." />
     
     <link rel="canonical" href="https://inertial.run/blog/why-garmin-strava-predict-different-times/" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Why your watch and your app predict different race times · Plain Words" />
+    <meta property="og:title" content="Why your watch and app predict different times · Plain Words" />
     <meta property="og:description" content="One reads your training, the other reads one race. From a 25:00 5K, 3 published models already disagree by 6 minutes at marathon distance." />
     <meta property="og:url" content="https://inertial.run/blog/why-garmin-strava-predict-different-times/" />
     <meta property="og:site_name" content="Plain Words" />
@@ -46,7 +46,10 @@
   "author": {
     "@type": "Person",
     "name": "Parth Dixit",
-    "jobTitle": "Co-founder, Inertial"
+    "@id": "https://inertial.run/about/#parth",
+    "url": "https://inertial.run/about/#parth",
+    "jobTitle": "Co-founder, Inertial",
+    "description": "Parth co-founds Inertial and writes Plain Words — running data explained with numbers, methods and sources."
   },
   "publisher": {
     "@type": "Organization",
@@ -61,12 +64,18 @@
       {
         "@type": "Person",
         "name": "Parth Dixit",
-        "jobTitle": "Co-founder, Inertial"
+        "@id": "https://inertial.run/about/#parth",
+        "url": "https://inertial.run/about/#parth",
+        "jobTitle": "Co-founder, Inertial",
+        "description": "Co-founds Inertial with Aryan Dixit, and writes Plain Words, including the method pages, so the arithmetic can be checked."
       },
       {
         "@type": "Person",
         "name": "Aryan Dixit",
-        "jobTitle": "Co-founder, Inertial"
+        "@id": "https://inertial.run/about/#aryan",
+        "url": "https://inertial.run/about/#aryan",
+        "jobTitle": "Co-founder, Inertial",
+        "description": "Co-founds Inertial with Parth Dixit. He does not write Plain Words, so his name is on the company rather than on a byline."
       }
     ]
   },
@@ -97,6 +106,54 @@
       "@type": "CreativeWork",
       "name": "Daniels J, Gilbert J. Oxygen Power: performance tables for distance runners, 1979",
       "url": "https://search.worldcat.org/title/8172873"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Garmin says 3:18 and Strava says 3:47. Which one do I pace off?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Neither, on its own. Pace off the closest race you have actually run, extrapolated by a stated formula, and treat the watch figure as an upper bound. If you have not raced recently, pace off your longest hard training run instead."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is my watch prediction so much faster than my real times?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because it reads speed at a heart rate, and speed is the easy half of a marathon. It has no input for your longest run. Runners under about 60 km per week see the biggest gap between the prediction and the finish."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "My app predicted 3:39 and I ran 3:08. Is it broken?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, it was answering a narrower question than you were. A formula applied to an old or slow input race gives a slow answer. Feed it your most recent, best-executed race and it gets much closer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which distance should I predict from?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The closest one to your target that you have raced within about six weeks. A marathon from a half is worth taking seriously. A marathon from a 5K is a statement about your speed, not your endurance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do these get better if I run more?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The formulas do not change, but their accuracy for you does. Vickers and Vertosick found weekly mileage improved prediction beyond race time alone, which is another way of saying the formulas over-predict for people who have not done the volume."
+      }
     }
   ]
 }
@@ -143,7 +200,7 @@
 <p class="kicker">Metrics, in plain words</p>
 <h1>Why your watch and your app predict different race times</h1>
 <div class="bluf"><p>They are answering different questions. A watch predicts from your recent training and an aerobic estimate; an app usually applies a formula to one race. Neither knows your weekly volume. From a 25:00 5K, three published models already put the marathon 6 minutes apart.</p></div>
-<div class="byline"><span>By Parth Dixit</span><span>Published <time datetime="2026-09-01T09:00:00+05:30">1 September 2026</time></span></div>
+<div class="byline"><span>By <a href="/about/#parth">Parth Dixit</a></span><span>Published <time datetime="2026-09-01T09:00:00+05:30">1 September 2026</time></span></div>
 <div class="table-scroll"><table>
 <caption>The numbers on this page, in one place.</caption>
 <thead><tr><th scope="col">What</th><th scope="col">Number</th><th scope="col">The qualifier</th></tr></thead>
@@ -269,6 +326,22 @@
 </ul>
 </section>
 <section class="related">
+<h2 id="glossary-links">In the glossary</h2>
+<ul>
+<li><a href="/glossary/race-predictor/">Race predictor</a></li>
+<li><a href="/glossary/riegel-formula/">Riegel formula</a></li>
+<li><a href="/glossary/vo2max-estimate/">VO2max estimate</a></li>
+<li><a href="/glossary/threshold-pace/">Threshold pace</a></li>
+</ul>
+</section>
+<section class="related">
+<h2 id="calculators">Calculators</h2>
+<ul>
+<li><a href="/tools/race-predictor/">Race predictor: Riegel, VDOT and Cameron</a></li>
+<li><a href="/tools/pace-calculator/">Pace calculator: time, splits and halfway</a></li>
+</ul>
+</section>
+<section class="related">
 <h2 id="related">Related</h2>
 <ul>
 <li><a href="/blog/what-strava-fitness-score-measures/">What Strava's Fitness score actually measures</a></li>
@@ -277,11 +350,11 @@
 </section>
 <aside class="authorbox">
 <div>
-<p><strong>Parth Dixit</strong> — Co-founder, Inertial</p>
+<p><strong><a href="/about/#parth">Parth Dixit</a></strong> — Co-founder, Inertial</p>
 <p>Co-founds Inertial with Aryan Dixit, and writes the method pages so you can check the maths.</p>
 </div>
 </aside>
-<p class="footer-line">Inertial shows this for your own runs. The first 1,000 on the waitlist get a year free. <a href="/waitlist">Join the waitlist →</a></p>
+<p class="footer-line">Inertial shows this for your own runs. The first 1,000 on the waitlist get a year free. <a href="/waitlist/">Join the waitlist →</a></p>
 </article>
     </main>
     <footer class="site">
