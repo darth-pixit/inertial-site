@@ -2,7 +2,7 @@
 <!--
   /waitlist — the one shareable link for joining the beta. Email is required;
   a WhatsApp number is optional. Share it with a source tag so we can tell
-  which link worked:  https://inertial.run/waitlist?src=instagram
+  which link worked:  https://inertial.run/waitlist/?src=instagram
   (?src= or ?ref=, lowercase slug, falls back to "website").
 
   Same shell as privacy.html: self-contained, no build step, tokens inline.
@@ -27,7 +27,7 @@
       content="A running app built accuracy-first and privacy-first. Leave your email and we'll write when your spot opens."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://inertial.run/waitlist" />
+    <meta property="og:url" content="https://inertial.run/waitlist/" />
     <meta property="og:site_name" content="Inertial" />
     <meta property="og:locale" content="en_IN" />
     <meta property="og:image" content="https://inertial.run/social/inertial.png" />
@@ -35,12 +35,12 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Inertial: run more, run better." />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="canonical" href="https://inertial.run/waitlist" />
-    <link rel="icon" href="favicon.ico" sizes="48x48" />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
-    <link rel="apple-touch-icon" href="apple-touch-icon-180.png" />
-    <link rel="manifest" href="site.webmanifest" />
+    <link rel="canonical" href="https://inertial.run/waitlist/" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#FAFBF6" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -65,11 +65,11 @@
         --line: rgba(0, 0, 0, 0.08);
         --line-strong: rgba(0, 0, 0, 0.14);
         --text: #14181c;
-        --text-dim: rgba(0, 0, 0, 0.55);
-        --text-faint: rgba(0, 0, 0, 0.4);
+        --text-dim: rgba(0, 0, 0, 0.72);
+        --text-faint: rgba(0, 0, 0, 0.62);
         --on-ink: #ffffff;
-        --on-ink-dim: rgba(255, 255, 255, 0.55);
-        --on-ink-faint: rgba(255, 255, 255, 0.4);
+        --on-ink-dim: rgba(255, 255, 255, 0.82);
+        --on-ink-faint: rgba(255, 255, 255, 0.7);
         --accent: #0e7a6c;
         --accent-deep: #0b5f54;
         --accent-bright: #2dd4bf;
@@ -100,12 +100,12 @@
           --line: rgba(255, 255, 255, 0.08);
           --line-strong: rgba(255, 255, 255, 0.14);
           --text: #f5f7f6;
-          --text-dim: rgba(245, 247, 246, 0.6);
-          --text-faint: rgba(245, 247, 246, 0.42);
+          --text-dim: rgba(245, 247, 246, 0.82);
+          --text-faint: rgba(245, 247, 246, 0.7);
           --ink: #f5f7f6;
           --on-ink: #0b0f14;
-          --on-ink-dim: rgba(11, 15, 20, 0.55);
-          --on-ink-faint: rgba(11, 15, 20, 0.4);
+          --on-ink-dim: rgba(11, 15, 20, 0.72);
+          --on-ink-faint: rgba(11, 15, 20, 0.62);
           --accent: #2dd4bf;
           --accent-deep: #0e7a6c;
           --accent-bright: #2dd4bf;
@@ -130,12 +130,12 @@
         --line: rgba(255, 255, 255, 0.08);
         --line-strong: rgba(255, 255, 255, 0.14);
         --text: #f5f7f6;
-        --text-dim: rgba(245, 247, 246, 0.6);
-        --text-faint: rgba(245, 247, 246, 0.42);
+        --text-dim: rgba(245, 247, 246, 0.82);
+        --text-faint: rgba(245, 247, 246, 0.7);
         --ink: #f5f7f6;
         --on-ink: #0b0f14;
-        --on-ink-dim: rgba(11, 15, 20, 0.55);
-        --on-ink-faint: rgba(11, 15, 20, 0.4);
+        --on-ink-dim: rgba(11, 15, 20, 0.72);
+        --on-ink-faint: rgba(11, 15, 20, 0.62);
         --accent: #2dd4bf;
         --accent-deep: #0e7a6c;
         --accent-bright: #2dd4bf;
@@ -528,13 +528,37 @@
         }
       }
     </style>
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://inertial.run/waitlist/#webpage",
+            "url": "https://inertial.run/waitlist/",
+            "name": "Join the waitlist \u00b7 Inertial",
+            "description": "Join the Inertial waitlist. Leave your email and we'll write when your spot opens. The first 1,000 get their first year free.",
+            "isPartOf": { "@id": "https://inertial.run/#website" },
+            "inLanguage": "en",
+            "publisher": { "@id": "https://inertial.run/#organization" }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Inertial", "item": "https://inertial.run/" },
+              { "@type": "ListItem", "position": 2, "name": "Join the waitlist", "item": "https://inertial.run/waitlist/" }
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <nav class="site" aria-label="Site">
-      <a href="./" class="brand" data-mark></a>
+      <a href="/" class="brand" data-mark></a>
       <div class="navlinks">
-        <a href="./">‹ Back home</a>
-        <a href="./#/trust" class="hide-sm">Trust</a>
+        <a href="/">‹ Back home</a>
+        <a href="/#/trust" class="hide-sm">Trust</a>
       </div>
       <button class="theme-btn" data-theme-toggle aria-label="Switch between light and dark theme">
         ◐
@@ -549,6 +573,12 @@
           <p class="lede">
             The first 1,000 on the waitlist get their first year free, then a small fee. Leave your
             email and we'll write when your spot opens.
+          </p>
+          <p class="lede">
+            The offer is for the first 1,000 people on this list. After that, the app is a small
+            fee, with no ads. We use the email once, to say your spot is open. It is not sold.
+            WhatsApp is optional. How the app treats the address is on the
+            <a href="/privacy/">privacy page</a>.
           </p>
           <form class="wl-form" id="wl-form" novalidate>
             <div class="wl-field">
@@ -613,9 +643,9 @@
       <div class="brandline"><span data-mark-sm></span><span class="word">Inertial</span></div>
       <div class="grow"></div>
       <div class="links">
-        <a href="./">Home</a>
-        <a href="./#/trust">Trust &amp; privacy</a>
-        <a href="./privacy">Privacy policy</a>
+        <a href="/">Home</a>
+        <a href="/#/trust">Trust &amp; privacy</a>
+        <a href="/privacy/">Privacy policy</a>
       </div>
       <div>Built by Parth Dixit &amp; Aryan Dixit, co-founders</div>
       <div>Made in India 🇮🇳 · your data, yours by right</div>
@@ -625,7 +655,7 @@
       /* Defaults; config.js (production) overrides with the Supabase values. */
       window.INERTIAL_SITE = { waitlist: null };
     </script>
-    <script src="./config.js"></script>
+    <script src="/config.js"></script>
     <script>
       (function () {
         'use strict';

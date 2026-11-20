@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Inertial — Accuracy-first, privacy-first running app for India</title>
+    <title>Inertial — accuracy-first running app for India</title>
     <!--
       Absolute, like every canonical on this origin: deploy/site-repo/CNAME
       pins the site to inertial.run at the root, and apps/site builds its
@@ -28,11 +28,11 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Inertial: run more, run better." />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="favicon.ico" sizes="48x48" />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
-    <link rel="apple-touch-icon" href="apple-touch-icon-180.png" />
-    <link rel="manifest" href="site.webmanifest" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#FAFBF6" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -56,11 +56,11 @@
         --line: rgba(0, 0, 0, 0.08);
         --line-strong: rgba(0, 0, 0, 0.14);
         --text: #14181c;
-        --text-dim: rgba(0, 0, 0, 0.55);
-        --text-faint: rgba(0, 0, 0, 0.4);
+        --text-dim: rgba(0, 0, 0, 0.72);
+        --text-faint: rgba(0, 0, 0, 0.62);
         --on-ink: #ffffff;
-        --on-ink-dim: rgba(255, 255, 255, 0.55);
-        --on-ink-faint: rgba(255, 255, 255, 0.4);
+        --on-ink-dim: rgba(255, 255, 255, 0.82);
+        --on-ink-faint: rgba(255, 255, 255, 0.7);
         --accent: #0e7a6c;
         --accent-deep: #0b5f54;
         --accent-bright: #2dd4bf;
@@ -123,12 +123,12 @@
           --line: rgba(255, 255, 255, 0.08);
           --line-strong: rgba(255, 255, 255, 0.14);
           --text: #f5f7f6;
-          --text-dim: rgba(245, 247, 246, 0.6);
-          --text-faint: rgba(245, 247, 246, 0.42);
+          --text-dim: rgba(245, 247, 246, 0.82);
+          --text-faint: rgba(245, 247, 246, 0.7);
           --ink: #f5f7f6;
           --on-ink: #0b0f14;
-          --on-ink-dim: rgba(11, 15, 20, 0.55);
-          --on-ink-faint: rgba(11, 15, 20, 0.4);
+          --on-ink-dim: rgba(11, 15, 20, 0.72);
+          --on-ink-faint: rgba(11, 15, 20, 0.62);
           --accent: #2dd4bf;
           --accent-deep: #0e7a6c;
           --accent-bright: #2dd4bf;
@@ -154,12 +154,12 @@
         --line: rgba(255, 255, 255, 0.08);
         --line-strong: rgba(255, 255, 255, 0.14);
         --text: #f5f7f6;
-        --text-dim: rgba(245, 247, 246, 0.6);
-        --text-faint: rgba(245, 247, 246, 0.42);
+        --text-dim: rgba(245, 247, 246, 0.82);
+        --text-faint: rgba(245, 247, 246, 0.7);
         --ink: #f5f7f6;
         --on-ink: #0b0f14;
-        --on-ink-dim: rgba(11, 15, 20, 0.55);
-        --on-ink-faint: rgba(11, 15, 20, 0.4);
+        --on-ink-dim: rgba(11, 15, 20, 0.72);
+        --on-ink-faint: rgba(11, 15, 20, 0.62);
         --accent: #2dd4bf;
         --accent-deep: #0e7a6c;
         --accent-bright: #2dd4bf;
@@ -1247,8 +1247,22 @@
             "description": "A running app built accuracy-first and privacy-first.",
             "foundingLocation": { "@type": "Country", "name": "India" },
             "founder": [
-              { "@type": "Person", "name": "Parth Dixit" },
-              { "@type": "Person", "name": "Aryan Dixit" }
+              {
+                "@type": "Person",
+                "@id": "https://inertial.run/about/#parth",
+                "name": "Parth Dixit",
+                "url": "https://inertial.run/about/#parth",
+                "jobTitle": "Co-founder, Inertial",
+                "description": "Co-founds Inertial with Aryan Dixit, and writes Plain Words, including the method pages, so the arithmetic can be checked."
+              },
+              {
+                "@type": "Person",
+                "@id": "https://inertial.run/about/#aryan",
+                "name": "Aryan Dixit",
+                "url": "https://inertial.run/about/#aryan",
+                "jobTitle": "Co-founder, Inertial",
+                "description": "Co-founds Inertial with Parth Dixit. He does not write Plain Words, so his name is on the company rather than on a byline."
+              }
             ]
           },
           {
@@ -1263,7 +1277,7 @@
             "@type": "WebPage",
             "@id": "https://inertial.run/#webpage",
             "url": "https://inertial.run/",
-            "name": "Inertial — Accuracy-first, privacy-first running app for India",
+            "name": "Inertial — accuracy-first running app for India",
             "isPartOf": { "@id": "https://inertial.run/#website" },
             "about": { "@id": "https://inertial.run/#app" },
             "primaryImageOfPage": "https://inertial.run/social/inertial.png",
@@ -1291,6 +1305,53 @@
               "Full data export",
               "Privacy zones"
             ]
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://inertial.run/#faq",
+            "url": "https://inertial.run/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What does it cost?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The first 1,000 on the waitlist get their first year free, then a small fee. No ads, and your data is never sold."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I bring in my old runs?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "In Strava: Settings → My account → Download or delete your account, and the ZIP arrives by email. Upload it here once and every run, PR and photo comes home, re-timed by our engine. FIT, GPX and TCX archives from other apps and watches work the same way."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What do you do with my location data?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "It stays yours. A privacy zone hides the 200 m around home from every shared map, photos lose their location before they leave your phone, and nothing about where you run feeds suggestions."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Android or iOS?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Both, Android first for polish, with an Apple Watch app on the way. Sign in with Google, Apple or your phone number. No passwords."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "When do I get in?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Batch by batch, a small club first. Join the waitlist and we'll email you when your spot opens."
+                }
+              }
+            ]
           }
         ]
       }
@@ -1301,7 +1362,7 @@
     <div id="view-home">
       <div class="announce">
         Launching soon on Android and iOS. The first 1,000 get a year free.
-        <a href="./waitlist">Join the waitlist ↗</a>
+        <a href="/waitlist/">Join the waitlist ↗</a>
       </div>
 
       <nav class="site" aria-label="Site">
@@ -1321,9 +1382,10 @@
         >
           ◐
         </button>
-        <a class="pill small" href="./waitlist">Join the waitlist</a>
+        <a class="pill small" href="/waitlist/">Join the waitlist</a>
       </nav>
 
+      <main id="main">
       <header class="wrap hero" id="top">
         <div class="hero-copy">
           <h1>Run more, run better.</h1>
@@ -1333,7 +1395,7 @@
             get their first year free, then a small fee.
           </p>
           <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center">
-            <a class="pill" href="./waitlist">Join the waitlist</a>
+            <a class="pill" href="/waitlist/">Join the waitlist</a>
             <a class="pill outline" href="#/trust">How we earn your trust</a>
           </div>
           <div style="font-size: 13px; color: var(--text-faint); margin-top: 16px">
@@ -1802,21 +1864,22 @@
           <span data-mark-lg></span>
           <h2>Be first out the door.</h2>
           <p class="tag">A body in motion stays in motion.</p>
-          <a class="pill" href="./waitlist">Join the waitlist</a>
+          <a class="pill" href="/waitlist/">Join the waitlist</a>
           <div class="foot">First 1,000 get a year free · no ads, ever</div>
         </div>
       </section>
+      </main>
 
       <footer class="site wrap">
         <div class="brandline"><span data-mark-sm></span><span class="word">Inertial</span></div>
         <div class="grow"></div>
         <div class="links">
           <a href="#/trust">Trust &amp; privacy</a>
-          <a href="./waitlist">Waitlist</a>
-          <a href="./blog/">Plain Words</a>
-          <a href="./tools/">Running calculators</a>
-          <a href="./pace/">Pace charts</a>
-          <a href="./glossary/">Glossary</a>
+          <a href="/waitlist/">Waitlist</a>
+          <a href="/blog/">Plain Words</a>
+          <a href="/tools/">Running calculators</a>
+          <a href="/pace/">Pace charts</a>
+          <a href="/glossary/">Glossary</a>
         </div>
         <div>Built by Parth Dixit &amp; Aryan Dixit, co-founders</div>
         <div>Made in India 🇮🇳 · your data, yours by right</div>
@@ -1840,7 +1903,7 @@
         >
           ◐
         </button>
-        <a class="pill small" href="./waitlist">Join the waitlist</a>
+        <a class="pill small" href="/waitlist/">Join the waitlist</a>
       </nav>
 
       <header
@@ -1970,7 +2033,7 @@
           co-founders. Every promise on this page is signed by two people you can name.
         </p>
         <div class="wash-card">
-          Parth also writes <a href="./blog/">Plain Words</a>, where the method behind every figure
+          Parth also writes <a href="/blog/">Plain Words</a>, where the method behind every figure
           in the app is written out with its sources.
         </div>
       </section>
@@ -1982,7 +2045,7 @@
         >
           Heavy days press deeper. Rest sits light. And your data stays yours.
         </p>
-        <a class="pill" href="./waitlist">Join the waitlist</a>
+        <a class="pill" href="/waitlist/">Join the waitlist</a>
       </section>
 
       <footer class="site wrap" style="border-top: 1px solid var(--line)">
@@ -1990,7 +2053,7 @@
         <div class="grow"></div>
         <div class="links">
           <a href="#/">Home</a>
-          <a href="./waitlist">Waitlist</a>
+          <a href="/waitlist/">Waitlist</a>
         </div>
         <div>Built by Parth Dixit &amp; Aryan Dixit, co-founders</div>
         <div>Made in India 🇮🇳 · your data, yours by right</div>
@@ -2011,7 +2074,7 @@
         </button>
       </nav>
 
-      <main class="wl-main">
+      <div class="wl-main">
         <div class="wl-box">
           <span data-mark-lg-accent></span>
           <div id="inv-loading">
@@ -2037,7 +2100,7 @@
               Get the app, then enter that code. Joining shows your name and your total to everyone
               in the challenge. Your runs stay as private as they already are.
             </p>
-            <a class="pill" href="./waitlist" style="display: inline-block; margin-top: 8px"
+            <a class="pill" href="/waitlist/" style="display: inline-block; margin-top: 8px"
               >Get the app</a
             >
           </div>
@@ -2055,7 +2118,7 @@
             First 1,000 get a year free · no ads, ever
           </div>
         </div>
-      </main>
+      </div>
 
       <footer class="site wrap">
         <div class="links"><a href="#/trust">Trust &amp; privacy</a></div>
@@ -2072,7 +2135,7 @@
      preview) — waitlist links then point at the production page. */
       window.INERTIAL_SITE = { waitlist: null, productionUrl: '' };
     </script>
-    <script src="./config.js"></script>
+    <script src="/config.js"></script>
     <script>
       (function () {
         'use strict';
@@ -2617,7 +2680,7 @@
         function route() {
           var h = location.hash;
           if (h === '#/waitlist') {
-            location.replace('./waitlist' + location.search);
+            location.replace('/waitlist/' + location.search);
             return;
           }
           // #/c/K3F9QX — a challenge invite pasted into a group chat. The app
@@ -2702,7 +2765,7 @@
         /* ————— waitlist: its own page now (waitlist.html, served at /waitlist) ————— */
         var prodUrl = (window.INERTIAL_SITE || {}).productionUrl || '';
         if (prodUrl) {
-          document.querySelectorAll('a[href="./waitlist"]').forEach(function (a) {
+          document.querySelectorAll('a[href="/waitlist/"]').forEach(function (a) {
             a.href = prodUrl.replace(/\/$/, '') + '/waitlist';
           });
         }

@@ -42,11 +42,14 @@
     "@id": "https://inertial.run/blog/what-strava-fitness-score-measures/"
   },
   "datePublished": "2026-09-01T09:00:00+05:30",
-  "dateModified": "2026-09-01T09:00:00+05:30",
+  "dateModified": "2026-11-20T09:00:00+05:30",
   "author": {
     "@type": "Person",
     "name": "Parth Dixit",
-    "jobTitle": "Co-founder, Inertial"
+    "@id": "https://inertial.run/about/#parth",
+    "url": "https://inertial.run/about/#parth",
+    "jobTitle": "Co-founder, Inertial",
+    "description": "Parth co-founds Inertial and writes Plain Words — running data explained with numbers, methods and sources."
   },
   "publisher": {
     "@type": "Organization",
@@ -61,12 +64,18 @@
       {
         "@type": "Person",
         "name": "Parth Dixit",
-        "jobTitle": "Co-founder, Inertial"
+        "@id": "https://inertial.run/authors/parth/",
+        "url": "https://inertial.run/authors/parth/",
+        "jobTitle": "Co-founder, Inertial",
+        "description": "Co-founds Inertial with Aryan Dixit, and writes Plain Words, including the method pages, so the arithmetic can be checked."
       },
       {
         "@type": "Person",
         "name": "Aryan Dixit",
-        "jobTitle": "Co-founder, Inertial"
+        "@id": "https://inertial.run/authors/aryan/",
+        "url": "https://inertial.run/authors/aryan/",
+        "jobTitle": "Co-founder, Inertial",
+        "description": "Co-founds Inertial with Parth Dixit. He does not write Plain Words, so his name is on the company rather than on a byline."
       }
     ]
   },
@@ -97,6 +106,46 @@
       "@type": "CreativeWork",
       "name": "Strava support: Fitness and Freshness (accessed 1 September 2026)",
       "url": "https://support.strava.com/hc/en-us/articles/216917147-Fitness-Freshness"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why did my fitness score drop while I got faster?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because the score follows training volume, not speed. A block that swaps long easy runs for short sharp ones lowers total load while improving your 5K. Both things are true at once, and only one of them is on the chart."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a fitness score of 60 good?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is not anything on its own. The number depends on your heart-rate zones, your recent baseline and how many runs carried heart rate. Two runners of identical ability can sit 30 points apart. Only its direction over weeks means something."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does my fitness fall when I take a rest week?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A day with no run enters the average as zero. That is the model working: the decay is how it represents detraining. A single easy week moves the 42-day line by only a few points."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I try to keep freshness positive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not during a training block. Freshness is meant to be negative when you are training hard and positive when you taper. Chasing a positive number all year means never training hard enough to need recovery."
+      }
     }
   ]
 }
@@ -143,7 +192,7 @@
 <p class="kicker">Metrics, in plain words</p>
 <h1>What Strava's Fitness score actually measures</h1>
 <div class="bluf"><p>It is a 42-day exponentially weighted average of your daily training load, computed from heart rate. It measures how much you have been training, not how fit you are. That is why it can fall 10 points during the block where your 5K time improved.</p></div>
-<div class="byline"><span>By Parth Dixit</span><span>Published <time datetime="2026-09-01T09:00:00+05:30">1 September 2026</time></span></div>
+<div class="byline"><span>By <a href="/about/#parth">Parth Dixit</a></span><span>Published <time datetime="2026-09-01T09:00:00+05:30">1 September 2026</time></span><span>Updated <time datetime="2026-11-20T09:00:00+05:30">20 November 2026</time></span></div>
 <div class="table-scroll"><table>
 <caption>The numbers on this page, in one place.</caption>
 <thead><tr><th scope="col">What</th><th scope="col">Number</th><th scope="col">The qualifier</th></tr></thead>
@@ -224,7 +273,7 @@
 
 <p><strong>Weekly volume and how many weeks you strung together.</strong> That is what the Fitness line is really tracking, so you may as well read it directly.</p>
 
-<p>The <a href="/glossary/training-load/">glossary entry on training load</a> covers what goes into the daily number, and <a href="/method/fitness-and-freshness/">our method page</a> gives the exact time constants we use, which are the same 42 and 7 days.</p>
+<p>The <a href="/glossary/training-load/">glossary entry on training load</a> covers what goes into the daily number, and <a href="/method/fitness-and-freshness/">our method page</a> gives the exact time constants we use, which are the same 42 and 7 days. The pair of lines itself is <a href="/glossary/fitness-and-freshness/">fitness and freshness</a>. It is not a <a href="/glossary/vo2max-estimate/">VO2max estimate</a>, and it is not <a href="/glossary/relative-effort/">relative effort</a>.</p>
 
 <h2 id="would-a-better-name-fix-this">Would a better name fix this?</h2>
 
@@ -265,6 +314,23 @@
 <h2 id="changelog">Changelog</h2>
 <ul>
 <li><time datetime="2026-09-01">1 September 2026</time> — First published.</li>
+<li><time datetime="2026-11-20">20 November 2026</time> — Linked fitness and freshness, relative effort and VO2max estimate.</li>
+</ul>
+</section>
+<section class="related">
+<h2 id="glossary-links">In the glossary</h2>
+<ul>
+<li><a href="/glossary/fitness-and-freshness/">Fitness and freshness</a></li>
+<li><a href="/glossary/training-load/">Training load</a></li>
+<li><a href="/glossary/relative-effort/">Relative Effort</a></li>
+<li><a href="/glossary/max-heart-rate/">Maximum heart rate</a></li>
+<li><a href="/glossary/vo2max-estimate/">VO2max estimate</a></li>
+</ul>
+</section>
+<section class="related">
+<h2 id="calculators">Calculators</h2>
+<ul>
+<li><a href="/tools/heart-rate-zones/">Heart rate zone calculator: five methods</a></li>
 </ul>
 </section>
 <section class="related">
@@ -275,11 +341,11 @@
 </section>
 <aside class="authorbox">
 <div>
-<p><strong>Parth Dixit</strong> — Co-founder, Inertial</p>
+<p><strong><a href="/about/#parth">Parth Dixit</a></strong> — Co-founder, Inertial</p>
 <p>Co-founds Inertial with Aryan Dixit, and writes the method pages so you can check the maths.</p>
 </div>
 </aside>
-<p class="footer-line">Inertial shows this for your own runs. The first 1,000 on the waitlist get a year free. <a href="/waitlist">Join the waitlist →</a></p>
+<p class="footer-line">Inertial shows this for your own runs. The first 1,000 on the waitlist get a year free. <a href="/waitlist/">Join the waitlist →</a></p>
 </article>
     </main>
     <footer class="site">
