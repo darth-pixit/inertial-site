@@ -1,0 +1,81 @@
+<!doctype html>
+<!--
+  inertial.run/garmin-callback/ — where Garmin's consent page sends the runner
+  back (ADR-014). Garmin only accepts a web address as the redirect, so this
+  page hands the answer to the app: it forwards the query (the one-time code
+  and state, or an error) to inertial://garmin-callback, which the app's
+  browser sheet is waiting for. The code is useless without the verifier that
+  never left the phone. Telemetry strips the query (telemetry.js keeps only
+  attribution params), so the code is never sent anywhere else.
+  Registered in the Garmin portal as the app's OAuth redirect URL; the app's
+  EXPO_PUBLIC_GARMIN_REDIRECT_URI default and garmin-link's allow-list match it.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Back to Inertial</title>
+    <meta name="robots" content="noindex" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="description" content="Finishing your Garmin connection in the Inertial app." />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <script src="/config.js"></script>
+    <script src="/telemetry.js"></script>
+    <script>
+      (function () {
+        // Only the three keys Garmin sends, so nothing else rides along.
+        var given = new URLSearchParams(location.search || '');
+        var out = new URLSearchParams();
+        ['code', 'state', 'error'].forEach(function (k) {
+          var v = given.get(k);
+          if (v) out.set(k, v.slice(0, 2048));
+        });
+        // Opened on its own (no answer from Garmin): stay put and say so.
+        if (!out.toString()) return;
+        var target = 'inertial://garmin-callback?' + out.toString();
+        window.__garminTarget = target;
+        location.replace(target);
+      })();
+    </script>
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+      body {
+        margin: 0;
+        padding: 32px 16px;
+        font:
+          16px/1.5 system-ui,
+          sans-serif;
+        background: #fafbf6;
+        color: #111;
+      }
+      a {
+        color: inherit;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #111;
+          color: #fafbf6;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="handoff" hidden>
+      <p>Finishing your Garmin connection.</p>
+      <p><a id="open" href="inertial://garmin-callback">Open Inertial</a></p>
+    </div>
+    <div id="idle">
+      <p>This page finishes connecting Garmin to the Inertial app.</p>
+      <p>Start from the app: You, then Heart rate, then Garmin.</p>
+    </div>
+    <script>
+      if (window.__garminTarget) {
+        document.getElementById('open').href = window.__garminTarget;
+        document.getElementById('handoff').hidden = false;
+        document.getElementById('idle').hidden = true;
+      }
+    </script>
+  </body>
+</html>

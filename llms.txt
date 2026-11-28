@@ -1,0 +1,96 @@
+# Inertial
+
+> Inertial is a running app built India-first: it records runs accurately and shows its corrections, imports a runner's whole history from another app in one upload, and gives serious training analytics with no ads. Plain Words is its publication. Every metric, benchmark and adjustment a runner meets on a watch, explained with numbers, methods and sources. No ads, no affiliates, nothing gated.
+
+Every number in Plain Words names its method and sources. Drafts are not listed here; this file mirrors https://inertial.run/sitemap.xml.
+
+## Inertial, the app
+
+- [Inertial — the running app](https://inertial.run/): What the app does: accurate recording, whole-history import, training analytics, privacy zones, and a calm feed.
+- [Join the waitlist](https://inertial.run/waitlist/): The first 1,000 on the waitlist get their first year free.
+- [Privacy](https://inertial.run/privacy/): How the app treats location, photos and your data.
+- [Community rules](https://inertial.run/community/): What is and is not allowed in the feed and comments.
+
+## Plain Words, the publication
+
+- [Articles](https://inertial.run/blog/)
+- [Running glossary](https://inertial.run/glossary/)
+- [Running calculators](https://inertial.run/tools/)
+- [How the numbers are calculated](https://inertial.run/method/)
+- [Pace charts](https://inertial.run/pace/)
+- [Marathon pace charts](https://inertial.run/pace/marathon/): 42.195 km (26.22 mi) finish times as a pace, with splits and a halfway target. 8 charts, from 3:00:00 to 5:30:00.
+- [Half marathon pace charts](https://inertial.run/pace/half-marathon/): 21.0975 km (13.11 mi) finish times as a pace, with splits and a halfway target. 5 charts, from 1:30:00 to 2:30:00.
+- [10K pace charts](https://inertial.run/pace/10k/): 10 km (6.21 mi) finish times as a pace, with splits and a halfway target. 5 charts, from 40:00 to 1:00:00.
+- [5K pace charts](https://inertial.run/pace/5k/): 5 km (3.11 mi) finish times as a pace, with splits and a halfway target. 5 charts, from 20:00 to 35:00.
+
+## Calculators
+
+- [Heart rate zone calculator: five methods, and what your watch uses](https://inertial.run/tools/heart-rate-zones/): Zones under 220−age, Tanaka, Gulati, Karvonen and threshold percentages — with the spread between them printed, because at any age it is around 10 bpm.
+- [Pace calculator: goal time to pace, splits and halfway](https://inertial.run/tools/pace-calculator/): A 4:00:00 marathon is 5:41/km (9:09/mi). Any goal time to pace, splits, the halfway target and the watch-overage pace. No email, no account.
+- [Race time predictor: Riegel, VDOT and Cameron, side by side](https://inertial.run/tools/race-predictor/): Riegel, VDOT and Cameron from one race, side by side. A 25:00 5K puts your marathon 6 minutes apart across the 3 models. The spread is the answer.
+
+## Articles
+
+- [Is a sub-4 marathon realistic? A five-input reality check](https://inertial.run/blog/is-sub-4-marathon-realistic/): Sub-4 needs 5:41/km (9:09/mi). Five inputs decide whether that is yours: half time, weekly volume, longest run, course and heat.
+- [What Strava's Fitness score actually measures](https://inertial.run/blog/what-strava-fitness-score-measures/): It is a 42-day average of training load, not fitness. That is why it can fall by 10 points in the block where you got faster.
+- [Why your watch and your app predict different race times](https://inertial.run/blog/why-garmin-strava-predict-different-times/): One reads your training, the other reads one race. From a 25:00 5K, 3 published models already disagree by 6 minutes at marathon distance.
+
+## Method
+
+- [How Inertial computes fitness and freshness](https://inertial.run/method/fitness-and-freshness/): Two exponentially weighted averages of daily load: 42 days for fitness, 7 for fatigue. Freshness is the gap. Rest days count as zero.
+- [How Inertial corrects your GPS trace](https://inertial.run/method/gps-corrections/): A Kalman filter over local coordinates, a soft accuracy gate at 30-60 m, a hard reject above 60 m, and a visible note whenever we change something.
+- [How Inertial computes grade-adjusted pace](https://inertial.run/method/grade-adjusted-pace/): The Minetti 2002 energy-cost polynomial, applied over 30 m distance windows. Published science only, and the limits are stated.
+- [How Inertial computes training load](https://inertial.run/method/training-load/): The exact formula: Banister TRIMP with k = 1.92 or 1.67, a pace-based fallback when there is no heart rate, and where both go wrong.
+
+## Glossary
+
+- [Best efforts](https://inertial.run/glossary/best-efforts/): Your fastest recorded time over a standard distance, found inside any run. A 5K best set mid-run is not the same as a 5K race.
+- [Cadence](https://inertial.run/glossary/cadence/): Steps per minute. Typical adult running cadence is 160-180 spm, and it rises with speed rather than being a fixed target of 180.
+- [Dew point](https://inertial.run/glossary/dew-point/): The temperature at which air saturates. Above 18 °C (64 °F) sweat stops evaporating well and pace costs rise sharply.
+- [Easy pace](https://inertial.run/glossary/easy-pace/): The pace you can hold while speaking full sentences. For a 4-hour marathoner that is often 6:40-7:10/km (10:44-11:33/mi).
+- [Fitness and freshness](https://inertial.run/glossary/fitness-and-freshness/): Fitness is a 42-day average of your training load. Freshness is that minus a 7-day average. Neither is a measure of how fit you are.
+- [GPS accuracy](https://inertial.run/glossary/gps-accuracy/): How close your watch gets to the real route. A certified marathon usually records 1-1.5% long, which is 26.4-26.6 miles.
+- [Grade-adjusted pace](https://inertial.run/glossary/grade-adjusted-pace/): Your hill pace converted to the flat-road pace of the same effort. A 5% climb typically costs 30-45 seconds per kilometre.
+- [Heart rate drift](https://inertial.run/glossary/heart-rate-drift/): Your heart rate rising at a steady pace as a run goes on. Under 5% over a long run is normal; over 10% usually means heat or low fitness.
+- [Heart rate zones](https://inertial.run/glossary/heart-rate-zones/): Bands of heart rate used to label effort. The same run can land in 2 different zones depending on which method your watch uses.
+- [Maximum heart rate](https://inertial.run/glossary/max-heart-rate/): The highest rate your heart can beat in all-out effort. Formulas guess it within about 10 bpm, which is a whole zone wide.
+- [Moving time and elapsed time](https://inertial.run/glossary/moving-vs-elapsed-time/): Elapsed time is the clock. Moving time removes stops. The gap explains most cases where 2 apps disagree about your pace.
+- [Negative split](https://inertial.run/glossary/negative-split/): Running the second half of a race faster than the first. A 2% negative split is modest, achievable and usually beats an even start.
+- [Race predictor](https://inertial.run/glossary/race-predictor/): A model that turns one race time into a prediction at another distance. From a 25:00 5K, 3 common models disagree by about 6 minutes.
+- [Relative Effort](https://inertial.run/glossary/relative-effort/): A heart-rate training load scored against your own recent weeks. It compares you to your last 6 weeks, not to anyone else.
+- [Riegel formula](https://inertial.run/glossary/riegel-formula/): The 1981 equation behind most race predictors: T2 = T1 x (D2/D1)^1.06. Changing the exponent to 1.07 moves a marathon by nearly 4 minutes.
+- [Taper](https://inertial.run/glossary/taper/): Cutting training volume before a race while keeping some intensity. Reviews find gains around 3% from a 2-week taper.
+- [Threshold pace](https://inertial.run/glossary/threshold-pace/): The hardest pace you could hold for about an hour. For most runners it is close to their 10-mile to half-marathon race pace.
+- [Training load](https://inertial.run/glossary/training-load/): Training load is one number for how much work a run cost you. What it is, what it is not, and the 3 things that move it.
+- [VO2max estimate](https://inertial.run/glossary/vo2max-estimate/): Your watch guessing your aerobic ceiling from pace and heart rate. Wearable estimates commonly sit within about 5 ml/kg/min of a lab test.
+- [Zone 2](https://inertial.run/glossary/zone-2/): The easy band, roughly 60-70% of maximum heart rate. Most runners who cannot stay in it have a wrong maximum, not a fitness problem.
+
+## Pace charts
+
+- [What pace is a 3-hour marathon?](https://inertial.run/pace/marathon/3-00-00/): 3:00:00 for the marathon is 4:16/km (6:52/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 3:30 marathon?](https://inertial.run/pace/marathon/3-30-00/): 3:30:00 for the marathon is 4:59/km (8:01/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 3:45 marathon?](https://inertial.run/pace/marathon/3-45-00/): 3:45:00 for the marathon is 5:20/km (8:35/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 4-hour marathon?](https://inertial.run/pace/marathon/4-00-00/): 4:00:00 for the marathon is 5:41/km (9:09/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 4:15 marathon?](https://inertial.run/pace/marathon/4-15-00/): 4:15:00 for the marathon is 6:03/km (9:44/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 4:30 marathon?](https://inertial.run/pace/marathon/4-30-00/): 4:30:00 for the marathon is 6:24/km (10:18/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 5-hour marathon?](https://inertial.run/pace/marathon/5-00-00/): 5:00:00 for the marathon is 7:07/km (11:27/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 5:30 marathon?](https://inertial.run/pace/marathon/5-30-00/): 5:30:00 for the marathon is 7:49/km (12:35/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 1:30 half marathon?](https://inertial.run/pace/half-marathon/1-30-00/): 1:30:00 for the half marathon is 4:16/km (6:52/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 1:45 half marathon?](https://inertial.run/pace/half-marathon/1-45-00/): 1:45:00 for the half marathon is 4:59/km (8:01/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 2-hour half marathon?](https://inertial.run/pace/half-marathon/2-00-00/): 2:00:00 for the half marathon is 5:41/km (9:09/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 2:15 half marathon?](https://inertial.run/pace/half-marathon/2-15-00/): 2:15:00 for the half marathon is 6:24/km (10:18/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 2:30 half marathon?](https://inertial.run/pace/half-marathon/2-30-00/): 2:30:00 for the half marathon is 7:07/km (11:27/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 40-minute 10K?](https://inertial.run/pace/10k/40-00/): 40:00 for the 10K is 4:00/km (6:26/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 45-minute 10K?](https://inertial.run/pace/10k/45-00/): 45:00 for the 10K is 4:30/km (7:15/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 50-minute 10K?](https://inertial.run/pace/10k/50-00/): 50:00 for the 10K is 5:00/km (8:03/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 55-minute 10K?](https://inertial.run/pace/10k/55-00/): 55:00 for the 10K is 5:30/km (8:51/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 60-minute 10K?](https://inertial.run/pace/10k/60-00/): 1:00:00 for the 10K is 6:00/km (9:39/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 20-minute 5K?](https://inertial.run/pace/5k/20-00/): 20:00 for the 5K is 4:00/km (6:26/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 23-minute 5K?](https://inertial.run/pace/5k/22-30/): 22:30 for the 5K is 4:30/km (7:15/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 25-minute 5K?](https://inertial.run/pace/5k/25-00/): 25:00 for the 5K is 5:00/km (8:03/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 30-minute 5K?](https://inertial.run/pace/5k/30-00/): 30:00 for the 5K is 6:00/km (9:39/mi). Splits, halfway target and the watch-overage pace.
+- [What pace is a 35-minute 5K?](https://inertial.run/pace/5k/35-00/): 35:00 for the 5K is 7:00/km (11:16/mi). Splits, halfway target and the watch-overage pace.
+
+## About
+
+- [About Plain Words](https://inertial.run/about/): Who writes this, how it is paid for, and the rules it holds itself to: no ads, no affiliates, nothing gated, and a source or a method behind every number.
